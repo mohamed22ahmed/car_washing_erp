@@ -1,7 +1,7 @@
 <?php
 
-
 use App\Models\dictionary;
+use App\Models\ManageEmployees\Screen;
 
 function description_lang($english_desc, $other_desc){
     $lang = session('lang');
@@ -31,5 +31,31 @@ function mearge_dic($file){
             $dictionary->name_ar = $dic['name_ar'];
         }
         $dictionary->save();
+    }
+}
+
+function mearge_screens($file){
+    $jsonString = file_get_contents(base_path('resources/setup/' . $file));
+    $data = json_decode($jsonString, true);
+    foreach ($data['screen'] as $screen) {
+        $screen_route=strtolower(trim($screen['screen_route']));
+        $screen2=Screen::where('screen_route','like',$screen_route)->first();
+
+        if ($screen2) {
+            $screen2->module_id = $screen['module_id'];
+            $screen2->module_name = $screen['module_name'];
+            $screen2->screen_name = $screen['screen_name'];
+            $screen2->operation_type = $screen['operation_type'];
+            $screen2->sort = $screen['sort'];
+        } else {
+            $screen2 = new Screen;
+            $screen2->screen_route = $screen['screen_route'];
+            $screen2->module_id = $screen['module_id'];
+            $screen2->module_name = $screen['module_name'];
+            $screen2->screen_name = $screen['screen_name'];
+            $screen2->operation_type = $screen['operation_type'];
+            $screen2->sort = $screen['sort'];
+        }
+        $screen2->save();
     }
 }

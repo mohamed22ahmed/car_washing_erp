@@ -5,10 +5,10 @@ import router from './routes'
 import storeData from './store/store.js'
 import vSelect from 'vue-select'
 import FlashMessage from '@smartweb/vue-flash-message';
-
+import common from './common'
 
 Vue.use(FlashMessage);
-
+Vue.mixin(common)
 require('./bootstrap');
 
 
@@ -45,15 +45,11 @@ Vue.use(VueProgressBar, {
 
 Vue.component('v-select', vSelect)
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('jornals', require('./components/admin/finance/jornals.vue').default);
-Vue.component('chart_of_account', require('./components/admin/finance/chart_of_account.vue').default);
-Vue.component('manage_role', require('./components/admin/dept_of_hr/manage_role.vue').default);
-Vue.component('manage_emp', require('./components/admin/dept_of_hr/manage_employees/manage_emp.vue').default);
-Vue.component('emp_infos_create', require('./components/admin/dept_of_hr/manage_employees/emp_infos_create.vue').default);
-
 const app = new Vue({
     el: '#app',
     store,
-    router
+    router,
+    created() {
+        this.$store.dispatch("loaddictionary");
+    }
 });

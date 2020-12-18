@@ -33,33 +33,6 @@ export default {
         },
         candelete() {
             return this.can('3') //delete
-        },
-        canpost() {
-            return this.can('4') //post
-        },
-        canunpost() {
-            return this.can('5') //unpost
-        },
-        cancalculate() {
-            return this.can('6') //calculate
-        },
-        canprint() {
-            return this.can('7') //print
-        },
-        candisplay() {
-            return this.can('8') //display
-        },
-        canrelease() {
-            return this.can('9') //release
-        },
-        canupload() {
-            return this.can('10') //upload
-        },
-        canaccess() {
-            return this.can('11') //access
-        },
-        cangenerate() {
-            return this.can('12') //generate
-        },
+        }
     }
 }

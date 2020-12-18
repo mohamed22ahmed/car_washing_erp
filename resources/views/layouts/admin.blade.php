@@ -42,6 +42,8 @@
     <div class="wrapper" id='app'>
         {{ mearge_dic('1.json')}}
         {{ mearge_dic('2.json')}}
+        {{ mearge_screens('screen.json') }}
+
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -207,24 +209,7 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item has-treeview {{ url()->current()==url('/tag_setup')?'menu-open':''  }}">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Setup
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
 
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/tag_setup')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/tag_setup')?'current':'' }}">
-                                    <router-link to='/tag_setup' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tag Setup</p>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="nav-item has-treeview {{ url()->current()==url('/finance')?'menu-open':''  }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -266,12 +251,16 @@
                                         <p>Employees Management</p>
                                     </router-link>
                                 </li>
-                            </ul>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_role')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/manage_role')?'current':'' }}">
-                                    <router-link to='/manage_role' class="nav-link">
+                                <li class="nav-item {{  url()->current()==url('/roles')?'current':'' }}">
+                                    <router-link to='/roles' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employee Role</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/permission')?'current':'' }}">
+                                    <router-link to='/permission' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Role Permissions</p>
                                     </router-link>
                                 </li>
                             </ul>
