@@ -211,7 +211,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    {{ t('1') }}
+                                    Setup
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -221,6 +221,57 @@
                                     <router-link to='/tag_setup' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tag Setup</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview {{ url()->current()==url('/finance')?'menu-open':''  }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Finance
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/jornals')?'current':'' }}">
+                                    <router-link to='/jornals' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Jornals</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/chart_of_account')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/chart_of_account')?'current':'' }}">
+                                    <router-link to='/chart_of_account' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Chart of Accounts</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview {{ url()->current()==url('/employees')?'menu-open':''  }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Employees
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
+                                    <router-link to='/manage_emp' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Employees Management</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_role')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/manage_role')?'current':'' }}">
+                                    <router-link to='/manage_role' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Employee Role</p>
                                     </router-link>
                                 </li>
                             </ul>
