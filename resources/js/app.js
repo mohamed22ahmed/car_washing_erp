@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import router from './routes'
@@ -10,7 +12,6 @@ import FlashMessage from '@smartweb/vue-flash-message';
 Vue.use(FlashMessage);
 
 require('./bootstrap');
-
 
 window.Vue = require('vue');
 Vue.use(Vuex);
@@ -43,9 +44,12 @@ Vue.use(VueProgressBar, {
     height: '3px'
 })
 
-Vue.component('v-select', vSelect)
+Vue.use(Vuetify);
+const opts = {}
+export default new Vuetify(opts)
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('v-select', vSelect)
+Vue.component('table_editable', require('./components/TableEditable.vue').default);
 Vue.component('jornals', require('./components/admin/finance/jornals.vue').default);
 Vue.component('chart_of_account', require('./components/admin/finance/chart_of_account.vue').default);
 Vue.component('manage_role', require('./components/admin/dept_of_hr/manage_role.vue').default);
@@ -55,5 +59,5 @@ Vue.component('emp_infos_create', require('./components/admin/dept_of_hr/manage_
 const app = new Vue({
     el: '#app',
     store,
-    router
+    router,
 });

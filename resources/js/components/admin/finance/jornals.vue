@@ -1,8 +1,3 @@
-<style>
-.pt-3-half {
-        padding-top: 1.4rem;
-    }
-</style>
 <template>
     <div class="container">
 
@@ -53,8 +48,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Role</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Role</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Jornal</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Jornal</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -103,11 +98,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class=col-md-12>
-                                   nada
-                                </div>
-                            </div>
+                            <table_editable></table_editable>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
