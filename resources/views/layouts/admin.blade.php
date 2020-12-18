@@ -40,17 +40,18 @@
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper" id='app'>
-
+        {{ mearge_dic('1.json')}}
+        {{ mearge_dic('2.json')}}
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="home" class="nav-link">Home</a>
+                    <a href="home" class="nav-link">{{ t('2') }}</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">{{ t('3') }}</a>
                 </li>
             </ul>
 
@@ -65,7 +66,6 @@
                     </div>
                 </div>
             </form>
-
 
             <ul class="navbar-nav ml-auto">
                 {{--  messages part  --}}
@@ -160,10 +160,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right p-0">
                         <a href="lang/en"  @if(config('app.locale', 'en')=='en')  class="dropdown-item active" @else  class="dropdown-item"    @endif >
-                            <i class="flag-icon flag-icon-us mr-2"></i> English
+                            <i class="flag-icon flag-icon-us mr-2"></i> {{ t('4') }}
                         </a>
                         <a href="lang/ar"  @if(config('app.locale', 'en')=='ar') class="dropdown-item active" @else   class="dropdown-item"    @endif>
-                            <i class="flag-icon flag-icon-sa mr-2"></i> Arabic
+                            <i class="flag-icon flag-icon-sa mr-2"></i> {{ t('5') }}
                         </a>
                     </div>
                 </li>
@@ -196,7 +196,7 @@
                     style="opacity: 1;height:70px;">
                 </div>
                 <div class="row  justify-content-center">
-                    <span class="brand-text font-weight-light">@if(config('app.locale', 'en')=='en') Car Wash @else مغلسة سيارات @endif</span>
+                    <span class="brand-text font-weight-light">{{ t('6') }}</span>
                 </div>
                 <div class="row  justify-content-center">
                     <span class="brand-text font-weight-light">{{ session('user')->name }}</span>
@@ -211,7 +211,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Setup
+                                    {{ t('1') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -221,57 +221,6 @@
                                     <router-link to='/tag_setup' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tag Setup</p>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview {{ url()->current()==url('/finance')?'menu-open':''  }}">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Finance
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/jornals')?'current':'' }}">
-                                    <router-link to='/jornals' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Jornals</p>
-                                    </router-link>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/chart_of_account')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/chart_of_account')?'current':'' }}">
-                                    <router-link to='/chart_of_account' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Chart of Accounts</p>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview {{ url()->current()==url('/employees')?'menu-open':''  }}">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Employees
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
-                                    <router-link to='/manage_emp' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employees Management</p>
-                                    </router-link>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_role')?'display:block':'' }}">
-                                <li class="nav-item {{  url()->current()==url('/manage_role')?'current':'' }}">
-                                    <router-link to='/manage_role' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee Role</p>
                                     </router-link>
                                 </li>
                             </ul>

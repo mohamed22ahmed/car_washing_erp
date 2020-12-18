@@ -1,0 +1,33 @@
+{
+    "dic": [{
+            "dic_id": 1,
+            "name": "Setup",
+            "name_ar": "الاعدادات"
+        },
+        {
+            "dic_id": 2,
+            "name": "Home",
+            "name_ar": "الرئيسية"
+        },
+        {
+            "dic_id": 3,
+            "name": "Contact",
+            "name_ar": "التواصل"
+        },
+        {
+            "dic_id": 4,
+            "name": "English",
+            "name_ar": "اللغة الانجليزية"
+        },
+        {
+            "dic_id": 5,
+            "name": "Arabic",
+            "name_ar": "اللغة العربية"
+        },
+        {
+            "dic_id": 6,
+            "name": "Car Wash",
+            "name_ar": "مغسلة السيارات"
+        }
+    ]
+}
