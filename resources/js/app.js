@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import router from './routes'
@@ -10,7 +12,6 @@ import common from './common'
 Vue.use(FlashMessage);
 Vue.mixin(common)
 require('./bootstrap');
-
 
 window.Vue = require('vue');
 Vue.use(Vuex);
@@ -43,7 +44,9 @@ Vue.use(VueProgressBar, {
     height: '3px'
 })
 
-Vue.component('v-select', vSelect)
+Vue.use(Vuetify);
+const opts = {}
+export default new Vuetify(opts)
 
 const app = new Vue({
     el: '#app',
