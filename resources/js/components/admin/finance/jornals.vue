@@ -2,41 +2,43 @@
     <div class="container">
 
         <div class="container">
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header font-weight-bold">Jornals List
+                        <div class="card-header">Jornals List
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-bordered table-responsive-md text-center">
-                                <thead class="thead-light">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Date</th>
-                                            <th>Type</th>
-                                            <th>Modify</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>02/02/2020</td>
-                                            <td>Active</td>
-                                            <td>
-                                                <a href="#" @click="editModal(code_table)">
-                                                    <i class="fa fa-edit blue"></i>
-                                                </a>
-                                                /
-                                                <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
-                                                    <i class="fa fa-trash red"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                            </table>
+                        <div class="card-body">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead class="thead-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Date</th>
+                                                <th>Type</th>
+                                                <th>Modify</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>02/02/2020</td>
+                                                <td>Active</td>
+                                                <td>
+                                                    <a href="#" @click="editModal(code_table)">
+                                                        <i class="fa fa-edit blue"></i>
+                                                    </a>
+                                                    /
+                                                    <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                                        <i class="fa fa-trash red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

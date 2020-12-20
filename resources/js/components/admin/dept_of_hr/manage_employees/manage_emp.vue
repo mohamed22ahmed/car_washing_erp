@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header font-weight-bold">Employees List
+                    <div class="card-header">Employees List
                         <div class="card-tools">
                             <router-link :to="{ path: '/emp_infos_create'}" class="btn btn-success">
                                 <i class="fas fa-user-plus fa-fw"></i>&nbsp; Add Employee

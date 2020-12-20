@@ -48,6 +48,9 @@ Vue.use(Vuetify);
 const opts = {}
 export default new Vuetify(opts)
 
+Vue.component('v-select', vSelect)
+Vue.component('table_editable', require('./components/TableEditable.vue').default);
+
 const app = new Vue({
     el: '#app',
     store,

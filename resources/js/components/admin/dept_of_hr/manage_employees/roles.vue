@@ -7,7 +7,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Roles</h3>
                             <div class="card-tools">
-                                <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
+                                <button class="btn btn-success" @click="newModal">
+                                <i class="fas fa-plus fa-fw"></i>&nbsp; Add Role</button>
                             </div>
                         </div>
 

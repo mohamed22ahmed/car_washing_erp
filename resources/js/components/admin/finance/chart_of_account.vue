@@ -1,10 +1,10 @@
 <template>
 <div class="container">
     <div class="container">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header font-weight-bold">Chart OF Accounts
+                    <div class="card-header">Chart OF Accounts
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
                         </div>
