@@ -2,39 +2,42 @@
     <div class="container">
 
         <div class="container">
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header font-weight-bold">Roles List
+                        <div class="card-header">Roles List
                             <div class="card-tools">
-                                <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
+                                <button class="btn btn-success" @click="newModal">
+                                <i class="fas fa-plus fa-fw"></i>&nbsp; Add New</button>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-bordered table-responsive-md text-center">
-                                <thead class="thead-light">
+                        <div class="card-body">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead class="thead-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Modify</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Modify</th>
+                                            <td>1</td>
+                                            <td>Update</td>
+                                            <td>
+                                                <a href="#" @click="editModal(code_table)">
+                                                    <i class="fa fa-edit blue"></i>
+                                                </a>
+                                                /
+                                                <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Update</td>
-                                        <td>
-                                            <a href="#" @click="editModal(code_table)">
-                                                <i class="fa fa-edit blue"></i>
-                                            </a>
-                                            /
-                                            <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
-                                                <i class="fa fa-trash red"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
