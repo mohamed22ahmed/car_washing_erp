@@ -1,8 +1,8 @@
 {
     "dic": [{
             "dic_id": 1,
-            "name": "Setup",
-            "name_ar": "الاعدادات"
+            "name": "Finance",
+            "name_ar": "المالية"
         },
         {
             "dic_id": 2,
@@ -28,6 +28,86 @@
             "dic_id": 6,
             "name": "Car Wash",
             "name_ar": "مغسلة السيارات"
+        },
+        {
+            "dic_id": 7,
+            "name": "Employees",
+            "name_ar": "الموظفين"
+        },
+        {
+            "dic_id": 8,
+            "name": "Employees Management",
+            "name_ar": "ادارة شئون الموظفين"
+        },
+        {
+            "dic_id": 9,
+            "name": "First Name",
+            "name_ar": "الاسم الاول"
+        },
+        {
+            "dic_id": 10,
+            "name": "First Name",
+            "name_ar": "الاسم الاول"
+        },
+        {
+            "dic_id": 11,
+            "name": "Sur Name",
+            "name_ar": "الاسم الثانى"
+        },
+        {
+            "dic_id": 12,
+            "name": "Last Name",
+            "name_ar": "الاسم الاخير"
+        },
+        {
+            "dic_id": 13,
+            "name": "Employee Picture",
+            "name_ar": "صورة الموظف"
+        },
+        {
+            "dic_id": 14,
+            "name": "Choose file",
+            "name_ar": "اختيار صورة"
+        },
+        {
+            "dic_id": 15,
+            "name": "Notes",
+            "name_ar": "الملاحظات"
+        },
+        {
+            "dic_id": 16,
+            "name": "Email",
+            "name_ar": "البريد الالكترونى"
+        },
+        {
+            "dic_id": 17,
+            "name": "Send credentials to employee on email",
+            "name_ar": "ارسال بيانات الاعتماد إلى الموظف عبر البريد الإلكتروني"
+        },
+        {
+            "dic_id": 18,
+            "name": "Status",
+            "name_ar": "الحالة"
+        },
+        {
+            "dic_id": 19,
+            "name": "Active",
+            "name_ar": "نشط"
+        },
+        {
+            "dic_id": 20,
+            "name": "Stopped",
+            "name_ar": "موقوف"
+        },
+        {
+            "dic_id": 21,
+            "name": "Allow access to the system",
+            "name_ar": "سماحية الدخول الى النظام"
+        },
+        {
+            "dic_id": 22,
+            "name": "Language",
+            "name_ar": "اللغة"
         }
     ]
 }

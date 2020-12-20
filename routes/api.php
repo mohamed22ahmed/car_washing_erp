@@ -1,6 +1,7 @@
 <?php
 
 Route::apiResources(['userpermission' => 'API\permission\PermissionController']);
+Route::apiResources(['dictionary' => 'API\DictionaryController']);
 
 // ############################################### Finance ##############################################
 //Jornals

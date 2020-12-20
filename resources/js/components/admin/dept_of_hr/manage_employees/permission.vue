@@ -33,6 +33,7 @@
                                                     <th class="text-center">Save</th>
                                                     <th class="text-center">Update</th>
                                                     <th class="text-center">delete</th>
+                                                    <th class="text-center">Search</th>
                                                 </tr>
                                                 <tr v-for="page in form.pages" :key="page.screen_name">
                                                     <td>{{ page.screen_name }}</td>
@@ -43,6 +44,9 @@
                                                     <td class="text-center" v-else></td>
 
                                                     <td class="text-center" v-if="check_permission(page,3)!=''"><input type="checkbox" v-model="page.operation_type[3]"></td>
+                                                    <td class="text-center" v-else></td>
+
+                                                    <td class="text-center" v-if="check_permission(page,4)!=''"><input type="checkbox" v-model="page.operation_type[4]"></td>
                                                     <td class="text-center" v-else></td>
                                                 </tr>
                                             </tbody>
