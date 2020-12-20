@@ -10,14 +10,8 @@ import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp
 import roles from './components/admin/dept_of_hr/manage_employees/roles'
 import permission from './components/admin/dept_of_hr/manage_employees/permission'
 
-import tag_setup from './components/Setup/tag_setup'
-import jornals from './components/admin/finance/jornals.vue'
-import chart_of_account from './components/admin/finance/chart_of_account.vue'
-import manage_role from './components/admin/dept_of_hr/manage_role.vue'
 import organizational_structure from './components/admin/dept_of_hr/organizational_structure.vue'
 import attendance_logs from './components/admin/dept_of_hr/attendance_logs.vue'
-import manage_emp from './components/admin/dept_of_hr/manage_employees/manage_emp.vue'
-import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp_infos_create.vue'
 import attendance_permissions from './components/admin/dept_of_hr/attendance/attendance_permissions.vue'
 import shift_management from './components/admin/dept_of_hr/attendance/shift_management.vue'
 import settings from './components/admin/dept_of_hr/settings/settings.vue'
@@ -33,7 +27,8 @@ const routes = [
     // finance module
     { name: 'jornals', path: '/jornals', component: jornals },
     { name: 'chart_of_account', path: '/chart_of_account', component: chart_of_account },
-    { name: 'manage_role', path: '/manage_role', component: manage_role },
+    { name: 'roles', path: '/roles', component: roles },
+    { name: 'permission', path: '/permissions', component: permission },
     { name: 'organizational_structure', path: '/organizational_structure', component: organizational_structure },
     { name: 'attendance_logs', path: '/attendance_logs', component: attendance_logs },
     { name: 'manage_emp', path: '/manage_emp', component: manage_emp },

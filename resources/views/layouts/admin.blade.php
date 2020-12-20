@@ -232,7 +232,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview {{ url()->current()==url('/manage_emp')||url()->current()==url('/manage_role')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'menu-open':''}}">
+                        <li class="nav-item has-treeview {{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'menu-open':''}}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -240,26 +240,27 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')||url()->current()==url('/manage_role')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'display:block':'' }}">
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
                                     <router-link to='/manage_emp' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employees Management</p>
                                     </router-link>
                                 </li>
-<<<<<<< HEAD
 
-                                <li class="nav-item {{  url()->current()==url('/manage_role')?'current':'' }}">
-                                    <router-link to='/manage_role' class="nav-link">
-=======
                                 <li class="nav-item {{  url()->current()==url('/roles')?'current':'' }}">
                                     <router-link to='/roles' class="nav-link">
->>>>>>> 04ac8486ced4c61787daf7a9f8aa19a455798ce2
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employee Role</p>
                                     </router-link>
                                 </li>
-<<<<<<< HEAD
+
+                                <li class="nav-item {{  url()->current()==url('/permissions')?'current':'' }}">
+                                    <router-link to='/permissions' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Permissions</p>
+                                    </router-link>
+                                </li>
 
                                 <li class="nav-item {{  url()->current()==url('/organizational_structure')?'current':'' }}">
                                     <router-link to='/organizational_structure' class="nav-link">
@@ -290,12 +291,6 @@
                                     <router-link to='/settings' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Settings</p>
-=======
-                                <li class="nav-item {{  url()->current()==url('/permission')?'current':'' }}">
-                                    <router-link to='/permission' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Role Permissions</p>
->>>>>>> 04ac8486ced4c61787daf7a9f8aa19a455798ce2
                                     </router-link>
                                 </li>
                             </ul>
