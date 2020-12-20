@@ -67,39 +67,38 @@
                                                 <div class="row mt-4">
                                                     <div class="col-4">
                                                         <div class="form-group">
-                                                            <label class="required" for="fist_name">First Name <span style="color:red">*</span></label>
+                                                            <label class="required" for="fist_name">{{ $t('10') }}<span style="color:red">*</span></label>
                                                             <input class="form-control"  v-model="form.first_name" type="text" name="fist_name" id="fist_name" :class="{ 'is-invalid': form.errors.has('fist_name') }">
                                                             <has-error :form="form" field="fist_name"></has-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div class="form-group">
-                                                            <label for="sir_name">SurName</label>
+                                                            <label for="sir_name">{{ $t('11') }}</label>
                                                             <input class="form-control"  v-model="form.sir_name" type="text" name="sir_name" id="sir_name">
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div class="form-group">
-                                                            <label for="last_name">Last Name</label>
+                                                            <label for="last_name">{{ $t('12') }}</label>
                                                             <input class="form-control"  v-model="form.last_name" type="text" name="last_name" id="last_name">
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="row mt-4">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="emp_picture">Employee Picture</label>
+                                                            <label for="emp_picture">{{ $t('13') }}</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="emp_picture" name="emp_picture" class="custom-file-input" data-locale="en" @change="updateProfile">
-                                                                <label class="custom-file-label" for="emp_picture">
-                                                                    Choose file
-                                                                </label>
+                                                                <label class="custom-file-label" for="emp_picture">{{ $t('14') }}</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="notes">Notes</label>
+                                                            <label for="notes">{{ $t('15') }}</label>
                                                             <textarea class="form-control" cols="30" type="text"  v-model="form.notes" name="notes" id="notes"></textarea>
                                                         </div>
                                                     </div>
@@ -109,30 +108,28 @@
                                                 <div class="row mt-4">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="required">Email <span style="color:red">*</span></label>
+                                                            <label for="email" class="required">{{ $t('16') }}<span style="color:red">*</span></label>
                                                             <input class="form-control"  v-model="form.email" type="text" name="email" id="email" :class="{ 'is-invalid': form.errors.has('email') }">
                                                             <has-error :form="form" field="email"></has-error>
                                                         </div>
                                                         <div class="form-check pt-2 ml-3">
                                                             <input class="form-check-input" name="send_credentials" v-model="form.send_credentials" type="checkbox" value="" id="defaultCheck">
                                                             <label class="form-check-label" for="defaultCheck">
-                                                                Send credentials to employee on email
+                                                                {{ $t('17') }}
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="status" class="required">status <span style="color:red">*</span></label>
+                                                            <label for="status" class="required">{{ $t('18') }}<span style="color:red">*</span></label>
                                                             <select name="status" id="status"  v-model="form.status" class="form-control">
-                                                                <option value="1">Active</option>
-                                                                <option value="2">Stopped</option>
+                                                                <option value="1">{{ $t('19') }}</option>
+                                                                <option value="2">{{ $t('20') }}</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-check pt-2 ml-3">
                                                             <input class="form-check-input" name="allow_access" v-model="form.allow_access" type="checkbox" value="" id="defaultCheck1">
-                                                            <label class="form-check-label" for="defaultCheck1">
-                                                                Allow access to the system
-                                                            </label>
+                                                            <label class="form-check-label" for="defaultCheck1">{{ $t('21') }}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,8 +138,8 @@
                                                         <div class="form-group">
                                                             <label for="language" class="required">Language <span style="color:red">*</span></label>
                                                             <select name="language" v-model="form.language" id="language" class="form-control">
-                                                                <option value="1">English</option>
-                                                                <option value="2">Arabic</option>
+                                                                <option value="1">{{ $t('4') }}</option>
+                                                                <option value="2">{{ $t('5') }}</option>
                                                             </select>
                                                         </div>
                                                     </div>

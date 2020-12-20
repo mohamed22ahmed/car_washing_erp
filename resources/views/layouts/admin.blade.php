@@ -193,15 +193,8 @@
         {{--  company logo, company name, logged in user name and main sidebar --}}
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="/home" class="brand-link">
-                <div class="row justify-content-center mb-2">
-                    <img src="{{ asset('storage/noImage.jpg') }}" alt="AdminLTE Logo" class="rounded-circle img-responsive elevation-3"
-                    style="opacity: 1;height:70px;">
-                </div>
                 <div class="row  justify-content-center">
                     <span class="brand-text font-weight-light">{{ t('6') }}</span>
-                </div>
-                <div class="row  justify-content-center">
-                    <span class="brand-text font-weight-light">{{ session('user')->name }}</span>
                 </div>
             </a>
 
@@ -213,7 +206,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Finance
+                                    {{ t('1') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -232,11 +225,12 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="nav-item has-treeview {{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'menu-open':''}}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Employees
+                                    {{ t('7') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -244,7 +238,7 @@
                                 <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
                                     <router-link to='/manage_emp' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Employees Management</p>
+                                        <p>{{ t('8') }}</p>
                                     </router-link>
                                 </li>
 
