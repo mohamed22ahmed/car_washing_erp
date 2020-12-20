@@ -42,6 +42,8 @@
     <div class="wrapper" id='app'>
         {{ mearge_dic('1.json')}}
         {{ mearge_dic('2.json')}}
+        {{ mearge_screens('screen.json') }}
+
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -245,13 +247,19 @@
                                         <p>Employees Management</p>
                                     </router-link>
                                 </li>
+<<<<<<< HEAD
 
                                 <li class="nav-item {{  url()->current()==url('/manage_role')?'current':'' }}">
                                     <router-link to='/manage_role' class="nav-link">
+=======
+                                <li class="nav-item {{  url()->current()==url('/roles')?'current':'' }}">
+                                    <router-link to='/roles' class="nav-link">
+>>>>>>> 04ac8486ced4c61787daf7a9f8aa19a455798ce2
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employee Role</p>
                                     </router-link>
                                 </li>
+<<<<<<< HEAD
 
                                 <li class="nav-item {{  url()->current()==url('/organizational_structure')?'current':'' }}">
                                     <router-link to='/organizational_structure' class="nav-link">
@@ -282,6 +290,12 @@
                                     <router-link to='/settings' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Settings</p>
+=======
+                                <li class="nav-item {{  url()->current()==url('/permission')?'current':'' }}">
+                                    <router-link to='/permission' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Role Permissions</p>
+>>>>>>> 04ac8486ced4c61787daf7a9f8aa19a455798ce2
                                     </router-link>
                                 </li>
                             </ul>

@@ -7,10 +7,10 @@ import router from './routes'
 import storeData from './store/store.js'
 import vSelect from 'vue-select'
 import FlashMessage from '@smartweb/vue-flash-message';
-
+import common from './common'
 
 Vue.use(FlashMessage);
-
+Vue.mixin(common)
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -55,4 +55,7 @@ const app = new Vue({
     el: '#app',
     store,
     router,
+    created() {
+        this.$store.dispatch("loaddictionary");
+    }
 });

@@ -1,0 +1,50 @@
+{
+    "_operation_type": "1create  2update  3delete",
+
+    "screen": [{
+            "screen_route": "jornals",
+            "module_id": "1",
+            "module_name": "Finance",
+            "screen_name": "Jornals",
+            "operation_type": "2",
+            "sort": 1
+        },
+        {
+            "screen_route": "chart_of_account",
+            "module_id": "1",
+            "module_name": "Finance",
+            "screen_name": "Chart of Accounts",
+            "operation_type": "2",
+            "sort": 2
+        },
+
+
+
+
+
+        {
+            "screen_route": "manage_emp",
+            "module_id": "2",
+            "module_name": "Employees",
+            "screen_name": "Employees Management",
+            "operation_type": "1,2,3",
+            "sort": 1
+        },
+        {
+            "screen_route": "roles",
+            "module_id": "2",
+            "module_name": "Employees",
+            "screen_name": "Roles",
+            "operation_type": "1,2,3",
+            "sort": 2
+        },
+        {
+            "screen_route": "permission",
+            "module_id": "2",
+            "module_name": "Employees",
+            "screen_name": "Role Permission",
+            "operation_type": "1",
+            "sort": 3
+        }
+    ]
+}

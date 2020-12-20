@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     protected $namespace = 'App\Http\Controllers';
+    // protected $namespaceDash = 'App\Http\Controllers\API';
 
     public function boot(){
         parent::boot();
