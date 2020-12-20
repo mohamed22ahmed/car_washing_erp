@@ -5,11 +5,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Jornals List
-                            <div class="card-tools">
-                                <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
+                        <div class="card-header">
+                            <h3 class="card-title">{{ $t('100') }} {{ $t('101') }}</h3>
+                                <div class="card-tools">
+                                    <button class="btn btn-success" @click="newModal">
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('102') }}</button>
+                                </div>
                             </div>
-                        </div>
                         <div class="card-body">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
@@ -50,8 +52,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Jornal</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Jornal</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('107') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('107') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>

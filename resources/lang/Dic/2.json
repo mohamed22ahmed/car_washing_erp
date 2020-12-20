@@ -1,5 +1,65 @@
 {
     "dic": [
+        {
+            "dic_id": 100,
+            "name": "Jornals",
+            "name_ar": "القيود اليومية"
+        },
+        {
+            "dic_id": 101,
+            "name": "List",
+            "name_ar": "قائمة"
+        },
+        {
+            "dic_id": 102,
+            "name": "Add New",
+            "name_ar": "إضافة جديد"
+        },
+        {
+            "dic_id": 103,
+            "name": "New",
+            "name_ar": "جديد"
+        },
+        {
+            "dic_id": 104,
+            "name": "Create",
+            "name_ar": "إنشاء"
+        },
+        {
+            "dic_id": 105,
+            "name": "Update",
+            "name_ar": "تعديل"
+        },
+        {
+            "dic_id": 105,
+            "name": "Delete",
+            "name_ar":"حذف"
+        },
+        {
+            "dic_id": 106,
+            "name": "Show",
+            "name_ar": "عرض"
+        },
+        {
+            "dic_id": 107,
+            "name": "Jornal",
+            "name_ar": "قيد يومى"
+        },
+        {
+            "dic_id": 108,
+            "name": "ID",
+            "name_ar": ""
+        },
+        {
+            "dic_id": 107,
+            "name": "Jornal",
+            "name_ar": "قيد يومى"
+        },
+        {
+            "dic_id": 107,
+            "name": "Jornal",
+            "name_ar": "قيد يومى"
+        },
 
     ]
 }
