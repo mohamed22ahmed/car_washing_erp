@@ -57,7 +57,7 @@ h2 {
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-center">
-                    <h2>Settings</h2>
+                    <h2 class="pb-5">Settings</h2>
                     </div>
                     <div class="card-body">
                         <main>

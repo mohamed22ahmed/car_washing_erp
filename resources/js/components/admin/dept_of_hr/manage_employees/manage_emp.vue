@@ -2,40 +2,43 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Employees List
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3 class="card-title">Employees List</h3>
                         <div class="card-tools">
                             <router-link :to="{ path: '/emp_infos_create'}" class="btn btn-success">
-                                <i class="fas fa-user-plus fa-fw"></i>&nbsp; Add Employee
+                                <i class="fas fa-plus fa-fw"></i>&nbsp; Add Employee
                             </router-link>
                         </div>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-bordered table-responsive-md text-center">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Modify</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="employee in employees.data" :key="employee.id">
-                                    <td>{{ employee.id }}</td>
-                                    <td>{{ employee.first_name }}</td>
-                                    <td>{{ employee.email }}</td>
-                                    <td>
-                                        <router-link :to="{ path: '/emp_infos_create?employee='+employee.id}">
-                                            <i class="fa fa-edit blue"></i>
-                                        </router-link>&nbsp;&nbsp;/
-                                        <a href="#" @click="deleteEmployee(employee.id)">
-                                            <i class="fa fa-trash red"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-bordered table-hover text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Modify</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="employee in employees.data" :key="employee.id">
+                                        <td>{{ employee.id }}</td>
+                                        <td>{{ employee.first_name }}</td>
+                                        <td>{{ employee.email }}</td>
+                                        <td>
+                                            <router-link :to="{ path: '/emp_infos_create?employee='+employee.id}">
+                                                <i class="fa fa-edit blue"></i>
+                                            </router-link>&nbsp;&nbsp;/
+                                            <a href="#" @click="deleteEmployee(employee.id)">
+                                                <i class="fa fa-trash red"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

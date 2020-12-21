@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ $t('100') }} {{ $t('101') }}</h3>
+                            <h3 class="card-title">{{ $t('100') }}</h3>
                                 <div class="card-tools">
                                     <button class="btn btn-success" @click="newModal">
                                     <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('102') }}</button>
@@ -17,10 +17,10 @@
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Date</th>
-                                                <th>Type</th>
-                                                <th>Modify</th>
+                                                <th>{{ $t('109') }}</th>
+                                                <th>{{ $t('101') }}</th>
+                                                <th>{{ $t('103') }}</th>
+                                                <th>{{ $t('110') }}</th>
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -52,8 +52,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('107') }}</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('107') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('108') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('108') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -64,7 +64,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group my-3">
                                         <div class="input-group-prepend">
-                                        <label for="date" class="input-group-text">Date</label>
+                                        <label for="date" class="input-group-text">{{ $t('101') }}</label>
                                         </div>
                                         <input v-model="form.date" type="date" name="date" class="form-control" :class="{ 'is-invalid': form.errors.has('date') }">
                                         <has-error :form="form" field="date"></has-error>
@@ -72,10 +72,10 @@
 
                                     <div class="input-group my-3">
                                         <div class="input-group-prepend">
-                                            <label for="currency" class="input-group-text">Currency</label>
+                                            <label for="currency" class="input-group-text">{{ $t('111') }}</label>
                                         </div>
                                         <select v-model="form.currency" name="currency" id="currency" class="custom-select">
-                                            <option value="-1">Choose</option>
+                                            <option value="-1">{{ $t('115') }}</option>
                                             <option value="1">جنيه مصرى EGP</option>
                                             <option value="2">ريال سعودى SAR</option>
                                             <option value="3">درهم إماراتى AED</option>
@@ -84,7 +84,7 @@
 
                                     <div class="input-group my-3">
                                         <div class="input-group-prepend">
-                                        <label for="number" class="input-group-text">Number</label>
+                                        <label for="number" class="input-group-text">{{ $t('112') }}</label>
                                         </div>
                                         <input v-model="form.number" type="text" name="number" placeholder="Number" class="form-control" :class="{ 'is-invalid': form.errors.has('number') }">
                                         <has-error :form="form" field="number"></has-error>
@@ -94,7 +94,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group mt-2">
                                         <div class="input-group-prepend">
-                                        <label for="description" class="input-group-text">Description</label>
+                                        <label for="description" class="input-group-text">{{ $t('113') }}</label>
                                         </div>
                                         <textarea v-model="form.description" class="form-control" rows="6" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
                                         <has-error :form="form" field="description"></has-error>
@@ -105,9 +105,9 @@
                             <table_editable></table_editable>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

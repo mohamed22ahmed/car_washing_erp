@@ -10,37 +10,40 @@
                                 <button class="btn btn-success" @click="newModal">
                                 <i class="fas fa-plus fa-fw"></i>&nbsp; Add Role</button>
                             </div>
-                        </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-bordered table-hover text-center">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Name Ar</th>
+                                                <th>modify</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="role in roles.data" :key="role.id">
+                                                <td>{{ role.id }}</td>
+                                                <td>{{ role.name }}</td>
+                                                <td>{{ role.name_ar }}</td>
+                                                <td>
+                                                    <a href="#" @click="editRole(role)">
+                                                        <i class="fa fa-edit red"></i>
+                                                    </a>&nbsp;/
+                                                    <a href="#" @click="deleteRole(role.id)">
+                                                        <i class="fa fa-trash red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Name Ar</th>
-                                        <th>modify</th>
-                                    </tr>
-                                    <tr v-for="role in roles.data" :key="role.id">
-                                        <td>{{ role.id }}</td>
-                                        <td>{{ role.name }}</td>
-                                        <td>{{ role.name_ar }}</td>
-                                        <td>
-                                            <a href="#" @click="editRole(role)">
-                                                <i class="fa fa-edit red"></i>
-                                            </a>&nbsp;
-                                            <a href="#" @click="deleteRole(role.id)">
-                                                <i class="fa fa-trash red"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="card-footer">
-                            <pagination :data="roles" @pagination-change-page="getResults"></pagination>
-                        </div>
+                            <div class="card-footer">
+                                <pagination :data="roles" @pagination-change-page="getResults"></pagination>
+                            </div>
                     </div>
                 </div>
             </div>
