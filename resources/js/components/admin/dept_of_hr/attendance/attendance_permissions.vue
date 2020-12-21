@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Attendance Permission Information
+                        <div class="card-header">{{ $t('57') }}
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; Add Attendance Permission
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('58') }}
                                 </button>
                             </div>
                         </div>
@@ -17,10 +17,10 @@
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Modify</th>
+                                            <th>{{ $t('108') }}</th>
+                                            <th>{{ $t('50') }}</th>
+                                            <th>{{ $t('16') }}</th>
+                                            <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -52,8 +52,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Attendance Permission</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Attendance Permission</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('58') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -65,19 +65,19 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="employee">Employee*</label>
+                                                <label for="employee">{{ $t('59') }} *</label>
                                                 <select name="employee" v-model="form.employee" id="employee" class="form-control">
                                                     <option value="-1">choose</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <label for="date">Date*</label>
+                                            <label for="date">{{ $t('101') }} *</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <select name="select" v-model="form.select" id="select" class="form-control">
-                                                    <option value="1">range</option>
-                                                    <option value="2">single</option>
+                                                        <option value="1">{{ $t('60') }}</option>
+                                                        <option value="2">{{ $t('61') }}</option>
                                                     </select>
                                                 </div>
                                                 <input v-if="form.select==2" type="text" placeholder="From date" class="form-control" v-model="form.from_date" name="from_date" onfocus="(this.type='date')" onblur="(this.type='text')" id="from_date">
@@ -89,16 +89,16 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="type">Type*</label>
+                                                <label for="type">{{ $t('103') }} *</label>
                                                 <select name="type" v-model="form.type" id="type" class="form-control">
-                                                    <option value="1">Leave</option>
-                                                    <option value="2">Delay</option>
+                                                    <option value="1">{{ $t('62') }}</option>
+                                                    <option value="2">{{ $t('63') }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="notes">Notes</label>
+                                                <label for="notes">{{ $t('15') }}</label>
                                                 <textarea class="form-control" id="notes" name="notes" v-model="form.notes" rows="3"></textarea>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="leave_type" class="required">Leave Type*</label>
+                                                <label for="leave_type" class="required">{{ $t('62')}}{{ $t('103') }} *</label>
                                                 <select name="leave_type" v-model="form.leave_type" id="leave_type" class="form-control">
                                                     <option value="-1">Please Select</option>
                                                 </select>
@@ -114,7 +114,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="app_date">Date of Application</label>
+                                                <label for="app_date">{{ $t('64') }}</label>
                                                 <input type="date" class="form-control" v-model="form.app_date" name="app_date" id="app_date">
                                             </div>
                                         </div>
@@ -123,9 +123,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

@@ -52,10 +52,10 @@
                         <form @submit.prevent="createUser()" enctype="multipart/form-data">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General Information</a>
-                                    <a class="nav-item nav-link" id="nav-personal_prof-tab" data-toggle="tab" href="#nav-personal_prof"  role="tab"  aria-controls="nav-personal_prof" aria-selected="false">Personal Information</a>
-                                    <a class="nav-item nav-link" id="nav-job_info-tab" data-toggle="tab" href="#nav-job_info"  role="tab"  aria-controls="nav-job_info" aria-selected="false">Job Information</a>
-                                    <a class="nav-item nav-link" id="nav-att_info-tab" data-toggle="tab" href="#nav-att_info" role="tab" aria-controls="nav-att_info" aria-selected="false">Attendance  Information</a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{ $t('44') }}</a>
+                                    <a class="nav-item nav-link" id="nav-personal_prof-tab" data-toggle="tab" href="#nav-personal_prof"  role="tab"  aria-controls="nav-personal_prof" aria-selected="false">{{ $t('45') }}</a>
+                                    <a class="nav-item nav-link" id="nav-job_info-tab" data-toggle="tab" href="#nav-job_info"  role="tab"  aria-controls="nav-job_info" aria-selected="false">{{ $t('46') }}</a>
+                                    <a class="nav-item nav-link" id="nav-att_info-tab" data-toggle="tab" href="#nav-att_info" role="tab" aria-controls="nav-att_info" aria-selected="false">{{ $t('47') }}</a>
                                 </div>
                             </nav>
 
@@ -136,7 +136,7 @@
                                                 <div class="row mt-4" v-if="form.allow_access==1">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="language" class="required">Language <span style="color:red">*</span></label>
+                                                            <label for="language" class="required"><span style="color:red">*</span></label>
                                                             <select name="language" v-model="form.language" id="language" class="form-control">
                                                                 <option value="1">{{ $t('4') }}</option>
                                                                 <option value="2">{{ $t('5') }}</option>
@@ -145,7 +145,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="role" class="required">Role <span style="color:red">*</span></label>
+                                                            <label for="role" class="required">{{ $t('23') }}<span style="color:red">*</span></label>
                                                             <select name="role" v-model="form.role" id="role" class="form-control">
                                                                 <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                                                             </select>
@@ -164,17 +164,17 @@
                                                 <div class="row mt-4">
                                                     <div class="col-6 mt-3">
                                                             <div class="form-group">
-                                                                <label class="required" for="date_of_birth">Date of Birth <span style="color:red">*</span></label>
+                                                                <label class="required" for="date_of_birth">{{ $t('24') }}<span style="color:red">*</span></label>
                                                                 <input type="date" id="date_of_birth" name="date_of_birth"  v-model="form.date_of_birth" class="form-control"  :class="{ 'is-invalid': form.errors.has('date_of_birth') }">
                                                                 <has-error :form="form" field="date_of_birth"></has-error>
                                                             </div>
                                                     </div>
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="date_of_birth">Gender</label>
+                                                            <label for="date_of_birth">{{ $t('25') }}</label>
                                                             <select name="gender"  v-model="form.gender" id="gender" class="form-control">
-                                                                <option value="1">Male</option>
-                                                                <option value="2">Female</option>
+                                                                <option value="1">{{ $t('26') }}</option>
+                                                                <option value="2">{{ $t('27') }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -182,9 +182,9 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="country" class="required">Country <span style="color:red">*</span></label>
+                                                            <label for="country" class="required">{{ $t('28') }} <span style="color:red">*</span></label>
                                                             <select name="country"  v-model="form.country" id="country" class="form-control">
-                                                                <option value="1">Cairo</option>
+                                                                <option value="1">Egypt</option>
                                                                 <option value="2">Saudi Arabia</option>
                                                                 <option value="3">Jordan</option>
                                                                 <option value="4">Syria</option>
@@ -193,7 +193,7 @@
                                                     </div>
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="mobile_number">Mobile Number</label>
+                                                            <label for="mobile_number">{{ $t('29') }}</label>
                                                             <input type="text" id="mobile_number"  v-model="form.mobile_number" name="mobile_number" class="form-control">
                                                         </div>
                                                     </div>
@@ -210,7 +210,7 @@
                                                         <div class="card-header" id="headingTwo">
                                                             <h5 class="mb-0">
                                                                 <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                    <i class="fa fa-home main"></i><i class="fa fa-angle-double-right mr-3"></i>Present Address
+                                                                    <i class="fa fa-home main"></i><i class="fa fa-angle-double-right mr-3"></i>{{ $t('30') }}
                                                                 </button>
                                                             </h5>
                                                         </div>
@@ -219,13 +219,13 @@
                                                                 <div class="row">
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="address">Address</label>
+                                                                            <label for="address">{{ $t('30') }}</label>
                                                                             <input type="text"  v-model="form.present_address" id="present_address" name="present_address" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="city">City</label>
+                                                                            <label for="city">{{ $t('31') }}</label>
                                                                             <input type="text"  v-model="form.present_city" id="present_city" name="present_city" class="form-control">
                                                                         </div>
                                                                     </div>
@@ -233,7 +233,7 @@
                                                                 <div class="row">
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="state">State</label>
+                                                                            <label for="state">{{ $t('32') }}</label>
                                                                             <input type="text" id="present_state"  v-model="form.present_state" name="present_state" class="form-control">
                                                                         </div>
                                                                     </div>
@@ -245,7 +245,7 @@
                                                         <div class="card-header" id="headingTwo">
                                                             <h5 class="mb-0">
                                                                 <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                    <i class="fa fa-home main"></i><i class="fa fa-angle-double-right mr-3"></i>Permanent Address
+                                                                    <i class="fa fa-home main"></i><i class="fa fa-angle-double-right mr-3"></i>{{ $t('33') }}
                                                                 </button>
                                                             </h5>
                                                         </div>
@@ -254,13 +254,13 @@
                                                                 <div class="row">
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="address">Address</label>
+                                                                            <label for="address">{{ $t('34') }}</label>
                                                                             <input type="text" id="perm_address" name="perm_address" v-model="form.perm_address" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="city">City</label>
+                                                                            <label for="city">{{ $t('31') }}</label>
                                                                             <input type="text" id="perm_city" name="perm_city" v-model="form.perm_city" class="form-control">
                                                                         </div>
                                                                     </div>
@@ -268,7 +268,7 @@
                                                                 <div class="row">
                                                                     <div class="col-6 mt-3">
                                                                         <div class="form-group">
-                                                                            <label for="state">State</label>
+                                                                            <label for="state">{{ $t('32') }}</label>
                                                                             <input type="text" id="perm_state" name="perm_state" v-model="form.perm_state" class="form-control">
                                                                         </div>
                                                                     </div>
@@ -290,8 +290,9 @@
                                                 <div class="row mt-4">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="designation">Designation</label>
+                                                            <label for="designation">{{ $t('35') }}</label>
                                                             <select name="designation" v-model="form.designation" id="designation" class="form-control">
+                                                                <option value="-1">{{ $t('115') }}</option>
                                                                 <option value="1">Sales Manager</option>
                                                                 <option value="2">Web Developer</option>
                                                             </select>
@@ -299,7 +300,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="department">Departments</label>
+                                                            <label for="department">{{ $t('36') }}</label>
                                                             <select name="department" v-model="form.department" id="department" class="form-control">
                                                                 <option value="1">Sales</option>
                                                                 <option value="2">Development</option>
@@ -310,7 +311,7 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="emp_level">Employment Level</label>
+                                                            <label for="emp_level">{{ $t('37') }}</label>
                                                             <select name="emp_level" v-model="form.emp_level" id="emp_level" class="form-control">
                                                                 <option value="1">Senior</option>
                                                                 <option value="2">Junior</option>
@@ -319,7 +320,7 @@
                                                     </div>
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label class="required" for="join_date">Join Date <span style="color:red">*</span></label>
+                                                            <label class="required" for="join_date">{{ $t('38') }}<span style="color:red">*</span></label>
                                                             <input type="date" id="join_date" name="join_date" v-model="form.join_date" class="form-control" :class="{ 'is-invalid': form.errors.has('join_date') }">
                                                             <has-error :form="form" field="join_date"></has-error>
                                                         </div>
@@ -328,7 +329,7 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="branch" class="required">Branches <span style="color:red">*</span></label>
+                                                            <label for="branch" class="required">{{ $t('39') }}<span style="color:red">*</span></label>
                                                             <select name="branch" v-model="form.branch" id="branch" class="form-control">
                                                                 <option value="1">Main Branch</option>
                                                                 <option value="2">Assiut Branch</option>
@@ -348,7 +349,7 @@
                                                 <div class="row mt-4">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="attendance_shift">Attendance Shift</label>
+                                                            <label for="attendance_shift">{{ $t('40') }}</label>
                                                             <select name="attendance_shift" v-model="form.attendance_shift" id="attendance_shift" class="form-control">
                                                                 <option value="1">Morning Shift</option>
                                                             </select>
@@ -356,7 +357,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="leave_policy">Leave Policy</label>
+                                                            <label for="leave_policy">{{ $t('41') }}</label>
                                                             <select name="leave_policy" v-model="form.leave_policy" id="leave_policy" class="form-control">
                                                                 <option value="1">Sick Leave</option>
                                                             </select>
@@ -366,7 +367,7 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="holiday_lists">Holiday Lists</label>
+                                                            <label for="holiday_lists">{{ $t('42') }}</label>
                                                             <select name="holiday_lists" v-model="form.holiday_lists" id="holiday_lists" class="form-control">
                                                                 <option value="1">Eid Holiday</option>
                                                             </select>
@@ -378,10 +379,8 @@
                                         <hr>
 
                                         <div class="form-group pt-2 ml-3 float-right">
-                                            <button class="btn btn-success" type="submit">Save</button>
-                                            <router-link :to="{ path: '/manage_emp'}" class="btn btn-danger">
-                                                Cancel
-                                            </router-link>
+                                            <button class="btn btn-success" type="submit">{{ $t('121') }}</button>
+                                            <router-link :to="{ path: '/manage_emp'}" class="btn btn-danger">{{ $t('43') }}</router-link>
                                         </div>
                                     </div>
                                 </div>

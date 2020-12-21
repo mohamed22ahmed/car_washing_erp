@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Shift Management
+                        <div class="card-header">{{ $t('65') }}
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; Add Shift
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('66') }}
                                 </button>
                             </div>
                         </div>
@@ -17,10 +17,10 @@
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Modify</th>
+                                            <th>{{ $t('108') }}</th>
+                                            <th>{{ $t('50') }}</th>
+                                            <th>{{ $t('16') }}</th>
+                                            <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -52,8 +52,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Shift</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Shift</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('66') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -62,13 +62,13 @@
                         <div class="modal-body">
                             <div class="row">
                                <div class="form-group col-md-6">
-                                    <label for="name" class="control-label">English Name *</label>
+                                    <label for="name" class="control-label">{{ $t('50') }} *</label>
                                     <input v-model="form.name" type="text" name="name" placeholder="English Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                                     <has-error :form="form" field="name"></has-error>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="control-label">Arabic Name *</label>
+                                    <label for="name" class="control-label">{{ $t('56') }} *</label>
                                     <input v-model="form.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
                                     <has-error :form="form" field="name_ar"></has-error>
                                 </div>
@@ -76,7 +76,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="on_duty_time">On Duty Time *</label>
+                                    <label for="on_duty_time">{{ $t('67') }} *</label>
                                     <div>
                                         <input type="time" name="on_duty_time" v-model="form.on_duty_time" id="on_duty_time" class="form-control" :class="{ 'is-invalid': form.errors.has('on_duty_time') }">
                                         <has-error :form="form" field="on_duty_time"></has-error>
@@ -84,7 +84,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="off_duty_time">Off Duty Time *</label>
+                                    <label for="off_duty_time">{{ $t('68') }} *</label>
                                     <div>
                                         <input type="time" name="off_duty_time" v-model="form.off_duty_time" id="off_duty_time" class="form-control" :class="{ 'is-invalid': form.errors.has('off_duty_time') }">
                                         <has-error :form="form" field="off_duty_time"></has-error>
@@ -94,7 +94,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="begin_in">Beginning In *</label>
+                                    <label for="begin_in">{{ $t('69') }} *</label>
                                     <div>
                                         <input type="time" name="begin_in" v-model="form.begin_in" id="begin_in" class="form-control" :class="{ 'is-invalid': form.errors.has('begin_in') }">
                                         <has-error :form="form" field="begin_in"></has-error>
@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="begin_out">Ending In *</label>
+                                    <label for="begin_out">{{ $t('70') }} *</label>
                                     <div>
                                         <input type="time" name="begin_out" v-model="form.begin_out" id="begin_out" class="form-control" :class="{ 'is-invalid': form.errors.has('begin_out') }">
                                         <has-error :form="form" field="begin_out"></has-error>
@@ -112,7 +112,7 @@
 
                             <div class="row" v-if="form.shift_two==1">
                                 <div class="form-group col-md-6">
-                                    <label for="shift_begin_in">Beginning In * (Shift 2)</label>
+                                    <label for="shift_begin_in">{{ $t('69') }} * ({{ $t('71') }} 2)</label>
                                     <div>
                                         <input type="time" name="shift_begin_in" v-model="form.shift_begin_in" id="shift_begin_in" class="form-control" :class="{ 'is-invalid': form.errors.has('shift_begin_in') }">
                                         <has-error :form="form" field="shift_begin_in"></has-error>
@@ -120,7 +120,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="shift_begin_out">Ending In * (Shift 2)</label>
+                                    <label for="shift_begin_out">{{ $t('70') }} * ({{ $t('71') }} 2)</label>
                                     <div>
                                         <input type="time" name="shift_begin_out" v-model="form.shift_begin_out" id="shift_begin_out" class="form-control" :class="{ 'is-invalid': form.errors.has('shift_begin_out') }">
                                         <has-error :form="form" field="shift_begin_out"></has-error>
@@ -130,7 +130,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Week Days</label>
+                                    <label class="control-label">{{ $t('72') }}</label>
                                     <v-select multiple  :options="week_days"
                                             label="name" id="allowances_include"
                                             name="allowances_include">
@@ -140,7 +140,7 @@
                                     <label class="control-label"></label>
                                     <div class="custom-control custom-switch custom-switch-on-success">
                                         <input type="checkbox"  class="custom-control-input" id="shift_two" checked name="shift_two" v-model="form.shift_two">
-                                        <label class="custom-control-label" for="shift_two">Assign Another Shift</label>
+                                        <label class="custom-control-label" for="shift_two">{{ $t('73') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                                 <div class="form-group col-md-6">
                                     <div class="form-check">
                                         <input v-model="form.delay_after_mins_flag" type="checkbox" name="delay_after_mins_flag" id="delay_after_mins_flag" class="form-check-input">
-                                        <label for="delay_after_mins_flag" class="form-check-label">Start late time from on duty *</label>
+                                        <label for="delay_after_mins_flag" class="form-check-label">{{ $t('74') }} *</label>
                                     </div>
                                 </div>
 
@@ -159,9 +159,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

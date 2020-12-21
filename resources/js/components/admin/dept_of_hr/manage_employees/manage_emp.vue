@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Employees List
+                    <div class="card-header">{{ $t('48') }}
                         <div class="card-tools">
                             <router-link :to="{ path: '/emp_infos_create'}" class="btn btn-success">
-                                <i class="fas fa-user-plus fa-fw"></i>&nbsp; Add Employee
+                                <i class="fas fa-user-plus fa-fw"></i>&nbsp;{{ $t('49') }}
                             </router-link>
                         </div>
                     </div>
@@ -14,10 +14,10 @@
                         <table class="table table-bordered table-responsive-md text-center">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Modify</th>
+                                    <th>{{ $t('108') }}</th>
+                                    <th>{{ $t('50') }}</th>
+                                    <th>{{ $t('16') }}</th>
+                                    <th>{{ $t('110') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

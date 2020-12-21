@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Leave Policy List
+                        <div class="card-header">{{ $t('81') }}
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; Add Leave Policy
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('82') }}
                                 </button>
                             </div>
                         </div>
@@ -22,10 +22,10 @@
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Modify</th>
+                                            <th>{{ $t('108') }}</th>
+                                            <th>{{ $t('50') }}</th>
+                                            <th>{{ $t('16') }}</th>
+                                            <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -57,8 +57,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Leave Policy</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Leave Policy</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('82') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,16 +70,16 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Name*</label>
+                                                <label for="name">{{ $t('50') }} <span style="color:red">*</span></label>
                                                  <input type="text" placeholder="Ex: leave policy 1" class="form-control" v-model="form.name" name="name" id="name">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="status" class="required">Status*</label>
+                                                <label for="status" class="required">{{ $t('18') }} <span style="color:red">*</span></label>
                                                 <select name="status" v-model="form.status" id="status" class="form-control">
-                                                    <option value="1">Active</option>
-                                                    <option value="2">Inactive</option>
+                                                    <option value="1">{{ $t('19') }}</option>
+                                                    <option value="2">{{ $t('20') }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -131,9 +131,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

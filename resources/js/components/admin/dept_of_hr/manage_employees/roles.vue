@@ -5,10 +5,10 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Roles</h3>
+                            <h3 class="card-title">{{ $t('23') }}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                <i class="fas fa-plus fa-fw"></i>&nbsp; Add Role</button>
+                                <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('55') }}</button>
                             </div>
                         </div>
 
@@ -16,10 +16,10 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Name Ar</th>
-                                        <th>modify</th>
+                                        <th>{{ $t('108') }}</th>
+                                        <th>{{ $t('50') }}</th>
+                                        <th>{{ $t('56') }}</th>
+                                        <th>{{ $t('110') }}</th>
                                     </tr>
                                     <tr v-for="role in roles.data" :key="role.id">
                                         <td>{{ role.id }}</td>
@@ -51,8 +51,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
-                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update</h5>
+                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">{{ $t('55') }}</h5>
+                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -61,22 +61,22 @@
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="name" class="col-sm-4 control-label">Name</label>
+                                <label for="name" class="col-sm-4 control-label">{{ $t('50') }}</label>
                                 <input type="text" v-model="form.name" name="name" placeholder="English Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                                 <has-error :form="form" field="name"></has-error>
                             </div>
 
                             <div class="form-group">
-                                <label for="name" class="col-sm-4 control-label">Name Ar</label>
+                                <label for="name" class="col-sm-4 control-label">{{ $t('56') }}</label>
                                 <input v-model="form.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
                                 <has-error :form="form" field="name_ar"></has-error>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

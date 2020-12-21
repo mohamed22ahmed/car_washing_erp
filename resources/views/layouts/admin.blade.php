@@ -245,14 +245,14 @@
                                 <li class="nav-item {{  url()->current()==url('/roles')?'current':'' }}">
                                     <router-link to='/roles' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee Role</p>
+                                        <p>{{ t('23') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/permissions')?'current':'' }}">
                                     <router-link to='/permissions' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Permissions</p>
+                                        <p>{{ t('51') }}</p>
                                     </router-link>
                                 </li>
 
@@ -272,19 +272,19 @@
                                 <li class="nav-item {{  url()->current()==url('/attendance_permissions')?'current':'' }}">
                                     <router-link to='/attendance_permissions' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Attendance Permissions</p>
+                                        <p>{{ t('57') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/shift_management')?'current':'' }}">
                                     <router-link to='/shift_management' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Shift Management</p>
+                                        <p>{{ t('65') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/settings')?'current':'' }}">
                                     <router-link to='/settings' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Settings</p>
+                                        <p>{{ t('75') }}</p>
                                     </router-link>
                                 </li>
                             </ul>

@@ -3,20 +3,20 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">Role Permissions</div>
+                    <div class="card-header">{{ $t('51') }}</div>
 
                     <div class="card-body">
                         <form @submit.prevent="set_permissions()">
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Role</label>
+                                        <label class="control-label">{{ $t('23') }}</label>
                                         <select class="form-control" id="role_id" name="role_id" v-model="form.role_id" @change="get_roles">
                                             <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Module Name</label>
+                                        <label class="control-label">{{ $t('52') }}</label>
                                         <select class="form-control" id="module_id" name="module_id" v-model="module_id" @change="get_pages">
                                             <option v-for="mod in modules" :key="mod.module_id" :value="mod.module_id">{{ mod.module_name }}</option>
                                         </select>
@@ -29,11 +29,11 @@
                                         <table class="table table-hover">
                                             <tbody>
                                                 <tr>
-                                                    <th>Page</th>
-                                                    <th class="text-center">Save</th>
-                                                    <th class="text-center">Update</th>
-                                                    <th class="text-center">delete</th>
-                                                    <th class="text-center">Search</th>
+                                                    <th>{{ $t('53') }}</th>
+                                                    <th class="text-center">{{ $t('121') }}</th>
+                                                    <th class="text-center">{{ $t('105') }}</th>
+                                                    <th class="text-center">{{ $t('106') }}</th>
+                                                    <th class="text-center">{{ $t('53') }}</th>
                                                 </tr>
                                                 <tr v-for="page in form.pages" :key="page.screen_name">
                                                     <td>{{ page.screen_name }}</td>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
                             </div>
                         </form>
                     </div>

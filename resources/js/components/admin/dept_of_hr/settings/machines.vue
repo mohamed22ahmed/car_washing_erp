@@ -5,10 +5,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Machines List
+                        <div class="card-header">{{ $t('78') }}
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                <i class="fas fa-plus fa-fw"></i>&nbsp; Add Machine</button>
+                                <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('79') }}</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -16,9 +16,9 @@
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Modify</th>
+                                                <th>{{ $t('108') }}</th>
+                                                <th>{{ $t('50') }}</th>
+                                                <th>{{ $t('110') }}</th>
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -49,10 +49,10 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Machine</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Machine</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('79') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
@@ -60,7 +60,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="machine" class="required">Machine Type *</label>
+                                        <label for="machine" class="required">{{ $t('80') }} <span style="color:red">*</span></label>
                                         <select name="machine" id="machine"  v-model="form.machine" class="form-control">
                                             <option value="-1">Select Type</option>
                                             <option value="1">Type one</option>
@@ -70,9 +70,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>
