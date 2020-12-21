@@ -38,9 +38,9 @@
                             </table>
                         </div>
 
-                        <div class="card-footer">
-                            <pagination :data="roles" @pagination-change-page="getResults"></pagination>
-                        </div>
+                            <div class="card-footer">
+                                <pagination :data="roles" @pagination-change-page="getResults"></pagination>
+                            </div>
                     </div>
                 </div>
             </div>

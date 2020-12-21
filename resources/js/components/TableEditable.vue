@@ -8,15 +8,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="table" class="table-editable">
-                    <span class="table-add float-right mb-3 mr-2">Add new line<a @click="tableInsert" href="#!" class="text-success"><i
+                    <span class="table-add float-right mb-3 mr-2">{{ $t('119') }}<a @click="tableInsert" href="#!" class="text-success"><i
                      class="fas fa-plus mx-2" aria-hidden="true"></i></a></span>
                     <table class="table table-bordered table-responsive-md text-center">
                     <thead class="thead-light">
                         <tr >
-                            <th class="text-center">Account Name</th>
-                            <th class="text-center">Description</th>
-                            <th class="text-center">Depit</th>
-                            <th class="text-center">Credit</th>
+                            <th class="text-center">{{ $t('116') }}</th>
+                            <th class="text-center">{{ $t('113') }}</th>
+                            <th class="text-center">{{ $t('117') }}</th>
+                            <th class="text-center">{{ $t('118') }}</th>
                             <th class="text-center">&nbsp;</th>
                         </tr>
                     </thead>
@@ -28,14 +28,14 @@
                             <td class="pt-3-half" contenteditable="true"></td>
                             <td>
                                 <span class="table-remove"><button type="button"
-                                    class="btn btn-danger btn-rounded btn-sm my-0">delete</button>
+                                    class="btn btn-danger btn-rounded btn-sm my-0">{{ $t('106') }}</button>
                                 </span>
                             </td>
                         </tr>
                     </tbody>
                     <tr>
                         <td></td>
-                        <td>Total</td>
+                        <td>{{ $t('120') }}</td>
                         <td>0.00</td>
                         <td>0.00</td>
                         <td></td>

@@ -4,9 +4,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Chart OF Accounts
+                    <div class="card-header">
+                    <h3 class="card-title">{{ $t('122') }}</h3>
                         <div class="card-tools">
-                            <button class="btn btn-success" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
+                            <button class="btn btn-success" @click="newModal">
+                            <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('102') }}</button>
                         </div>
                     </div>
                     <mdb-treeview>
@@ -80,8 +82,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Account</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Account</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('123') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('123') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,13 +93,13 @@
                             <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="required" for="parent_account">Parent Account</label>
+                                    <label class="required" for="parent_account">{{ $t('124') }}</label>
                                     <input class="form-control" v-model="form.parent_account" type="text" name="parent_account">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account_number">Account Number</label>
+                                    <label for="account_number">{{ $t('125') }}</label>
                                     <input class="form-control" v-model="form.account_number" type="number" name="account_number">
                                 </div>
                             </div>
@@ -105,18 +107,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account_name">Account Name</label>
+                                    <label for="account_name">{{ $t('126') }}</label>
                                     <input class="form-control" v-model="form.account_name" type="text" name="account_name">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account_type">Account Type</label>
+                                    <label for="account_type">{{ $t('127') }}</label>
                                     <div>
                                         <select name="account_type" v-model="form.account_type" id="account_type" class="form-control">
-                                            <option value="-1">choose</option>
-                                            <option value="1">Main</option>
-                                            <option value="2">Sub</option>
+                                            <option value="-1">{{ $t('115') }}</option>
+                                            <option value="1">{{ $t('130') }}</option>
+                                            <option value="2">{{ $t('131') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -125,10 +127,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="balance_type">Balance Type</label>
+                                    <label for="balance_type">{{ $t('128') }}</label>
                                     <div>
                                         <select name="balance_type" v-model="form.balance_type" id="balance_type" class="form-control">
-                                            <option value="-1">choose</option>
+                                            <option value="-1">{{ $t('115') }}</option>
                                             <option value="1">balance type one</option>
                                             <option value="2">balance type two</option>
                                         </select>
@@ -137,10 +139,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="final_account">Final Account</label>
+                                    <label for="final_account">{{ $t('129') }}</label>
                                     <div>
                                         <select name="final_account" v-model="form.final_account" id="final_account" class="form-control">
-                                            <option value="-1">choose</option>
+                                            <option value="-1">{{ $t('115') }}</option>
                                             <option value="1">account one</option>
                                             <option value="2">account two</option>
                                         </select>
@@ -150,9 +152,9 @@
                         </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

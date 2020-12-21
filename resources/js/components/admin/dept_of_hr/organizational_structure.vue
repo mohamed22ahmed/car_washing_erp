@@ -4,26 +4,27 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Organizational Structure
+                        <div class="card-header">
+                        <h3 class="card-title">{{ $t('132') }}</h3>
                             <div class="card-tools">
-                                <button class="btn btn-success" @click="newDesignations">Add Designations</button>
-                                <button class="btn btn-success" @click="newDeparment">Add Department</button>
-                                <button class="btn btn-success" @click="newEmpLevel">Add Employee Level</button>
+                                <button class="btn btn-success" @click="newDesignations">{{ $t('133') }} {{ $t('35') }}</button>
+                                <button class="btn btn-success" @click="newDeparment">{{ $t('133') }} {{ $t('36') }}</button>
+                                <button class="btn btn-success" @click="newEmpLevel">{{ $t('133') }} {{ $t('37') }}</button>
                             </div>
                         </div>
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="filters">Filters</label>
+                                    <label for="filters">{{ $t('134') }}</label>
                                     <select name="filters" id="filters"  v-model="form.filters" class="form-control">
-                                        <option value="-1">All</option>
-                                        <option value="1">Designations</option>
-                                        <option value="2">Department</option>
-                                        <option value="3">Employee Level</option>
+                                        <option value="-1">{{ $t('135') }}</option>
+                                        <option value="1">{{ $t('35') }}</option>
+                                        <option value="2">{{ $t('36') }}</option>
+                                        <option value="3">{{ $t('37') }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3" style="margin-top:31px">
-                                    <button class="btn btn-danger" @click="search">Search</button>
+                                    <button class="btn btn-danger" @click="search">{{ $t('54') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -32,10 +33,10 @@
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Modify</th>
+                                                <th>{{ $t('109') }}</th>
+                                                <th>{{ $t('50') }}</th>
+                                                <th>{{ $t('18') }}</th>
+                                                <th>{{ $t('110') }}</th>
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -66,8 +67,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Designation</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Designation</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('35') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('35') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -77,17 +78,17 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="required" for="name">Name*</label>
+                                        <label for="name">{{ $t('50') }}<span style="color:red;">*</span></label>
                                         <input class="form-control"  v-model="form.name" type="text" name="name" id="name" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="status" class="required">status*</label>
+                                        <label for="status">{{ $t('18') }}<span style="color:red;">*</span></label>
                                         <select name="status" id="status"  v-model="form.status" class="form-control">
-                                            <option value="-1">choose</option>
-                                            <option value="1">Active</option>
-                                            <option value="2">Stopped</option>
+                                            <option value="-1">{{ $t('115') }}</option>
+                                            <option value="1">{{ $t('19') }}</option>
+                                            <option value="2">{{ $t('20') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -95,16 +96,16 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="description">Description</label>
+                                        <label for="description">{{ $t('113') }}</label>
                                         <textarea class="form-control" cols="30" type="text"  v-model="form.description" name="description" id="description"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>
@@ -114,8 +115,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Deparment</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Deparment</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('36') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('36') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -125,13 +126,13 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="required" for="name">Name*</label>
+                                        <label class="required" for="name">{{ $t('50') }}<span style="color:red;">*</span></label>
                                         <input class="form-control"  v-model="form.name" type="text" name="name" id="name" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="abbreviation">Abbreviation</label>
+                                        <label for="abbreviation">{{ $t('136') }}</label>
                                         <input class="form-control"  v-model="form.abbreviation" type="text" name="abbreviation" id="abbreviation">
                                     </div>
                                 </div>
@@ -139,17 +140,17 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="status" class="required">status*</label>
+                                        <label for="status">{{ $t('18') }}<span style="color:red;">*</span></label>
                                         <select name="status" id="status"  v-model="form.status" class="form-control">
-                                            <option value="-1">choose</option>
-                                            <option value="1">Active</option>
-                                            <option value="2">Stopped</option>
+                                            <option value="-1">{{ $t('115') }}</option>
+                                            <option value="1">{{ $t('19') }}</option>
+                                            <option value="2">{{ $t('20') }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="description">Description</label>
+                                        <label for="description">{{ $t('113') }}</label>
                                         <textarea class="form-control" cols="30" type="text"  v-model="form.description" name="description" id="description"></textarea>
                                     </div>
                                 </div>
@@ -157,9 +158,9 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="assign_manager">Select Employee</label>
+                                        <label for="assign_manager">{{ $t('137') }}</label>
                                         <select name="assign_manager" id="assign_manager"  v-model="form.assign_manager" class="form-control">
-                                            <option value="-1">choose</option>
+                                            <option value="-1">{{ $t('115') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -167,9 +168,9 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="month">Month</label>
+                                        <label for="month">{{ $t('138') }}</label>
                                         <select name="month" id="month"  v-model="form.month" class="form-control">
-                                            <option value="-1">Select Month</option>
+                                            <option value="-1">{{ $t('115') }} {{ $t('138') }}</option>
                                             <option value="1">January</option>
                                             <option value="2">February</option>
                                             <option value="3">March</option>
@@ -187,9 +188,9 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="day">Day</label>
+                                        <label for="day">{{ $t('139') }}</label>
                                         <select name="day" id="day"  v-model="form.day" class="form-control">
-                                            <option value="-1">Select Day</option>
+                                            <option value="-1">{{ $t('115') }} {{ $t('139') }}</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -206,9 +207,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>
@@ -218,8 +219,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Create Employee Level</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Update Employee Level</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('104') }} {{ $t('37') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }} {{ $t('37') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -229,17 +230,17 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="required" for="name">Name*</label>
+                                        <label>{{ $t('50') }}<span style="color:red;">*</span></label>
                                         <input class="form-control"  v-model="form.name" type="text" name="name" id="name" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="status" class="required">status*</label>
+                                        <label for="status">{{ $t('18') }}<span style="color:red;">*</span></label>
                                         <select name="status" id="status"  v-model="form.status" class="form-control">
-                                            <option value="-1">choose</option>
-                                            <option value="1">Active</option>
-                                            <option value="2">Stopped</option>
+                                            <option value="-1">{{ $t('115') }}</option>
+                                            <option value="1">{{ $t('19') }}</option>
+                                            <option value="2">{{ $t('20') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -247,16 +248,16 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="description">Description</label>
+                                        <label for="description">{{ $t('113') }}</label>
                                         <textarea class="form-control" cols="30" type="text"  v-model="form.description" name="description" id="description"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>

@@ -4,17 +4,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Attendance Logs
+                        <div class="card-header">
+                        <h3 class="card-title">{{ $t('140') }}</h3>
                             <div class="card-tools">
                             <div class="input-group mr-3">
                                 <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-success">Add New</button>
+                                    <button type="button" class="btn btn-success">{{ $t('102') }}</button>
                                     <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu">
-                                    <button class="dropdown-item" style="hover:light" @click="pullFromMachine">Pull From Machine</button>
-                                    <button class="dropdown-item" @click="takeEmpAttendance">Take Employees Attendance</button>
+                                    <button class="dropdown-item" style="hover:light" @click="pullFromMachine">{{ $t('141') }}</button>
+                                    <button class="dropdown-item" @click="takeEmpAttendance">{{ $t('142') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -25,9 +26,9 @@
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Modify</th>
+                                                <th>{{ $t('109') }}</th>
+                                                <th>{{ $t('50') }}</th>
+                                                <th>{{ $t('110') }}</th>
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -57,8 +58,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Pull Attendance Logs</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Pull Attendance Logs</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('143') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('143') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -68,18 +69,18 @@
                             <div class="row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="machine" class="required">Machine*</label>
+                                        <label for="machine">{{ $t('144') }}<span style="color:red;">*</span></label>
                                         <select name="machine" id="machine"  v-model="form.machine" class="form-control">
-                                            <option value="-1">Select Machine</option>
+                                            <option value="-1">{{ $t('145') }}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Pull</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('146') }}</button>
                         </div>
                     </form>
                 </div>
@@ -89,8 +90,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">Attendance Session 14/12/2020</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">Attendance Session 14/12/202</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('147') }} 14/12/2020</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('147') }} 14/12/202</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -100,18 +101,18 @@
                             <div class="row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="employee">Employee*</label>
+                                        <label for="employee">{{ $t('50') }}<span style="color:red;">*</span></label>
                                         <select name="employee" id="employee" v-model="form.employee" class="form-control">
-                                            <option value="-1">Select Employee</option>
+                                            <option value="-1">{{ $t('137') }}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Sign</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('148') }}</button>
                         </div>
                     </form>
                 </div>
