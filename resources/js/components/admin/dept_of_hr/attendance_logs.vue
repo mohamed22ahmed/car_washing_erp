@@ -32,20 +32,20 @@
                                             </tr>
                                     </thead>
                                     <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Nada</td>
-                                                <td>
-                                                    <a href="#" @click="editModal(code_table)">
-                                                        <i class="fa fa-edit blue"></i>
-                                                    </a>
-                                                    /
-                                                    <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
-                                                        <i class="fa fa-trash red"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nada</td>
+                                            <td>
+                                                <a href="#" @click="editModal(code_table)">
+                                                    <i class="fa fa-edit blue"></i>
+                                                </a>
+                                                /
+                                                <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

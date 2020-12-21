@@ -4,7 +4,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">{{ $t('57') }}
+                        <div class="card-header">
+                        <h3 class="card-title">{{ $t('57') }}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
                                     <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('58') }}

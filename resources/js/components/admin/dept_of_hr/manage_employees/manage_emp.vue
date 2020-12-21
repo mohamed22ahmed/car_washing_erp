@@ -3,15 +3,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ $t('48') }}
+                    <div class="card-header">
+                    <h3 class="card-title">{{ $t('48') }}</h3>
                         <div class="card-tools">
                             <router-link :to="{ path: '/emp_infos_create'}" class="btn btn-success">
                                 <i class="fas fa-user-plus fa-fw"></i>&nbsp;{{ $t('49') }}
                             </router-link>
                         </div>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-bordered table-responsive-md text-center">
+                        <div class="card-body">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered table-hover text-center">
                             <thead class="thead-light">
                                 <tr>
                                     <th>{{ $t('108') }}</th>
@@ -37,6 +39,7 @@
                             </tbody>
                         </table>
                     </div>
+                        </div>
                 </div>
             </div>
         </div>

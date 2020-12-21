@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="container">
-            <div class="row mt-5"  >
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -12,15 +12,18 @@
                             </div>
                         </div>
 
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover">
-                                <tbody>
+                        <div class="card-body">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered table-hover text-center">
+                                <thead class="thead-light">
                                     <tr>
                                         <th>{{ $t('108') }}</th>
                                         <th>{{ $t('50') }}</th>
                                         <th>{{ $t('56') }}</th>
                                         <th>{{ $t('110') }}</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <tr v-for="role in roles.data" :key="role.id">
                                         <td>{{ role.id }}</td>
                                         <td>{{ role.name }}</td>
@@ -38,9 +41,10 @@
                             </table>
                         </div>
 
-                            <div class="card-footer">
+                            <!--<div class="card-footer">
                                 <pagination :data="roles" @pagination-change-page="getResults"></pagination>
-                            </div>
+                            </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
