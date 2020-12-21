@@ -7,8 +7,8 @@
         },
         {
             "dic_id": 101,
-            "name": "List",
-            "name_ar": "قائمة"
+            "name": "Date",
+            "name_ar": "التاريخ"
         },
         {
             "dic_id": 102,
@@ -17,8 +17,8 @@
         },
         {
             "dic_id": 103,
-            "name": "New",
-            "name_ar": "جديد"
+            "name": "Type",
+            "name_ar": "النوع"
         },
         {
             "dic_id": 104,
@@ -31,35 +31,219 @@
             "name_ar": "تعديل"
         },
         {
-            "dic_id": 105,
+            "dic_id": 106,
             "name": "Delete",
             "name_ar":"حذف"
         },
         {
-            "dic_id": 106,
+            "dic_id": 107,
             "name": "Show",
             "name_ar": "عرض"
         },
         {
-            "dic_id": 107,
-            "name": "Jornal",
-            "name_ar": "قيد يومى"
-        },
-        {
             "dic_id": 108,
+            "name": "Jornal",
+            "name_ar": "قيد يومى"
+        },
+        {
+            "dic_id": 109,
             "name": "ID",
-            "name_ar": ""
+            "name_ar": "الرقم التعريفى"
         },
         {
-            "dic_id": 107,
-            "name": "Jornal",
-            "name_ar": "قيد يومى"
+            "dic_id": 110,
+            "name": "Modify",
+            "name_ar": "تعديل"
         },
         {
-            "dic_id": 107,
-            "name": "Jornal",
-            "name_ar": "قيد يومى"
+            "dic_id": 111,
+            "name": "Currency",
+            "name_ar": "العملة"
         },
-
+        {
+            "dic_id": 112,
+            "name": "Number",
+            "name_ar": "الرقم"
+        },
+        {
+            "dic_id": 113,
+            "name": "Description",
+            "name_ar": "الوصف"
+        },
+        {
+            "dic_id": 114,
+            "name": "Close",
+            "name_ar": "إغلاق"
+        },
+        {
+            "dic_id": 115,
+            "name": "Choose",
+            "name_ar": "اختـــر"
+        },
+        {
+            "dic_id": 116,
+            "name": "Account Name",
+            "name_ar": "إسم الحساب"
+        },
+        {
+            "dic_id": 117,
+            "name": "Depit",
+            "name_ar": "الدائن"
+        },
+        {
+            "dic_id": 118,
+            "name": "Credit",
+            "name_ar": "المدين"
+        },
+        {
+            "dic_id": 119,
+            "name": "Add new line",
+            "name_ar": "إضافة سطر جديد"
+        },
+        {
+            "dic_id": 120,
+            "name": "Total",
+            "name_ar": "المجموع"
+        },
+        {
+            "dic_id": 121,
+            "name": "Save",
+            "name_ar": "حفظ"
+        },
+        {
+            "dic_id": 122,
+            "name": "Chart Of Accounts",
+            "name_ar": "دليل الحسابات"
+        },
+        {
+            "dic_id": 123,
+            "name": "Account",
+            "name_ar": "حساب"
+        },
+        {
+            "dic_id": 124,
+            "name": "Parent Account",
+            "name_ar": "الحساب الاصلي"
+        },
+        {
+            "dic_id": 125,
+            "name": "Account Number",
+            "name_ar": "رقم الحساب"
+        },
+        {
+            "dic_id": 126,
+            "name": "Account Name",
+            "name_ar": "إسم الحساب"
+        },
+        {
+            "dic_id": 127,
+            "name": "Account Type",
+            "name_ar": "نوع الحساب"
+        },
+        {
+            "dic_id": 128,
+            "name": "Balance Type",
+            "name_ar": "نوع الرصيد"
+        },
+        {
+            "dic_id": 129,
+            "name": "Final Account",
+            "name_ar": "الحساب النهائى"
+        },
+        {
+            "dic_id": 130,
+            "name": "Main",
+            "name_ar": "رئيسى"
+        },
+        {
+            "dic_id": 131,
+            "name": "Sub",
+            "name_ar": "فرعى"
+        },
+        {
+            "dic_id": 132,
+            "name": "Organizational Structure",
+            "name_ar": "الهيكل التنظيمى"
+        },
+        {
+            "dic_id": 133,
+            "name": "Add",
+            "name_ar": "إضافة"
+        },
+        {
+            "dic_id": 134,
+            "name": "Filters",
+            "name_ar": "التصفيات"
+        },
+        {
+            "dic_id": 135,
+            "name": "All",
+            "name_ar": "الجميع"
+        },
+        {
+            "dic_id": 136,
+            "name": "Abbreviation",
+            "name_ar": "الإختصار"
+        },
+        {
+            "dic_id": 137,
+            "name": "Select Employee",
+            "name_ar": "إختار موظف"
+        },
+        {
+            "dic_id": 138,
+            "name": "Month",
+            "name_ar": "شهر"
+        },
+        {
+            "dic_id": 139,
+            "name": "Day",
+            "name_ar": "يوم"
+        },
+        {
+            "dic_id": 140,
+            "name": "Attendance Logs",
+            "name_ar": "سجلات الحضور"
+        },
+        {
+            "dic_id": 141,
+            "name": "Pull From Machine",
+            "name_ar": "سحب من الماكينه"
+        },
+        {
+            "dic_id": 142,
+            "name": "Take Employees Attendance",
+            "name_ar": "تسجيل حضور الموظفين"
+        },
+        {
+            "dic_id": 143,
+            "name": "Pull Attendance Logs",
+            "name_ar": "سحب سجلات الحضور"
+        },
+        {
+            "dic_id": 144,
+            "name": "Machine",
+            "name_ar": "الماكينة"
+        },
+        {
+            "dic_id": 145,
+            "name": "Select Machine",
+            "name_ar": "إختر ماكينة"
+        },
+        {
+            "dic_id": 146,
+            "name": "Pull",
+            "name_ar": "سحب"
+        },
+        {
+            "dic_id": 147,
+            "name": "Attendance Session",
+            "name_ar": "جلسة الحضور"
+        },
+        {
+            "dic_id": 148,
+            "name": "Sign",
+            "name_ar": "تسجيل"
+        }
     ]
 }

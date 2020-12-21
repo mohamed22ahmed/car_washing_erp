@@ -214,13 +214,13 @@
                                 <li class="nav-item {{  url()->current()==url('/jornals')?'current':'' }}">
                                     <router-link to='/jornals' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Jornals</p>
+                                        <p>{{ t('100') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/chart_of_account')?'current':'' }}">
                                     <router-link to='/chart_of_account' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Chart of Accounts</p>
+                                        <p>{{ t('122') }}</p>
                                     </router-link>
                                 </li>
                             </ul>
@@ -259,14 +259,14 @@
                                 <li class="nav-item {{  url()->current()==url('/organizational_structure')?'current':'' }}">
                                     <router-link to='/organizational_structure' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Organizational Structure</p>
+                                        <p>{{ t('132') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/attendance_logs')?'current':'' }}">
                                     <router-link to='/attendance_logs' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Attendance Logs</p>
+                                        <p>{{ t('140') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/attendance_permissions')?'current':'' }}">
