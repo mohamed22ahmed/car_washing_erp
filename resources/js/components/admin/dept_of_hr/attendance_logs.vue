@@ -149,17 +149,6 @@ export default {
             this.form.reset();
             $('#takeEmpAttendance').modal('show');
         },
-
-        pullFromMachine(user) {
-            this.editmode = false;
-            this.form.reset();
-            $('#pullFromMachine').modal('show');
-        },
-        takeEmpAttendance(user) {
-            this.editmode = false;
-            this.form.reset();
-            $('#takeEmpAttendance').modal('show');
-        },
     },
 
     // created() {

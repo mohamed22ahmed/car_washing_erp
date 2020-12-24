@@ -193,6 +193,9 @@
         {{--  company logo, company name, logged in user name and main sidebar --}}
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="/home" class="brand-link">
+                <div class="row justify-content-center mb-2">
+                    <img src="{{ asset('images/pp.jpg') }}" alt="Car Wash" class="rounded-circle img-responsive elevation-3" style="opacity: 1;height:70px;">
+                </div>
                 <div class="row  justify-content-center">
                     <span class="brand-text font-weight-light">{{ t('6') }}</span>
                 </div>

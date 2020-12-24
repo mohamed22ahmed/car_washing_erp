@@ -17,7 +17,7 @@
                                 <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>{{ $t('108') }}</th>
+                                        <th>{{ $t('109') }}</th>
                                         <th>{{ $t('50') }}</th>
                                         <th>{{ $t('56') }}</th>
                                         <th>{{ $t('110') }}</th>
