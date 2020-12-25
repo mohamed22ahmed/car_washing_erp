@@ -136,7 +136,7 @@
                                                 <div class="row mt-4" v-if="form.allow_access==1">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="language" class="required"><span style="color:red">*</span></label>
+                                                            <label for="language" class="required">{{ $t('22') }}<span style="color:red">*</span></label>
                                                             <select name="language" v-model="form.language" id="language" class="form-control">
                                                                 <option value="1">{{ $t('4') }}</option>
                                                                 <option value="2">{{ $t('5') }}</option>

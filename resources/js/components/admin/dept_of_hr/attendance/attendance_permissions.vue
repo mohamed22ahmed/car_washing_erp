@@ -18,7 +18,7 @@
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
                                         <tr>
-                                            <th>{{ $t('108') }}</th>
+                                            <th>{{ $t('109') }}</th>
                                             <th>{{ $t('50') }}</th>
                                             <th>{{ $t('16') }}</th>
                                             <th>{{ $t('110') }}</th>
@@ -66,8 +66,8 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="employee">{{ $t('59') }} *</label>
-                                                <select name="employee" v-model="form.employee" id="employee" class="form-control">
+                                                <label for="employee_id">{{ $t('59') }} *</label>
+                                                <select name="employee_id" v-model="form.employee_id" id="employee_id" class="form-control">
                                                     <option value="-1">choose</option>
                                                 </select>
                                             </div>
@@ -107,7 +107,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="leave_type" class="required">{{ $t('62')}}{{ $t('103') }} *</label>
+                                                <label for="leave_type" class="required">{{ $t('62')}} {{ $t('103') }} *</label>
                                                 <select name="leave_type" v-model="form.leave_type" id="leave_type" class="form-control">
                                                     <option value="-1">Please Select</option>
                                                 </select>
