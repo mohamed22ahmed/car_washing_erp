@@ -1,6 +1,5 @@
 {
-    "dic": [
-        {
+    "dic": [{
             "dic_id": 100,
             "name": "Jornals",
             "name_ar": "القيود اليومية"
@@ -33,7 +32,7 @@
         {
             "dic_id": 106,
             "name": "Delete",
-            "name_ar":"حذف"
+            "name_ar": "حذف"
         },
         {
             "dic_id": 107,
@@ -244,6 +243,11 @@
             "dic_id": 148,
             "name": "Sign",
             "name_ar": "تسجيل"
+        },
+        {
+            "dic_id": 149,
+            "name": "Delay In Minutes",
+            "name_ar": "التأخير بالدقائق"
         }
     ]
 }

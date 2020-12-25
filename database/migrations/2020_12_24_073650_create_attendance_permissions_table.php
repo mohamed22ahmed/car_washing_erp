@@ -15,6 +15,14 @@ class CreateAttendancePermissionsTable extends Migration
     {
         Schema::create('attendance_permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('employee_id');
+            $table->integer('att_date_type');
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
+            $table->integer('att_type');
+            $table->string('notes')->nallable();
+            $table->integer('leave_type');
+            $table->date('app_date');
             $table->timestamps();
         });
     }
