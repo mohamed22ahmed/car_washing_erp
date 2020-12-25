@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header text-center">
+                    <div class="card-header text-center pb-5">
                     <h2>{{ $t('75') }}</h2>
                     </div>
                     <div class="card-body">
