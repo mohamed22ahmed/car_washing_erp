@@ -19,22 +19,24 @@
                                 <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('16') }}</th>
+                                            <th>Employee Name</th>
+                                            <th>Attendance Date</th>
+                                            <th>Leave Type</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nada</td>
-                                        <td>nada@email.com</td>
+                                    <tr v-for="att in attendances.data" :key="att.id">
+                                        <td>{{ att.id }}</td>
+                                        <td>{{ att.name}}</td>
+                                        <td>{{ att.att_date_type }}</td>
+                                        <td>{{ att.leave_type }}</td>
                                         <td>
-                                            <a href="#" @click="editModal(code_table)">
+                                            <a href="#" @click="editAttendance(att)">
                                                 <i class="fa fa-edit blue"></i>
                                             </a>
                                             /
-                                            <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                            <a href="#" @click="deleteAttendance(att.id)">
                                                 <i class="fa fa-trash red"></i>
                                             </a>
                                         </td>
@@ -66,37 +68,40 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="employee_id">{{ $t('59') }} *</label>
-                                                <select name="employee_id" v-model="form.employee_id" id="employee_id" class="form-control">
-                                                    <option value="-1">choose</option>
+                                                <label for="employee_id">{{ $t('137') }}</label>
+                                                <select name="employee_id" id="employee_id"  v-model="form.employee_id" class="form-control">
+                                                    <option v-for="emp in employees" :key="emp.id" :value="emp.id">{{ emp.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-6">
-                                            <label for="date">{{ $t('101') }} *</label>
+                                            <label for="att_date">{{ $t('101') }} *</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <select name="select" v-model="form.select" id="select" class="form-control">
+                                                    <select name="att_date_type" v-model="form.att_date_type" id="att_date_type" class="form-control">
                                                         <option value="1">{{ $t('60') }}</option>
                                                         <option value="2">{{ $t('61') }}</option>
                                                     </select>
                                                 </div>
-                                                <input v-if="form.select==2" type="text" placeholder="From date" class="form-control" v-model="form.from_date" name="from_date" onfocus="(this.type='date')" onblur="(this.type='text')" id="from_date">
-                                                <input v-if="form.select==1" type="text" placeholder="From date" class="form-control" v-model="form.from_date" name="from_date" onfocus="(this.type='date')" onblur="(this.type='text')" id="from_date">
-                                                <input v-if="form.select==1" type="text" placeholder="To date" class="form-control" v-model="form.to_date" onfocus="(this.type='date')" onblur="(this.type='text')" name="to_date" id="to_date">
+                                                <input v-if="form.att_date_type==2" type="text" placeholder="From date" class="form-control" v-model="form.from_date" name="from_date" onfocus="(this.type='date')" onblur="(this.type='text')" id="from_date">
+                                                <input v-if="form.att_date_type==1" type="text" placeholder="From date" class="form-control" v-model="form.from_date" name="from_date" onfocus="(this.type='date')" onblur="(this.type='text')" id="from_date">
+                                                <input v-if="form.att_date_type==1" type="text" placeholder="To date" class="form-control" v-model="form.to_date" onfocus="(this.type='date')" onblur="(this.type='text')" name="to_date" id="to_date">
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="type">{{ $t('103') }} *</label>
-                                                <select name="type" v-model="form.type" id="type" class="form-control">
+                                                <label for="att_type">{{ $t('103') }} *</label>
+                                                <select name="att_type" v-model="form.att_type" id="att_type" class="form-control">
                                                     <option value="1">{{ $t('62') }}</option>
                                                     <option value="2">{{ $t('63') }}</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="notes">{{ $t('15') }}</label>
@@ -104,15 +109,21 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="form-group">
+                                            <div class="form-group" v-if="form.att_type==1">
                                                 <label for="leave_type" class="required">{{ $t('62')}} {{ $t('103') }} *</label>
                                                 <select name="leave_type" v-model="form.leave_type" id="leave_type" class="form-control">
                                                     <option value="-1">Please Select</option>
                                                 </select>
                                             </div>
+                                            <div class="form-group" v-if="form.att_type==2">
+                                                <label for="leave_type" class="required">{{ $t('149') }} *</label>
+                                                <input type="number" class="form-control" v-model="form.leave_type" name="leave_type" id="leave_type">
+                                            </div>
                                         </div>
+
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="app_date">{{ $t('64') }}</label>
@@ -140,19 +151,33 @@
         data: function(){
         return{
             editmode: false,
+            employees:{},
+            attendances:{},
             form: new Form({
-                employee:-1,
-                type:1,
+                id:'',
+                employee_id:'',
+                att_date_type:1,
                 from_date:'',
                 to_date:'',
-                select:1,
+                att_type:1,
                 notes:'',
-                leave_type:-1,
+                leave_type:'',
                 app_date:'',
             })
         }
     },
     methods:{
+        getResults(page = 1) {
+            axios.get('api/attendance_permissions/?page=' + page).then((response) => {
+                this.attendances = response.data;
+            });
+        },
+
+        getEmployees(){
+            axios.get('api/get_employees').then((res)=>{
+                this.employees=res.data
+            })
+        },
 
         newModal() {
             this.editmode = false;
@@ -160,12 +185,78 @@
             $('#addNew').modal('show');
         },
 
-        editModal(user){
+        createUser(){
+            this.$Progress.start();
+            this.form.post('api/attendance_permissions').then(()=>{
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Attendance Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
+        },
+
+        editAttendance(att){
             this.editmode = true;
             this.form.reset();
             $('#addNew').modal('show');
-            this.form.fill(user);
+            this.form.fill(att);
         },
+
+        updateUser(){
+            this.$Progress.start();
+            this.form.put('api/attendance_permissions/'+this.form.id).then(() => {
+                $('#addNew').modal('hide');
+                swal.fire(
+                    'Updated!',
+                    'Information has been updated.',
+                    'success'
+                )
+                this.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            })
+            .catch(() => {
+                this.$Progress.fail();
+            });
+        },
+
+        deleteAttendance(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.form.delete('api/attendance_permissions/'+id).then(()=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Role has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('AfterCreate');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This Role assigned to an employee.", "warning");
+                    });
+                }
+            })
+        },
+    },
+
+    created() {
+        this.getEmployees();
+        this.getResults()
+        Fire.$on('AfterCreate',() => {
+            this.getResults();
+        });
     },
 }
 </script>

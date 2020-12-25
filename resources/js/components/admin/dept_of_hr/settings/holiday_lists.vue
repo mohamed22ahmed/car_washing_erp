@@ -22,7 +22,7 @@
                                             <th>{{ $t('50') }}</th>
                                             <th>{{ $t('56') }}</th>
                                             <th>{{ $t('179') }}</th>
-                                            <th>{{ $t('180') }}</th>
+                                            <th>{{ $t('181') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="end_date">{{$t('180')}}</label>
+                                            <label for="end_date">{{$t('181')}}</label>
                                             <input type="date" class="form-control" v-model="form.end_date" name="end_date" id="end_date">
                                         </div>
                                     </div>

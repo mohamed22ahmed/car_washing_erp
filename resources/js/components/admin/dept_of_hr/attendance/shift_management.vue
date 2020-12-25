@@ -20,21 +20,21 @@
                                         <tr>
                                             <th>{{ $t('109') }}</th>
                                             <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('16') }}</th>
+                                            <th>{{ $t('56') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nada</td>
-                                        <td>nada@email.com</td>
+                                    <tr v-for="shift in shifts.data" :key="shift.id">
+                                        <td>{{ shift.id }}</td>
+                                        <td>{{ shift.name }}</td>
+                                        <td>{{ shift.name_ar }}</td>
                                         <td>
-                                            <a href="#" @click="editModal(code_table)">
+                                            <a href="#" @click="editShift(shift)">
                                                 <i class="fa fa-edit blue"></i>
                                             </a>
                                             /
-                                            <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                            <a href="#" @click="deleteShift(shift.id)">
                                                 <i class="fa fa-trash red"></i>
                                             </a>
                                         </td>
@@ -64,13 +64,13 @@
                             <div class="row">
                                <div class="form-group col-md-6">
                                     <label for="name" class="control-label">{{ $t('50') }} *</label>
-                                    <input v-model="form.name" type="text" name="name" placeholder="English Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                    <input v-model="form.name" type="text" name="name" placeholder="English Description" class="form-control">
                                     <has-error :form="form" field="name"></has-error>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="name" class="control-label">{{ $t('56') }} *</label>
-                                    <input v-model="form.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
+                                    <input v-model="form.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" dir="rtl">
                                     <has-error :form="form" field="name_ar"></has-error>
                                 </div>
                             </div>
@@ -79,52 +79,46 @@
                                 <div class="form-group col-md-6">
                                     <label for="on_duty_time">{{ $t('67') }} *</label>
                                     <div>
-                                        <input type="time" name="on_duty_time" v-model="form.on_duty_time" id="on_duty_time" class="form-control" :class="{ 'is-invalid': form.errors.has('on_duty_time') }">
-                                        <has-error :form="form" field="on_duty_time"></has-error>
+                                        <input type="time" name="on_duty_time" v-model="form.on_duty_time" id="on_duty_time" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="off_duty_time">{{ $t('68') }} *</label>
                                     <div>
-                                        <input type="time" name="off_duty_time" v-model="form.off_duty_time" id="off_duty_time" class="form-control" :class="{ 'is-invalid': form.errors.has('off_duty_time') }">
-                                        <has-error :form="form" field="off_duty_time"></has-error>
+                                        <input type="time" name="off_duty_time" v-model="form.off_duty_time" id="off_duty_time" class="form-control">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="begin_in">{{ $t('69') }} *</label>
+                                    <label for="begin1">{{ $t('69') }} *</label>
                                     <div>
-                                        <input type="time" name="begin_in" v-model="form.begin_in" id="begin_in" class="form-control" :class="{ 'is-invalid': form.errors.has('begin_in') }">
-                                        <has-error :form="form" field="begin_in"></has-error>
+                                        <input type="time" name="begin1" v-model="form.begin1" id="begin1" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="begin_out">{{ $t('70') }} *</label>
+                                    <label for="end1">{{ $t('70') }} *</label>
                                     <div>
-                                        <input type="time" name="begin_out" v-model="form.begin_out" id="begin_out" class="form-control" :class="{ 'is-invalid': form.errors.has('begin_out') }">
-                                        <has-error :form="form" field="begin_out"></has-error>
+                                        <input type="time" name="end1" v-model="form.end1" id="end1" class="form-control">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row" v-if="form.shift_two==1">
                                 <div class="form-group col-md-6">
-                                    <label for="shift_begin_in">{{ $t('69') }} * ({{ $t('71') }} 2)</label>
+                                    <label for="begin2">{{ $t('69') }} * ({{ $t('71') }} 2)</label>
                                     <div>
-                                        <input type="time" name="shift_begin_in" v-model="form.shift_begin_in" id="shift_begin_in" class="form-control" :class="{ 'is-invalid': form.errors.has('shift_begin_in') }">
-                                        <has-error :form="form" field="shift_begin_in"></has-error>
+                                        <input type="time" name="begin2" v-model="form.begin2" id="begin2" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="shift_begin_out">{{ $t('70') }} * ({{ $t('71') }} 2)</label>
+                                    <label for="end2">{{ $t('70') }} * ({{ $t('71') }} 2)</label>
                                     <div>
-                                        <input type="time" name="shift_begin_out" v-model="form.shift_begin_out" id="shift_begin_out" class="form-control" :class="{ 'is-invalid': form.errors.has('shift_begin_out') }">
-                                        <has-error :form="form" field="shift_begin_out"></has-error>
+                                        <input type="time" name="end2" v-model="form.end2" id="end2" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -132,16 +126,14 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="control-label">{{ $t('72') }}</label>
-                                    <v-select multiple  :options="week_days"
-                                            label="name" id="allowances_include"
-                                            name="allowances_include">
-                                    </v-select>
+                                    <v-select multiple  :options="week_days_all"  label="week_days" id="week_days" name="week_days" v-model="form.week_days"></v-select>
                                 </div>
+
                                 <div class="form-group col-md-6">
                                     <label class="control-label"></label>
                                     <div class="custom-control custom-switch custom-switch-on-success">
-                                        <input type="checkbox"  class="custom-control-input" id="shift_two" checked name="shift_two" v-model="form.shift_two">
-                                        <label class="custom-control-label" for="shift_two">{{ $t('73') }}</label>
+                                        <input type="checkbox"  class="custom-control-input" id="assign_another_shift" checked name="assign_another_shift" v-model="form.assign_another_shift">
+                                        <label class="custom-control-label" for="assign_another_shift">{{ $t('73') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -149,13 +141,13 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <div class="form-check">
-                                        <input v-model="form.delay_after_mins_flag" type="checkbox" name="delay_after_mins_flag" id="delay_after_mins_flag" class="form-check-input">
-                                        <label for="delay_after_mins_flag" class="form-check-label">{{ $t('74') }} *</label>
+                                        <input v-model="form.start_late" type="checkbox" name="start_late" id="start_late" class="form-check-input">
+                                        <label for="start_late" class="form-check-label">{{ $t('74') }} *</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <input :disabled="form.delay_after_mins_flag==0" v-model="form.delay_after_mins_period" type="time" name="delay_after_mins_period" class="form-control" :class="{ 'is-invalid': form.errors.has('delay_after_mins_period') }">
+                                    <input :disabled="form.start_late==0" v-model="form.late_minutes" type="number" name="late_minutes" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -175,25 +167,32 @@
     export default {
         data: function(){
         return{
-            week_days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            week_days_all:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            shifts:{},
             editmode: false,
             form: new Form({
-                name: '',
-                name_ar: '',
-                on_duty_time: '',
-                off_duty_time: '',
-                begin_in: '',
-                begin_out: '',
-                shift_begin_in: '',
-                shift_begin_out: '',
-                week_day: -1,
-                delay_after_mins_flag: 0,
-                delay_after_mins_period: 0,
-                shift_two:0,
+                id:'',
+                name:'',
+                name_ar:'',
+                on_duty_time:'',
+                off_duty_time:'',
+                begin1:'',
+                end1:'',
+                begin2:'',
+                end2:'',
+                assign_another_shift:0,
+                week_days:[],
+                start_late:0,
+                late_minutes:'',
             })
         }
     },
     methods:{
+        getResults(page = 1) {
+            axios.get('api/shift_management/?page=' + page).then((response) => {
+                this.shifts = response.data;
+            });
+        },
 
         newModal() {
             this.editmode = false;
@@ -201,12 +200,77 @@
             $('#addNew').modal('show');
         },
 
-        editModal(user){
+        createUser(){
+            this.$Progress.start();
+            this.form.post('api/shift_management').then(()=>{
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Shift Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
+        },
+
+        editShift(shift){
             this.editmode = true;
             this.form.reset();
             $('#addNew').modal('show');
-            this.form.fill(user);
+            this.form.fill(shift);
         },
+
+        updateUser(){
+            this.$Progress.start();
+            this.form.put('api/shift_management/'+this.form.id).then(() => {
+                $('#addNew').modal('hide');
+                swal.fire(
+                    'Updated!',
+                    'Information has been updated.',
+                    'success'
+                )
+                this.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            })
+            .catch(() => {
+                this.$Progress.fail();
+            });
+        },
+
+        deleteShift(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.form.delete('api/shift_management/'+id).then(()=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Role has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('AfterCreate');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This Role assigned to an employee.", "warning");
+                    });
+                }
+            })
+        },
+    },
+
+    created() {
+        this.getResults()
+        Fire.$on('AfterCreate',() => {
+            this.getResults();
+        });
     },
 }
 </script>

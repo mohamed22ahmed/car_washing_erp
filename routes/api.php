@@ -29,7 +29,7 @@ Route::get('organizational_structure_designations','API\Employee\Organization_st
 Route::get('organizational_structure_departments','API\Employee\Organization_structureController@getDepartments');
 Route::get('organizational_structure_employments','API\Employee\Organization_structureController@getEmployments');
 Route::delete('organizational_structure/{type}/{id}','API\Employee\Organization_structureController@destroy');
-// Attendance Log
+// Attendance Log Routes
 Route::apiResources(['attendance_logs' => 'API\Employee\Attendance_logController']);
 Route::get('pull_machine','API\Employee\Attendance_logController@machine_pull');
 Route::get('attendance_file','API\Employee\Attendance_logController@upload_attendance');
@@ -55,3 +55,8 @@ Route::delete('leave_setups/{id}','API\Settings\LeaveSetupController@destroy');
 Route::apiResources(['holiday_lists' => 'API\Settings\HolidayListController']);
 Route::delete('holiday_lists/{id}','API\Settings\HolidayListController@destroy');
 
+// Attendance Permissions Routes
+Route::apiResources(['attendance_permissions' => 'API\Employee\Attendance_permissionController']);
+
+// Shift Management Route
+Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
