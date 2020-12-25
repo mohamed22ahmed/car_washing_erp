@@ -69,9 +69,9 @@
                 </div>
             </form>
 
-            <ul class="navbar-nav ml-auto">
+            <ul @if(config('app.locale', 'en')=='ar') class="navbar-nav" style="margin-right:600px;" @else class="navbar-nav ml-auto" @endif>
                 {{--  messages part  --}}
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>
                         <span class="badge badge-danger navbar-badge">3</span>
@@ -125,10 +125,10 @@
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                     </div>
-                </li>
+                </li> --}}
 
                 {{--  notifications part  --}}
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
                         <span class="badge badge-warning navbar-badge">15</span>
@@ -153,7 +153,7 @@
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
-                </li>
+                </li> --}}
 
                 {{--  languages part   --}}
                 <li class="nav-item dropdown">
@@ -216,13 +216,13 @@
                             <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/jornals')?'current':'' }}">
                                     <router-link to='/jornals' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('100') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/chart_of_account')?'current':'' }}">
                                     <router-link to='/chart_of_account' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('122') }}</p>
                                     </router-link>
                                 </li>
@@ -240,53 +240,53 @@
                             <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
                                     <router-link to='/manage_emp' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('8') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/roles')?'current':'' }}">
                                     <router-link to='/roles' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('23') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/permissions')?'current':'' }}">
                                     <router-link to='/permissions' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('51') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/organizational_structure')?'current':'' }}">
                                     <router-link to='/organizational_structure' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('132') }}</p>
                                     </router-link>
                                 </li>
 
                                 <li class="nav-item {{  url()->current()==url('/attendance_logs')?'current':'' }}">
                                     <router-link to='/attendance_logs' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('140') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/attendance_permissions')?'current':'' }}">
                                     <router-link to='/attendance_permissions' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('57') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/shift_management')?'current':'' }}">
                                     <router-link to='/shift_management' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('65') }}</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item {{  url()->current()==url('/settings')?'current':'' }}">
                                     <router-link to='/settings' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('75') }}</p>
                                     </router-link>
                                 </li>

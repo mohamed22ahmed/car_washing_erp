@@ -41,26 +41,26 @@ return [
             'ignore_exceptions' => false,
         ],
 
-        'single' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
-        ],
+        // 'single' => [
+        //     'driver' => 'single',
+        //     'path' => storage_path('logs/laravel.log'),
+        //     'level' => 'debug',
+        // ],
 
-        'daily' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
-            'days' => 14,
-        ],
+        // 'daily' => [
+        //     'driver' => 'daily',
+        //     'path' => storage_path('logs/laravel.log'),
+        //     'level' => 'debug',
+        //     'days' => 14,
+        // ],
 
-        'slack' => [
-            'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => 'critical',
-        ],
+        // 'slack' => [
+        //     'driver' => 'slack',
+        //     'url' => env('LOG_SLACK_WEBHOOK_URL'),
+        //     'username' => 'Laravel Log',
+        //     'emoji' => ':boom:',
+        //     'level' => 'critical',
+        // ],
 
         'papertrail' => [
             'driver' => 'monolog',

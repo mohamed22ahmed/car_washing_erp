@@ -244,6 +244,166 @@
             "dic_id": 148,
             "name": "Sign",
             "name_ar": "تسجيل"
+        },
+        {
+            "dic_id": 149,
+            "name": "Color",
+            "name_ar": "اللون"
+        },
+        {
+            "dic_id": 150,
+            "name": "Shifts",
+            "name_ar": "الورديات"
+        },
+        {
+            "dic_id": 151,
+            "name": "Attendance Flag List",
+            "name_ar": "قائمة الورديات"
+        },
+        {
+            "dic_id": 152,
+            "name": "Add Attendance Flag",
+            "name_ar": "إضافة قواعد الحضور"
+        },
+        {
+            "dic_id": 153,
+            "name": "Update Attendance Flag",
+            "name_ar": "تعديل قواعد الحضور"
+        },
+        {
+            "dic_id": 154,
+            "name": "Create Attendance Flag",
+            "name_ar": "إنشاء قواعد الحضور"
+        },
+        {
+            "dic_id": 155,
+            "name": "Update Machine",
+            "name_ar": "تعديل الماكينة"
+        },
+        {
+            "dic_id": 156,
+            "name": "Create Machine",
+            "name_ar": "إنشاء الماكينة"
+        },
+        {
+            "dic_id": 157,
+            "name": "Add Machine",
+            "name_ar": "إضافة ماكينة جديدة"
+        },
+        {
+            "dic_id": 158,
+            "name": "Machines List",
+            "name_ar": "قائمة الماكينات"
+        },
+        {
+            "dic_id": 159,
+            "name": "Leave Policies List",
+            "name_ar": "قائمة سياسة الأجازات"
+        },
+        {
+            "dic_id": 160,
+            "name": "Add Leave Policy",
+            "name_ar": "إضافة سياسة الأجازات"
+        },
+        {
+            "dic_id": 161,
+            "name": "Update Leave Policy",
+            "name_ar": "تعديل سياسة الأجازات"
+        },
+        {
+            "dic_id": 162,
+            "name": "Create Leave Policy",
+            "name_ar": "إنشاء سياسة الأجازات"
+        },
+        {
+            "dic_id": 163,
+            "name": "Allocations",
+            "name_ar": "المخصصات"
+        },
+        {
+            "dic_id": 164,
+            "name": "Add Leave Type",
+            "name_ar": "إنشاء نوع الإجازة"
+        },
+        {
+            "dic_id": 165,
+            "name": "Add Leave Policy",
+            "name_ar": "إضافة سياسة أجازة"
+        },
+        {
+            "dic_id": 166,
+            "name": "Leave Policies List",
+            "name_ar": "قائمة سياسة الأجازات"
+        },
+        {
+            "dic_id": 167,
+            "name": "Select Leave Type",
+            "name_ar": "إختـــر إجازة"
+        },
+        {
+            "dic_id": 168,
+            "name": "Leave Type",
+            "name_ar": "نوع الأجازة"
+        },
+        {
+            "dic_id": 169,
+            "name": "Update Leave Type",
+            "name_ar": "تعديل نوع أجازة"
+        },
+        {
+            "dic_id": 170,
+            "name": "Create Leave Type",
+            "name_ar": "إنشاء نوع أجازة"
+        },
+        {
+            "dic_id": 171,
+            "name": "The maximum number of days during the year",
+            "name_ar": "الحد الأقصى للأيام خلال العام"
+        },
+        {
+            "dic_id": 172,
+            "name": "The maximum applicable consecutive days",
+            "name_ar": "الحد الأقصى للأيام المتوالية القابلة للتطبيق"
+        },
+        {
+            "dic_id": 173,
+            "name": "Applicable After",
+            "name_ar": "قابلة للتطبيق بعد"
+        },
+        {
+            "dic_id": 174,
+            "name": "Maximum Days",
+            "name_ar": "الحد الأقصى من الأيام"
+        },
+        {
+            "dic_id": 175,
+            "name": "Leave Types List",
+            "name_ar": "قائمة انواع المغادرات"
+        },
+        {
+            "dic_id": 176,
+            "name": "Update Holiaday",
+            "name_ar": "تعديل عطلة"
+        },
+        {
+            "dic_id": 177,
+            "name": "Add Holiaday",
+            "name_ar": "إضافة عطلة"
+        },
+        {
+            "dic_id": 178,
+            "name": "Create Holiaday",
+            "name_ar": "إنشاء عطلة"
+        },
+        {
+            "dic_id": 179,
+            "name": "Start Date",
+            "name_ar": "تاريخ بداية العطلة"
+        },
+        {
+            "dic_id": 180,
+            "name": "End Date",
+            "name_ar": "تاريخ نهاية العطلة"
         }
     ]
 }

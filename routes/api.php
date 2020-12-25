@@ -33,3 +33,25 @@ Route::delete('organizational_structure/{type}/{id}','API\Employee\Organization_
 Route::apiResources(['attendance_logs' => 'API\Employee\Attendance_logController']);
 Route::get('pull_machine','API\Employee\Attendance_logController@machine_pull');
 Route::get('attendance_file','API\Employee\Attendance_logController@upload_attendance');
+
+// Attendance Flag
+Route::apiResources(['attendance_flags' => 'API\Settings\AttendanceFlagController']);
+Route::delete('attendance_flags/{id}','API\Settings\AttendanceFlagController@destroy');
+
+// Machine Settings
+Route::apiResources(['machine_settings' => 'API\Settings\MachineSettingController']);
+Route::delete('machine_settings/{id}','API\Settings\MachineSettingController@destroy');
+
+// Leave Policies
+Route::apiResources(['leave_policies' => 'API\Settings\LeavePoliciesController']);
+Route::get('get_leaves','API\Settings\LeavePoliciesController@get_leaves');
+Route::delete('leave_policies/{id}','API\Settings\LeavePoliciesController@destroy');
+
+// Leave Types
+Route::apiResources(['leave_setups' => 'API\Settings\LeaveSetupController']);
+Route::delete('leave_setups/{id}','API\Settings\LeaveSetupController@destroy');
+
+// Leave Types
+Route::apiResources(['holiday_lists' => 'API\Settings\HolidayListController']);
+Route::delete('holiday_lists/{id}','API\Settings\HolidayListController@destroy');
+

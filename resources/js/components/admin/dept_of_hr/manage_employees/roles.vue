@@ -31,7 +31,7 @@
                                         <td>
                                             <a href="#" @click="editRole(role)">
                                                 <i class="fa fa-edit red"></i>
-                                            </a>&nbsp;
+                                            </a>&nbsp;/
                                             <a href="#" @click="deleteRole(role.id)">
                                                 <i class="fa fa-trash red"></i>
                                             </a>

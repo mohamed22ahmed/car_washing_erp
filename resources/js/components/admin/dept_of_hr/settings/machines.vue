@@ -1,36 +1,39 @@
 <template>
     <div class="container">
-
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">{{ $t('78') }}
+                        <div class="card-header">
+                        <h3 class="card-title">{{$t('158')}}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('79') }}</button>
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{$t('157')}}
+                                </button>
                             </div>
                         </div>
+
                         <div class="card-body">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
-                                            <tr>
-                                                <th>{{ $t('108') }}</th>
-                                                <th>{{ $t('50') }}</th>
-                                                <th>{{ $t('110') }}</th>
-                                            </tr>
-                                    </thead>
-                                    <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Update</td>
+                                            <th>{{ $t('109') }}</th>
+                                            <th>{{ $t('50') }}</th>
+                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('110') }}</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                        <tr v-for="machine in machines.data" :key="machine.id">
+                                            <td>{{ machine.id }}</td>
+                                            <td>{{ machine.name }}</td>
+                                            <td>{{ machine.name_ar }}</td>
                                             <td>
-                                                <a href="#" @click="editModal(code_table)">
-                                                    <i class="fa fa-edit blue"></i>
-                                                </a>
-                                                /
-                                                <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
+                                                <a href="#" @click="editModal(machine)">
+                                                    <i class="fa fa-edit red"></i>
+                                                </a>&nbsp;/
+                                                <a href="#" @click="deleteMachine(machine.id)">
                                                     <i class="fa fa-trash red"></i>
                                                 </a>
                                             </td>
@@ -49,30 +52,40 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('79') }}</h5>
-                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{$t('156')}}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{$t('155')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                    <form @submit.prevent="editmode ? updateMachine() : createMachine()">
                         <div class="modal-body">
-                            <div class="row justify-content-center">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="machine" class="required">{{ $t('80') }} <span style="color:red">*</span></label>
-                                        <select name="machine" id="machine"  v-model="form.machine" class="form-control">
-                                            <option value="-1">Select Type</option>
-                                            <option value="1">Type one</option>
-                                        </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="name">{{$t('50')}}<span style="color:red;">*</span></label>
+                                                 <input type="text" placeholder="Name" class="form-control" v-model="form.name" name="name" id="name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="name_ar" dir="ltr">{{$t('56')}}<span style="color:red;">*</span></label>
+                                                 <input type="text" placeholder="Name_ar" class="form-control" v-model="form.name_ar" name="name_ar" id="name_ar" dir="rtl">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" style="color:white;">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success" style="color:white;">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary" style="color:white;">{{ $t('104') }}</button>
                         </div>
                     </form>
                 </div>
@@ -82,26 +95,46 @@
 </template>
 
 <script>
-export default {
-    data: function() {
-        return {
+    export default {
+        data: function(){
+        return{
+            machines:{},
             editmode: false,
             form: new Form({
-                machine:-1,
-            }),
+                id:'',
+                name:'',
+                name_ar:'',
+            })
         }
     },
-    methods: {
-        // loadUsers: function() {
-        //     axios.get("api/index").then((res) => {
-        //         console.log(res.data)
-        //     });
-        // },
+    methods:{
+
+        getResults(page = 1) {
+            axios.get('api/machine_settings/?page=' + page).then((response) => {
+                this.machines = response.data;
+            });
+        },
 
         newModal() {
             this.editmode = false;
             this.form.reset();
             $('#addNew').modal('show');
+        },
+
+        createMachine(){
+            this.$Progress.start();
+            this.form.post('api/machine_settings').then(()=>{
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Machine Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
         },
 
         editModal(user){
@@ -110,10 +143,57 @@ export default {
             $('#addNew').modal('show');
             this.form.fill(user);
         },
+
+        updateMachine() {
+            this.$Progress.start();
+            this.form.put('api/machine_settings/'+ this.form.id)
+                .then(() => {
+                    // success
+                    $('#addNew').modal('hide');
+                    swal.fire(
+                        'Updated!',
+                        'Machine has been updated.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+        },
+
+        deleteMachine(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.form.delete('api/machine_settings/'+id).then(()=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Machine has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('AfterCreate');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This Machine is Error", "warning");
+                    });
+                }
+            })
+        },
     },
 
-    // created() {
-    //     this.loadUsers();
-    // },
+    created(){
+        this.getResults();
+        Fire.$on('AfterCreate',() => {
+            this.getResults();
+        });
+    }
 }
 </script>
