@@ -408,6 +408,46 @@
             "dic_id": 82,
             "name": "Add Leave Policy",
             "name_ar": "اضافة سياسة مغادرة"
+        },
+        {
+            "dic_id": 83,
+            "name": "New Washing Ticket",
+            "name_ar": "تذكرة غسيل جديدة"
+        },
+        {
+            "dic_id": 84,
+            "name": "Car Washing Ticket",
+            "name_ar": "تذكرة غسيل سيارة"
+        },
+        {
+            "dic_id": 85,
+            "name": "Carpets Washing Ticket",
+            "name_ar": "تذكرة غسيل سجاد"
+        },
+        {
+            "dic_id": 86,
+            "name": "Daily Tickets Report",
+            "name_ar": "تقرير التذاكر اليومية"
+        },
+        {
+            "dic_id": 87,
+            "name": "Cars Report",
+            "name_ar": "تقرير السيارات"
+        },
+        {
+            "dic_id": 88,
+            "name": "Tickets Management",
+            "name_ar": "ادارة التذاكر"
+        },
+        {
+            "dic_id": 89,
+            "name": "Washing machines",
+            "name_ar": "ماكينات الغسيل"
+        },
+        {
+            "dic_id": 90,
+            "name": "Maintenance",
+            "name_ar": "الصيانة"
         }
     ]
 }

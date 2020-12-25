@@ -25,7 +25,7 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="shift in shifts.data" :key="shift.id">
+                                    <tr v-for="shift in shifts" :key="shift.id">
                                         <td>{{ shift.id }}</td>
                                         <td>{{ shift.name }}</td>
                                         <td>{{ shift.name_ar }}</td>

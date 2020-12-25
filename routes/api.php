@@ -5,9 +5,9 @@ Route::apiResources(['dictionary' => 'API\DictionaryController']);
 
 // ############################################### Finance ##############################################
 //Jornals
-Route::apiResources(['jornals' => 'API\Dashboard\FinanceController']);
+Route::apiResources(['jornals' => 'API\Finance\FinanceController']);
 //chart_of_account
-Route::apiResources(['chart_of_account' => 'API\Dashboard\AccountChartController']);
+Route::apiResources(['chart_of_account' => 'API\Finance\AccountChartController']);
 
 
 // ################################################## Employee ###########################################
@@ -60,3 +60,13 @@ Route::apiResources(['attendance_permissions' => 'API\Employee\Attendance_permis
 
 // Shift Management Route
 Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
+
+
+// ################################################## Washing Tickets ###########################################
+
+
+
+
+
+
+// ################################################## Tickets Management ###########################################

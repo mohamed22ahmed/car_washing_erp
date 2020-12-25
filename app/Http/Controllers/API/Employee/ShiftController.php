@@ -11,12 +11,10 @@ class ShiftController extends Controller
     public function index(){
         $shifts=Shift::all();
         foreach($shifts as $shift){
-            $shift->week_days=array_map('intval', explode(',', $shift->week_days));
-            dd($shift->week_days);
             if($shift->week_days=="")
                 $shift->week_days=[];
             else
-                $shift->week_days=array_map('intval', explode(',', $shift->week_days));
+                $shift->week_days=explode(',', $shift->week_days);
         }
         return $shifts;
     }

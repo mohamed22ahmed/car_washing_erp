@@ -108,8 +108,10 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="shift">{{$t('150')}}</label>
-                                                <input type="text" class="form-control" v-model="form.shift" name="shift" id="shift">
+                                                <label for="shift" class="required">{{$t('150')}}<span style="color:red;">*</span></label>
+                                                <select name="shift" v-model="form.shift" id="shift" class="form-control">
+                                                    <option v-for="sh in shifts" :key="sh.id" :value="sh.id">{{ sh.name }}</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -133,6 +135,7 @@
         data: function(){
         return{
             flags:{},
+            shifts:{},
             editmode: false,
             form: new Form({
                 id:'',
@@ -146,7 +149,11 @@
         }
     },
     methods:{
-
+        getShifts(){
+            axios.get('api/shift_management').then((response) => {
+                this.shifts = response.data;
+            });
+        },
         getResults(page = 1) {
             axios.get('api/attendance_flags/?page=' + page).then((response) => {
                 this.flags = response.data;
@@ -228,6 +235,7 @@
     },
 
     created(){
+        this.getShifts()
         this.getResults();
         Fire.$on('AfterCreate',() => {
             this.getResults();

@@ -4,12 +4,11 @@ import VueRoute from 'vue-router'
 import jornals from './components/admin/finance/jornals'
 import chart_of_account from './components/admin/finance/chart_of_account'
 
-// Employees
+// Department of Human Resource
 import manage_emp from './components/admin/dept_of_hr/manage_employees/manage_emp'
 import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp_infos_create'
 import roles from './components/admin/dept_of_hr/manage_employees/roles'
 import permission from './components/admin/dept_of_hr/manage_employees/permission'
-
 import organizational_structure from './components/admin/dept_of_hr/organizational_structure.vue'
 import attendance_logs from './components/admin/dept_of_hr/attendance_logs.vue'
 import attendance_permissions from './components/admin/dept_of_hr/attendance/attendance_permissions.vue'
@@ -21,6 +20,17 @@ import machines from './components/admin/dept_of_hr/settings/machines.vue'
 import leave_policies from './components/admin/dept_of_hr/settings/leave_policies.vue'
 import leave_setups from './components/admin/dept_of_hr/settings/leave_type.vue'
 
+// Washing Tickets
+import car_washing from './components/admin/washing_tickets/car_washing.vue'
+import carpets_washing from './components/admin/washing_tickets/carpets_washing.vue'
+import daily_report from './components/admin/washing_tickets/daily_report.vue'
+import car_reports from './components/admin/washing_tickets/car_reports.vue'
+
+// Tickets Management
+import washing_machines from './components/admin/tickets_manage/washing_machines.vue'
+import maintenance_management from './components/admin/tickets_manage/maintenance_management.vue'
+
+
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
 
@@ -28,6 +38,8 @@ const routes = [
     // finance module
     { name: 'jornals', path: '/jornals', component: jornals },
     { name: 'chart_of_account', path: '/chart_of_account', component: chart_of_account },
+
+    // Human Resource Routes
     { name: 'roles', path: '/roles', component: roles },
     { name: 'permission', path: '/permissions', component: permission },
     { name: 'organizational_structure', path: '/organizational_structure', component: organizational_structure },
@@ -42,6 +54,16 @@ const routes = [
     { name: 'machines', path: '/machines', component: machines },
     { name: 'leave_policies', path: '/leave_policies', component: leave_policies },
     { name: 'leave_setups', path: '/leave_setups', component: leave_setups },
+
+    // Washing Tickets Routes
+    { name: 'car_washing', path: '/car_washing', component: car_washing },
+    { name: 'carpets_washing', path: '/carpets_washing', component: carpets_washing },
+    { name: 'daily_report', path: '/daily_report', component: daily_report },
+    { name: 'car_reports', path: '/car_reports', component: car_reports },
+
+    // Ticket Managements
+    { name: 'washing_machines', path: '/washing_machines', component: washing_machines },
+    { name: 'maintenance_management', path: '/maintenance_management', component: maintenance_management },
 ]
 
 

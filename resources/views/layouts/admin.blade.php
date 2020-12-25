@@ -292,6 +292,66 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="nav-item has-treeview {{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    {{ t('83') }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/car_washing')?'current':'' }}">
+                                    <router-link to='/car_washing' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('84') }}</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/carpets_washing')?'current':'' }}">
+                                    <router-link to='/carpets_washing' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('85') }}</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/daily_report')?'current':'' }}">
+                                    <router-link to='/daily_report' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('86') }}</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/car_reports')?'current':'' }}">
+                                    <router-link to='/car_reports' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('87') }}</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview {{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    {{ t('88') }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/washing_machines')?'current':'' }}">
+                                    <router-link to='/washing_machines' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('89') }}</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/maintenance_management')?'current':'' }}">
+                                    <router-link to='/maintenance_management' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('90') }}</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
