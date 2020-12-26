@@ -408,6 +408,66 @@
             "dic_id": 181,
             "name": "End Date",
             "name_ar": "تاريخ نهاية العطلة"
+        },
+        {
+            "dic_id": 182,
+            "name": "Attendance Sessions",
+            "name_ar": "جلسات الحضور"
+        },
+        {
+            "dic_id": 183,
+            "name": "Add Attendance Session",
+            "name_ar": "إضافة جلسة حضور"
+        },
+        {
+            "dic_id": 184,
+            "name": "Details",
+            "name_ar": "التفاصيل"
+        },
+        {
+            "dic_id": 185,
+            "name": "Session Log",
+            "name_ar": "سجل الجلسة"
+        },
+        {
+            "dic_id": 186,
+            "name": "Activity Log",
+            "name_ar": "سجل النشاطات"
+        },
+        {
+            "dic_id": 187,
+            "name": "Source",
+            "name_ar": "المصدر"
+        },
+        {
+            "dic_id": 188,
+            "name": "Session Number",
+            "name_ar": "رقم الجلسة"
+        },
+        {
+            "dic_id": 189,
+            "name": "Date & Time",
+            "name_ar": "التاربخ و الوقت"
+        },
+        {
+            "dic_id": 190,
+            "name": "Session Time",
+            "name_ar": "وقت الجلسة"
+        },
+        {
+            "dic_id": 191,
+            "name": "Source Type",
+            "name_ar": "نوع المصدر"
+        },
+        {
+            "dic_id": 192,
+            "name": "Sign number",
+            "name_ar": "عدد التسجيلات"
+        },
+        {
+            "dic_id": 193,
+            "name": "Session Logs",
+            "name_ar": "سجلات الحضور"
         }
     ]
 }

@@ -11,6 +11,7 @@ import roles from './components/admin/dept_of_hr/manage_employees/roles'
 import permission from './components/admin/dept_of_hr/manage_employees/permission'
 import organizational_structure from './components/admin/dept_of_hr/organizational_structure.vue'
 import attendance_logs from './components/admin/dept_of_hr/attendance_logs.vue'
+import attendance_session_create from './components/admin/dept_of_hr/attendance_session_create.vue'
 import attendance_permissions from './components/admin/dept_of_hr/attendance/attendance_permissions.vue'
 import shift_management from './components/admin/dept_of_hr/attendance/shift_management.vue'
 import settings from './components/admin/dept_of_hr/settings/settings.vue'
@@ -44,6 +45,7 @@ const routes = [
     { name: 'permission', path: '/permissions', component: permission },
     { name: 'organizational_structure', path: '/organizational_structure', component: organizational_structure },
     { name: 'attendance_logs', path: '/attendance_logs', component: attendance_logs },
+    { name: 'attendance_session_create', path: '/attendance_session_create', component: attendance_session_create },
     { name: 'manage_emp', path: '/manage_emp', component: manage_emp },
     { name: 'emp_infos_create', path: '/emp_infos_create', component: emp_infos_create },
     { name: 'attendance_permissions', path: '/attendance_permissions', component: attendance_permissions },

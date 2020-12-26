@@ -20,9 +20,9 @@
         padding-left: 25px;
     }
 
-    #accordion-style-1 .card-body {
-        /* border-top: 2px solid royalblue; */
-    }
+    /*#accordion-style-1 .card-body {
+        border-top: 2px solid royalblue;
+    }*/
 
     #accordion-style-1 .card-header .btn.collapsed .fa.main{
         display:none;

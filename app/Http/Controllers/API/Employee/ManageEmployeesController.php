@@ -15,6 +15,10 @@ class ManageEmployeesController extends Controller
         return Employee::paginate(5);
     }
 
+    public function get_all_employees(){
+        return Employee::all();
+    }
+
     public function store(EmployeeRequest $request){
         $fileNewName='';
         if($request->emp_picture){
@@ -35,7 +39,7 @@ class ManageEmployeesController extends Controller
         $emp->first_name=$request->first_name;
         $emp->sir_name=$request->sir_name;
         $emp->last_name=$request->last_name;
-        $emp->name=$request->first_name.' '.$request->sir_name.' '.$request->last_name;
+        // $emp->name=$request->first_name.' '.$request->sir_name.' '.$request->last_name;
         $emp->emp_picture=$fileNewName;
         $emp->notes=$request->notes;
         $emp->email=$request->email;

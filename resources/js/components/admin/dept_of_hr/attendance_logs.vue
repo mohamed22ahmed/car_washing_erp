@@ -7,18 +7,20 @@
                         <div class="card-header">
                         <h3 class="card-title">{{ $t('140') }}</h3>
                             <div class="card-tools">
-                            <div class="input-group mr-3">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-success">{{ $t('102') }}</button>
-                                    <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                    <button class="dropdown-item" style="hover:light" @click="pullFromMachine">{{ $t('141') }}</button>
-                                    <button class="dropdown-item" @click="takeEmpAttendance">{{ $t('142') }}</button>
+                                <div class="input-group mr-3">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-success">{{ $t('102') }}</button>
+                                        <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                        <button class="dropdown-item" style="hover:light"  @click="pullFromMachine">{{ $t('141') }}</button>
+                                        <router-link :to="{ path: '/attendance_session_create'}" class="dropdown-item">
+                                            {{ $t('142') }}
+                                        </router-link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -27,13 +29,21 @@
                                     <thead class="thead-light">
                                             <tr>
                                                 <th>{{ $t('109') }}</th>
-                                                <th>{{ $t('50') }}</th>
+                                                <th>{{ $t('59') }}</th>
+                                                <th>{{ $t('187') }}</th>
+                                                <th>{{ $t('188') }}</th>
+                                                <th>{{ $t('189') }}</th>
+                                                <th>{{ $t('18') }}</th>
                                                 <th>{{ $t('110') }}</th>
                                             </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
+                                            <td>Nada</td>
+                                            <td>Nada</td>
+                                            <td>Nada</td>
+                                            <td>Nada</td>
                                             <td>Nada</td>
                                             <td>
                                                 <a href="#" @click="editModal(code_table)">
@@ -86,6 +96,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="takeEmpAttendance" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -151,9 +162,11 @@ export default {
         },
     },
 
-    // created() {
-    //     this.loadUsers();
-    // },
+    created() {
+        this.loadUsers();
+        this.takeEmpAttendance()
+
+    },
 }
 </script>
 

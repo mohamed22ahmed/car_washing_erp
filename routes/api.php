@@ -13,6 +13,7 @@ Route::apiResources(['chart_of_account' => 'API\Finance\AccountChartController']
 // ################################################## Employee ###########################################
 //manage_emp
 Route::apiResources(['manage_emp' => 'API\Employee\ManageEmployeesController']);
+Route::get('get_all_employees','API\Employee\ManageEmployeesController@get_all_employees');
 Route::get('manage_emp_delete/{id}','API\Employee\ManageEmployeesController@destroy');
 //roles
 Route::apiResources(['roles' => 'API\Employee\RoleController']);
