@@ -448,6 +448,16 @@
             "dic_id": 90,
             "name": "Maintenance",
             "name_ar": "الصيانة"
+        },
+        {
+            "dic_id": 91,
+            "name": "Jornal Datails",
+            "name_ar": "تفاصيل القيد"
+        },
+        {
+            "dic_id": 92,
+            "name": "Jornal Number",
+            "name_ar": "رقم القيد"
         }
     ]
 }

@@ -176,12 +176,12 @@
     export default {
         name: "TreeviewPage",
         components: {
-        mdbContainer,
-        mdbRow,
-        mdbIcon,
-        mdbTreeview,
-        mdbTreeviewItem
-    },
+            mdbContainer,
+            mdbRow,
+            mdbIcon,
+            mdbTreeview,
+            mdbTreeviewItem
+        },
     data: function() {
         return {
             editmode: false,
