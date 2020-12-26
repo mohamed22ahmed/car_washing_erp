@@ -46,6 +46,10 @@
                             </table>
                         </div>
                     </div>
+
+                    <div class="card-footer">
+                        <pagination :data="holidays" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
         </div>

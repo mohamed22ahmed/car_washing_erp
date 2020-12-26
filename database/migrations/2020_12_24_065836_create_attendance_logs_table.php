@@ -15,6 +15,10 @@ class CreateAttendanceLogsTable extends Migration
     {
         Schema::create('attendance_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('employee_name');
+            $table->string('source_type');
+            $table->integer('session_num');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

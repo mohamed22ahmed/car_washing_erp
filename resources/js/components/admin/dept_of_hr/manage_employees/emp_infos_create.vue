@@ -1,4 +1,7 @@
 <style>
+    button{
+        color:white;
+    }
     label{
         font-weight: 500;
     }

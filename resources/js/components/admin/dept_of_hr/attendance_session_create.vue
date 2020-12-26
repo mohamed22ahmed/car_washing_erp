@@ -8,13 +8,13 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('147') }} 14/12/2020</h5>
-                                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('147') }} 14/12/202</h5>
+                                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('147') }}&nbsp;{{date}}</h5>
+                                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('147') }}&nbsp;{{date}}}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                                    <form @submit.prevent="createLog()">
                                         <div class="modal-body">
                                             <div class="row justify-content-center">
                                                 <div class="col-12">
@@ -55,14 +55,14 @@
                                                     <div class="col-4">
                                                         <div class="form-group">
                                                             <label style="color:gray;">{{ $t('188') }}</label><br>
-                                                            <span>#3</span>
+                                                            <span>#{{session.session_num}}</span>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-4">
                                                         <div class="form-group">
                                                            <label style="color:gray;">{{ $t('190') }}</label><br>
-                                                           <span>6/12/2020 08:24</span>
+                                                           <span>{{session.created_at}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,13 +71,13 @@
                                                     <div class="col-4">
                                                         <div class="form-group">
                                                            <label style="color:gray;">{{ $t('191') }}</label><br>
-                                                           <span>Car Wash</span>
+                                                           <span>{{session.source_type}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div class="form-group">
                                                             <label style="color:gray;">{{ $t('192') }}</label><br>
-                                                            <span>2</span>
+                                                            <span>{{sign}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,8 +85,9 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label style="color:gray;">{{ $t('19') }}</label><br>
-                                                            <span>open</span>
+                                                            <label style="color:gray;">{{ $t('18') }}</label><br>
+                                                            <span v-if="session.status==1" class="badge badge-sm badge-rounded badge-success">{{session.status ==1?'Active':'Stopped'}}</span>
+                                                            <span v-if="session.status==2" class="badge badge-sm badge-rounded badge-danger">{{session.status ==1?'Active':'Stopped'}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,20 +115,16 @@
                                                                 </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Nada</td>
-                                                                <td>Nada</td>
-                                                                <td>Nada</td>
-                                                                <td>Nada</td>
-                                                                <td>Nada</td>
+                                                            <tr v-for="emp_log in loggs.data" :key="emp_log.id">
+                                                                <td>{{emp_log.id}}</td>
+                                                                <td>{{emp_log.employee_name}}</td>
+                                                                <td>{{emp_log.source_type}}</td>
+                                                                <td>#{{emp_log.session_num}}</td>
+                                                                <td>{{emp_log.created_at}}</td>
+                                                                <td>{{emp_log.status==1?'Active':'Inactive'}}</td>
                                                                 <td>
-                                                                    <a href="#" @click="editModal(code_table)">
-                                                                        <i class="fa fa-edit blue"></i>
-                                                                    </a>
-                                                                    /
-                                                                    <a href="#" @click="deleteUser(code_table.sys_code,code_table.sys_code_type)">
-                                                                        <i class="fa fa-trash red"></i>
+                                                                    <a href="#" @click="deleteLog(emp_log.id)">
+                                                                        <i class="fa fa-trash red" style="color:red;"></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -136,6 +133,9 @@
                                                 </div>
                                             </div>
                                         </div><hr>
+                                        <!-- <div class="card-footer">
+                                            <pagination :data="logs" @pagination-change-page="getResults"></pagination>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -148,7 +148,7 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label>Today</label><br>
-                                                            <p>مدماك للكافيهات قام بإضافة جلسة حضور</p>&nbsp;
+                                                            <p>المغسلة للكافيهات قام بإضافة جلسة حضور</p>&nbsp;
                                                               <span><i class="fas fa-clock"></i>&nbsp; 08:24:39</span>&nbsp;
                                                               <span><i class="fas fa-user"></i>&nbsp; Car Wash</span>&nbsp;
                                                               <span><i class="fas fa-home"></i>&nbsp; Root Branch</span>
@@ -170,61 +170,87 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
     props: ['employee'],
     data: function(){
         return{
-            logs:{},
+            date:moment().format("YYYY-MM-DD"),
+            sign:0,
+            loggs:{},
+            session:{},
             employees:[],
+            editmode:false,
             form: new Form({
                 id:'',
-                employee:-1,
+                employee:'',
             })
         }
     },
 
     methods:{
-        loadUsers(){
-            axios.get('api/manage_emp/'+this.form.id).then((response)=>{
-                this.logs=response.data
+        loadLogs() {
+            axios.get('api/emp_logs/'+this.form.id).then((response) => {
+                this.loggs = response;
             });
-
             axios.get('api/get_all_employees').then((response)=>{
-                this.employees=response.data
+                this.employees=response.data;
+            });
+            axios.get('api/session_log/'+this.form.employee).then((response)=>{
+                this.session=response.data;
             });
         },
 
-        updateProfile(e) {
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            let limit = 1024 * 1024 * 2;
-            if (file['size'] > limit) {
-                swal({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: 'You are uploading a large file',
-                })
-                return false;
-            }
-            reader.onloadend = (file) => {
-                this.form.emp_picture = reader.result;
-            }
-            reader.readAsDataURL(file);
+        get_sign_num(){
+            axios.get('api/sign_num/'+this.form.employee).then((response)=>{
+                this.sign=response.data
+            });
         },
 
-        createUser(){
+        createLog(){
             this.$Progress.start();
-            this.form.post('api/manage_emp').then(()=>{
+            this.form.post('api/attendance_logs').then((res)=>{
+                this.form.employee=res.data.id
+                this.form.id=res.data.employee_name
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                this.get_sign_num();
                 swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Employee Created successfully',
+                    title: 'Attendance Log Created successfully',
                     showConfirmButton: false,
                     timer: 1500
                 })
-            })
-            this.$Progress.finish();
+                this.$Progress.finish();
+            });
         },
+
+        deleteLog(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.form.delete('api/attendance_logs/'+id).then(()=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Attendance Log has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('AfterCreate');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This Attendance Log assigned to an employee.", "warning");
+                    });
+                }
+            })
+        },
+
         newModal() {
             this.editmode = false;
             this.form.reset();
@@ -233,8 +259,10 @@ export default {
     },
 
     created() {
-        this.form.id = this.$route.query.employee;
-        this.loadUsers()
+        this.loadLogs();
+        Fire.$on('AfterCreate',() => {
+            this.loadLogs();
+        });
     },
 
     mounted() {

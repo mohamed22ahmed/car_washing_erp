@@ -45,6 +45,10 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="card-footer">
+                        <pagination :data="flags" @pagination-change-page="getResults"></pagination>
+                    </div>
                     </div>
                 </div>
             </div>

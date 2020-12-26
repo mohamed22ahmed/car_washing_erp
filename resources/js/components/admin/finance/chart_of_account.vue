@@ -1,3 +1,8 @@
+<style scoped>
+button{
+    color:white;
+}
+</style>
 <template>
 <div class="container">
     <div class="container">

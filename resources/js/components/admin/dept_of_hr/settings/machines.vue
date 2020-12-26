@@ -42,6 +42,10 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="card-footer">
+                        <pagination :data="machines" @pagination-change-page="getResults"></pagination>
+                    </div>
                     </div>
                 </div>
             </div>

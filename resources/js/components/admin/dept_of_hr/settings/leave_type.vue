@@ -44,6 +44,10 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="card-footer">
+                        <pagination :data="types" @pagination-change-page="getResults"></pagination>
+                    </div>
                     </div>
                 </div>
             </div>

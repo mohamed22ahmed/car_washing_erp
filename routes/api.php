@@ -37,6 +37,10 @@ Route::get('organizational_structure_employments','API\Employee\Organization_str
 Route::delete('organizational_structure/{type}/{id}','API\Employee\Organization_structureController@destroy');
 // Attendance Log Routes
 Route::apiResources(['attendance_logs' => 'API\Employee\Attendance_logController']);
+Route::delete('attendance_logs/{id}','API\Settings\Attendance_logController@destroy');
+Route::get('session_log/{id}','API\Employee\Attendance_logController@session_log');
+Route::get('emp_logs/{id}','API\Employee\Attendance_logController@emp_logs');
+Route::get('sign_num/{id}','API\Employee\Attendance_logController@sign_num');
 Route::get('pull_machine','API\Employee\Attendance_logController@machine_pull');
 Route::get('attendance_file','API\Employee\Attendance_logController@upload_attendance');
 

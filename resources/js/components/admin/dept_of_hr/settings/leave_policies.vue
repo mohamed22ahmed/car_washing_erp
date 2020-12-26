@@ -48,6 +48,10 @@
                             </table>
                         </div>
                         </div>
+
+                        <div class="card-footer">
+                        <pagination :data="leaves" @pagination-change-page="getResults"></pagination>
+                    </div>
                     </div>
                 </div>
             </div>
