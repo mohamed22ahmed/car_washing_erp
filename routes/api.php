@@ -11,8 +11,10 @@ Route::get('get_jornal_id','API\Finance\JornalsController@get_jornal_id');
 Route::post('jornal_details_create','API\Finance\JornalsController@jornal_details_create');
 Route::post('jornal_details_update','API\Finance\JornalsController@jornal_details_update');
 Route::get('jornal_details_delete/{id}','API\Finance\JornalsController@jornal_details_delete');
+
 //chart_of_account
 Route::apiResources(['chart_of_account' => 'API\Finance\AccountChartController']);
+Route::get('get_full_path','API\Finance\AccountChartController@get_full_path');
 
 
 // ################################################## Employee ###########################################

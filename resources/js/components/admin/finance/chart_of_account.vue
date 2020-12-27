@@ -16,68 +16,23 @@ button{
                             <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('102') }}</button>
                         </div>
                     </div>
-                    <mdb-treeview>
-                        <mdb-treeview-item nested icon="desktop" title="أصول">
-                            <mdb-treeview-item icon="desktop" title="Contact"/>
-                            <mdb-treeview-item icon="desktop" title="Offer"/>
-                            <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                <mdb-treeview-item icon="desktop" title="Deadlines"/>
-                                <mdb-treeview-item icon="desktop" title="Meetings"/>
-                                    <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                        <mdb-treeview-item icon="desktop" title="Workouts"/>
-                                        <mdb-treeview-item icon="desktop" title="Events"/>
-                                    </mdb-treeview-item>
-                            </mdb-treeview-item>
-                        </mdb-treeview-item>
-                        <mdb-treeview-item nested icon="desktop" title="خصوم">
-                            <mdb-treeview-item icon="desktop" title="Contact"/>
-                            <mdb-treeview-item icon="desktop" title="Offer"/>
-                            <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                <mdb-treeview-item icon="desktop" title="Deadlines"/>
-                                <mdb-treeview-item icon="desktop" title="Meetings"/>
-                                    <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                        <mdb-treeview-item icon="desktop" title="Workouts"/>
-                                        <mdb-treeview-item icon="desktop" title="Events"/>
-                                    </mdb-treeview-item>
-                            </mdb-treeview-item>
-                        </mdb-treeview-item>
-                        <mdb-treeview-item nested icon="desktop" title="رأس المالية و حقوق الملكية">
-                            <mdb-treeview-item icon="desktop" title="Contact"/>
-                            <mdb-treeview-item icon="desktop" title="Offer"/>
-                            <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                <mdb-treeview-item icon="desktop" title="Deadlines"/>
-                                <mdb-treeview-item icon="desktop" title="Meetings"/>
-                                    <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                        <mdb-treeview-item icon="desktop" title="Workouts"/>
-                                        <mdb-treeview-item icon="desktop" title="Events"/>
-                                    </mdb-treeview-item>
-                            </mdb-treeview-item>
-                        </mdb-treeview-item>
-                        <mdb-treeview-item nested icon="desktop" title="الإيرادات">
-                            <mdb-treeview-item icon="desktop" title="Contact"/>
-                            <mdb-treeview-item icon="desktop" title="Offer"/>
-                            <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                <mdb-treeview-item icon="desktop" title="Deadlines"/>
-                                <mdb-treeview-item icon="desktop" title="Meetings"/>
-                                    <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                        <mdb-treeview-item icon="desktop" title="Workouts"/>
-                                        <mdb-treeview-item icon="desktop" title="Events"/>
-                                    </mdb-treeview-item>
-                            </mdb-treeview-item>
-                        </mdb-treeview-item>
-                        <mdb-treeview-item nested icon="desktop" title="المصروفات">
-                            <mdb-treeview-item icon="desktop" title="Contact"/>
-                            <mdb-treeview-item icon="desktop" title="Offer"/>
-                            <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                <mdb-treeview-item icon="desktop" title="Deadlines"/>
-                                <mdb-treeview-item icon="desktop" title="Meetings"/>
-                                    <mdb-treeview-item nested icon="desktop" title="Calendar">
-                                        <mdb-treeview-item icon="desktop" title="Workouts"/>
-                                        <mdb-treeview-item icon="desktop" title="Events"/>
-                                    </mdb-treeview-item>
-                            </mdb-treeview-item>
-                        </mdb-treeview-item>
-                    </mdb-treeview>
+                   <!-- <v-row>
+                        <v-col cols="12" sm="12" md="5">
+                            <v-text-field v-model="search" label="Search Company Directory" hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
+                            <v-treeview :items="items" activatable active-class="primary lighten-3" v-model="tree" hoverable :active.sync="active_item" return-object>
+                                <template v-slot:prepend="{ item }">
+                                    <v-icon :color="item.account_type == 'sub' ? 'primary' : ''" v-text="
+                                            `mdi-${
+                                                item.account_type == 'main'
+                                                    ? 'folder-network'
+                                                    : 'file'
+                                            }`
+                                        "></v-icon>
+                                    <v-chip small label>{{ item.id }}</v-chip>
+                                </template>
+                            </v-treeview>
+                        </v-col>
+                    </v-row>-->
                 </div>
             </div>
         </div>
@@ -93,29 +48,27 @@ button{
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                    <form @submit.prevent="editmode ? updateUser() : createAccount()">
                         <div class="modal-body">
-                            <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="required" for="parent_account">{{ $t('124') }}</label>
-                                    <input class="form-control" v-model="form.parent_account" type="text" name="parent_account">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="account_number">{{ $t('125') }}</label>
-                                    <input class="form-control" v-model="form.account_number" type="number" name="account_number">
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account_name">{{ $t('126') }}</label>
-                                    <input class="form-control" v-model="form.account_name" type="text" name="account_name">
+                                    <label for="name" class="col-sm-4 control-label">{{ $t('50') }}</label>
+                                    <input type="text" v-model="form.name" name="name" placeholder="English Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                    <has-error :form="form" field="name"></has-error>
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-4 control-label">{{ $t('56') }}</label>
+                                    <input v-model="form.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
+                                    <has-error :form="form" field="name_ar"></has-error>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="account_type">{{ $t('127') }}</label>
@@ -128,6 +81,23 @@ button{
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account_number">{{ $t('125') }}</label>
+                                    <input class="form-control" v-model="form.account_number" type="number" name="account_number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="required" for="parent_account">{{ $t('124') }}</label>
+                                    <select v-model="form.parent_account" name="parent_account"  id="parent_account"  class="custom-select">
+                                        <option value='0' selected="selected">No Any Dept</option>
+                                        <option v-for="path in pathes" :key="path.id" :value="path.id">{{path.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -136,8 +106,8 @@ button{
                                     <div>
                                         <select name="balance_type" v-model="form.balance_type" id="balance_type" class="form-control">
                                             <option value="-1">{{ $t('115') }}</option>
-                                            <option value="1">balance type one</option>
-                                            <option value="2">balance type two</option>
+                                            <option value="1">depit</option>
+                                            <option value="2">credit</option>
                                         </select>
                                     </div>
                                 </div>
@@ -170,28 +140,15 @@ button{
 </template>
 
 <script>
-    import {
-        mdbContainer,
-        mdbRow,
-        mdbIcon,
-        mdbTreeview,
-        mdbTreeviewItem
-} from "mdbvue";
-
-    export default {
-        name: "TreeviewPage",
-        components: {
-            mdbContainer,
-            mdbRow,
-            mdbIcon,
-            mdbTreeview,
-            mdbTreeviewItem
-        },
+//mport { get } from "vuex-pathify";
+export default {
     data: function() {
         return {
+            pathes:{},
+            accounts:{},
             editmode: false,
             form: new Form({
-                account_name:'',
+                account_id:'',
                 account_type:1,
                 balance_type:1,
                 parent_account:'',
@@ -200,12 +157,35 @@ button{
             }),
         }
     },
-    methods: {
-        // loadUsers: function() {
-        //     axios.get("api/index").then((res) => {
-        //         console.log(res.data)
-        //     });
-        // },
+
+    methods:{
+        loadAccounts(){
+            this.form.get("api/chart_of_account").then((res)=>{
+                this.accounts=res.data;
+            })
+        },
+
+        get_full_pathes(){
+            this.form.get("api/get_full_path").then((res)=>{
+                this.pathes=res.data;
+            })
+        },
+
+        createAccount(){
+            this.$Progress.start();
+            this.form.post('api/chart_of_account').then(()=>{
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Account Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
+        },
 
         newModal() {
             this.editmode = false;
@@ -220,9 +200,15 @@ button{
             this.form.fill(user);
         },
     },
-
-    // created() {
-    //     this.loadUsers();
-    // },
+    created(){
+        this.loadAccounts()
+        this.get_full_pathes();
+        Fire.$on('AfterCreate',() => {
+            this.loadAccounts();
+            this.get_full_pathes();
+        });
+    }
 };
 </script>
+
+<style lang="scss" scoped></style>

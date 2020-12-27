@@ -53,6 +53,7 @@ Vue.component('table_editable', require('./components/TableEditable.vue').defaul
 
 const app = new Vue({
     el: '#app',
+    vuetify: new Vuetify(),
     store,
     router,
     created() {
