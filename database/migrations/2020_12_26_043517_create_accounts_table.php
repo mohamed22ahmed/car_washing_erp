@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateAccountsTable extends Migration
 {
@@ -14,8 +15,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->bigInteger('id')->default(0);
-            $table->bigInteger('parent_id');
+            $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->string('name');
             $table->string('name_ar');
@@ -28,6 +28,8 @@ class CreateAccountsTable extends Migration
             $table->string('accountable_type')->nullable();
             $table->integer('accountable_id')->nullable();
             $table->integer('Column10')->nullable();
+            $table->string('account_path')->default('0');
+            NestedSet::columns($table);
             $table->timestamps();
         });
     }
