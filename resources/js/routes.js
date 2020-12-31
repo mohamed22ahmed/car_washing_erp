@@ -1,13 +1,14 @@
+// @ts-nocheck
 import VueRoute from 'vue-router'
 
 // finance
-import transactions from './components/admin/finance/transactions'
-import chart_of_account from './components/admin/finance/chart_of_account'
+import transactions from './components/admin/finance/transactions.vue'
+import chart_of_account from './components/admin/finance/chart_of_account.vue'
 
 // Department of Human Resource
-import manage_emp from './components/admin/dept_of_hr/manage_employees/manage_emp'
-import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp_infos_create'
-import permission from './components/admin/dept_of_hr/manage_employees/permission'
+import manage_emp from './components/admin/dept_of_hr/manage_employees/manage_emp.vue'
+import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp_infos_create.vue'
+import permission from './components/admin/dept_of_hr/manage_employees/permission.vue'
 import organizational_structure from './components/admin/dept_of_hr/organizational_structure.vue'
 import attendance_logs from './components/admin/dept_of_hr/attendance_logs.vue'
 import attendance_session_create from './components/admin/dept_of_hr/attendance_session_create.vue'

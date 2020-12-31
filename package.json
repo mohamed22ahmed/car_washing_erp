@@ -36,7 +36,9 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.6.12",
         "vue-template-compiler": "^2.6.12",
-        "webpack": "^4.44.2"
+        "webpack": "^4.44.2",
+        "typescript": "^3.2.1",
+        "tslint": "5.11.0"
     },
     "dependencies": {
         "@enso-ui/tables": "^2.3.2",
