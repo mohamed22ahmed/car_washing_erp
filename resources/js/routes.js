@@ -15,10 +15,8 @@ import attendance_session_create from './components/admin/dept_of_hr/attendance_
 import shift_management from './components/admin/dept_of_hr/attendance/shift_management.vue'
 import settings from './components/admin/dept_of_hr/settings/settings.vue'
 import holiday_lists from './components/admin/dept_of_hr/settings/holiday_lists.vue'
-import attendance_flag from './components/admin/dept_of_hr/settings/attendance_flag.vue'
 import machines from './components/admin/dept_of_hr/settings/machines.vue'
 import leave_policies from './components/admin/dept_of_hr/settings/leave_policies.vue'
-import leave_setups from './components/admin/dept_of_hr/settings/leave_type.vue'
 
 // Washing Tickets
 import car_washing from './components/admin/washing_tickets/car_washing.vue'
@@ -49,10 +47,8 @@ const routes = [
     { name: 'shift_management', path: '/shift_management', component: shift_management },
     { name: 'settings', path: '/settings', component: settings },
     { name: 'holiday_lists', path: '/holiday_lists', component: holiday_lists },
-    { name: 'attendance_flag', path: '/attendance_flag', component: attendance_flag },
     { name: 'machines', path: '/machines', component: machines },
     { name: 'leave_policies', path: '/leave_policies', component: leave_policies },
-    { name: 'leave_setups', path: '/leave_setups', component: leave_setups },
 
     // Washing Tickets Routes
     { name: 'car_washing', path: '/car_washing', component: car_washing },

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\API\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeRequest;
 use App\Models\ManageEmployees\Leave_policy;
-use App\Models\ManageEmployees\Leave_Setup;
 use Illuminate\Http\Request;
 
 class LeavePoliciesController extends Controller
@@ -14,18 +12,16 @@ class LeavePoliciesController extends Controller
         return Leave_policy::all();
     }
 
-    public function get_leaves(){
-        return Leave_Setup::all();
-    }
-
     public function store(Request $request){
 
         $data=new Leave_policy;
         $data->name = $request->name;
         $data->name_ar = $request->name_ar;
-        $data->leave_type = $request->leave_type;
+        $data->colour = $request->colour;
         $data->description = $request->description;
-        $data->status = $request->status;
+        $data->max_days = $request->max_days;
+        $data->max_applicable_days = $request->max_applicable_days;
+        $data->applicable_after = $request->applicable_after;
         $data->save();
     }
 
@@ -34,9 +30,11 @@ class LeavePoliciesController extends Controller
         Leave_policy::find($id)->update([
             'name' => $request->name,
             'name_ar' => $request->name_ar,
-            'leave_type' => $request->leave_type,
+            'colour' => $request->colour,
             'description' => $request->description,
-            'status' => $request->status,
+            'max_days' => $request->max_days,
+            'max_applicable_days' => $request->max_applicable_days,
+            'applicable_after' => $request->applicable_after,
         ]);
     }
 

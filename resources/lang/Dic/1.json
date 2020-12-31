@@ -346,12 +346,12 @@
         },
         {
             "dic_id": 70,
-            "name": "ُEnding In",
+            "name": "Ending In",
             "name_ar": "ينتهى فى"
         },
         {
             "dic_id": 71,
-            "name": "ُShift",
+            "name": "Shift",
             "name_ar": "وردية"
         },
         {
@@ -361,13 +361,13 @@
         },
         {
             "dic_id": 73,
-            "name": "Assign Another Shift",
-            "name_ar": "اضافة وردية اخرى"
+            "name": "Assign Multi Shift",
+            "name_ar": "وردية متعددة"
         },
         {
             "dic_id": 74,
-            "name": "Start late time from on duty",
-            "name_ar": "بداية وقت التأخير عن العمل"
+            "name": "Start late time from on duty (in minutes)",
+            "name_ar": "بداية وقت التأخير عن العمل (بالدقيقة)"
         },
         {
             "dic_id": 75,
@@ -468,6 +468,11 @@
             "dic_id": 94,
             "name": "Department Manager",
             "name_ar": "مدير القسم"
+        },
+        {
+            "dic_id": 95,
+            "name": "Second",
+            "name_ar": "الثانى"
         }
     ]
 }
