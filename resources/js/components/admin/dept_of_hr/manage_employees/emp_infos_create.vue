@@ -296,8 +296,7 @@
                                                             <label for="designation">{{ $t('35') }}</label>
                                                             <select name="designation" v-model="form.designation" id="designation" class="form-control">
                                                                 <option value="-1">{{ $t('115') }}</option>
-                                                                <option value="1">Sales Manager</option>
-                                                                <option value="2">Web Developer</option>
+                                                                <option v-for="des in designations" :key="des.id" :value="des.id">{{ des.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -305,8 +304,8 @@
                                                         <div class="form-group">
                                                             <label for="department">{{ $t('36') }}</label>
                                                             <select name="department" v-model="form.department" id="department" class="form-control">
-                                                                <option value="1">Sales</option>
-                                                                <option value="2">Development</option>
+                                                                <option value="-1">{{ $t('115') }}</option>
+                                                                <option v-for="dep in departments" :key="dep.id" :value="dep.id">{{ dep.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -316,8 +315,8 @@
                                                         <div class="form-group">
                                                             <label for="emp_level">{{ $t('37') }}</label>
                                                             <select name="emp_level" v-model="form.emp_level" id="emp_level" class="form-control">
-                                                                <option value="1">Senior</option>
-                                                                <option value="2">Junior</option>
+                                                                <option value="-1">{{ $t('115') }}</option>
+                                                                <option v-for="emp in employments" :key="emp.id" :value="emp.id">{{ emp.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -354,7 +353,8 @@
                                                         <div class="form-group">
                                                             <label for="attendance_shift">{{ $t('40') }}</label>
                                                             <select name="attendance_shift" v-model="form.attendance_shift" id="attendance_shift" class="form-control">
-                                                                <option value="1">Morning Shift</option>
+                                                                <option value="-1">{{ $t('115') }}</option>
+                                                                <option v-for="att in attendances" :key="att.id" :value="att.id">{{ att.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -362,7 +362,8 @@
                                                         <div class="form-group">
                                                             <label for="leave_policy">{{ $t('41') }}</label>
                                                             <select name="leave_policy" v-model="form.leave_policy" id="leave_policy" class="form-control">
-                                                                <option value="1">Sick Leave</option>
+                                                                <option value="-1">{{ $t('115') }}</option>
+                                                                <option v-for="lev in leaves" :key="lev.id" :value="lev.id">{{ lev.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -372,7 +373,8 @@
                                                         <div class="form-group">
                                                             <label for="holiday_lists">{{ $t('42') }}</label>
                                                             <select name="holiday_lists" v-model="form.holiday_lists" id="holiday_lists" class="form-control">
-                                                                <option value="1">Eid Holiday</option>
+                                                                <option value="-1">{{ $t('115') }}</option>
+                                                                <option v-for="hol in holidays" :key="hol.id" :value="hol.id">{{ hol.name }}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -402,6 +404,14 @@ export default {
     data: function(){
         return{
             roles:{},
+            designations:{},
+            departments:{},
+            employments:{},
+
+            attendances:{},
+            leaves:{},
+            holidays:{},
+
             form: new Form({
                 id:'',
                 first_name:'',
@@ -425,25 +435,68 @@ export default {
                 perm_address:'',
                 perm_city:'',
                 perm_state:'',
-                designation:1,
-                department:1,
-                emp_level:1,
+                designation:-1,
+                department:-1,
+                emp_level:-1,
                 join_date:'',
                 branch:1,
-                attendance_shift:1,
-                leave_policy:1,
-                holiday_lists:1,
+                attendance_shift:-1,
+                leave_policy:-1,
+                holiday_lists:-1,
             })
         }
     },
 
     methods:{
+        getDesignations(){
+            axios.get('api/organizational_structure_designations').then((res)=>{
+                this.designations=res.data;
+            });
+            this.getDepartments()
+            this.getEmployments()
+
+            this.getHolidays()
+            this.getLeaves()
+            this.getAttendances()
+        },
+
+        getDepartments(){
+            axios.get('api/organizational_structure_departments').then((res)=>{
+                this.departments=res.data;
+            });
+        },
+
+        getEmployments(){
+            axios.get('api/organizational_structure_employments').then((res)=>{
+                this.employments=res.data;
+            });
+        },
+
+        getHolidays() {
+            axios.get('api/holiday_lists').then((response) => {
+                this.holidays = response.data
+            });
+        },
+
+        getLeaves() {
+            axios.get('api/get_leaves').then((response) => {
+                this.leaves = response.data;
+            });
+        },
+
+        getAttendances(){
+            axios.get('api/attendance_flags').then((response) => {
+                this.attendances = response.data
+            });
+        },
+
         get_roles(){
             axios.get('api/permission_roles').then((res)=>{
                 this.roles=res.data
                 this.form.role=res.data[0]['id']
             })
         },
+
         loadUsers(){
             if(this.form.id!=null)
                 axios.get('api/manage_emp/'+this.form.id).then((res)=>{
@@ -488,6 +541,7 @@ export default {
     created() {
         this.form.id = this.$route.query.employee;
         this.loadUsers()
+        this.getDesignations()
     },
 }
 </script>

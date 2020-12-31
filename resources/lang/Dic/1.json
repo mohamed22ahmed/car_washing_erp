@@ -451,13 +451,23 @@
         },
         {
             "dic_id": 91,
-            "name": "Jornal Datails",
+            "name": "Transaction Datails",
             "name_ar": "تفاصيل القيد"
         },
         {
             "dic_id": 92,
-            "name": "Jornal Number",
+            "name": "Transaction Number",
             "name_ar": "رقم القيد"
+        },
+        {
+            "dic_id": 93,
+            "name": "begining date of the attendance financial year",
+            "name_ar": "تاريخ بداية السنة المالية للحضور"
+        },
+        {
+            "dic_id": 94,
+            "name": "Department Manager",
+            "name_ar": "مدير القسم"
         }
     ]
 }

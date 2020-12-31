@@ -193,18 +193,16 @@ button{
                             <div class="row" v-if="form.addNewValue==2">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="abbreviation">{{ $t('136') }}</label>
-                                        <input class="form-control"  v-model="form.abbreviation" type="text" name="abbreviation" id="abbreviation">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="employee_id">{{ $t('137') }}</label>
+                                        <label for="employee_id">{{ $t('94') }}</label>
                                         <select name="employee_id" id="employee_id"  v-model="form.employee_id" class="form-control">
                                             <option v-for="emp in employees" :key="emp.id" :value="emp.id">{{ emp.name }}</option>
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div  v-if="form.addNewValue==2" class="panel-head bg-light" style="height:40px">
+                                <span style="font-weight:bold;" class="pr-3">{{$t('93')}}</span>
                             </div>
                             <div class="row" v-if="form.addNewValue==2">
                                 <div class="col-6">
@@ -259,7 +257,6 @@ export default {
                 name_ar: '',
                 status: 1,
                 description: '',
-                abbreviation: '',
                 employee_id:-1,
                 day:new Date().getDate(),
                 month:new Date().getMonth(),

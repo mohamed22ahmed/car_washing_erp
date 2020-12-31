@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class LeavePoliciesController extends Controller
 {
     public function index(){
-        return Leave_policy::paginate(5);
+        return Leave_policy::all();
     }
 
     public function get_leaves(){

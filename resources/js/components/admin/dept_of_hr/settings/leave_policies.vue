@@ -29,7 +29,7 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="leave in leaves.data" :key="leave.id">
+                                    <tr v-for="leave in leaves" :key="leave.id">
                                         <td>{{ leave.id }}</td>
                                         <td>{{ leave.name }}</td>
                                         <td>{{ leave.name_ar }}</td>
@@ -48,10 +48,6 @@
                             </table>
                         </div>
                         </div>
-
-                        <div class="card-footer">
-                        <pagination :data="leaves" @pagination-change-page="getResults"></pagination>
-                    </div>
                     </div>
                 </div>
             </div>

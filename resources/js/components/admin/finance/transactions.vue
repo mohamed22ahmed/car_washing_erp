@@ -24,7 +24,6 @@ button{
                                         <tr>
                                             <th>{{ $t('92') }}</th>
                                             <th>{{ $t('101') }}</th>
-                                            <th>{{ $t('111') }}</th>
                                             <th>{{ $t('113') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
@@ -33,7 +32,6 @@ button{
                                         <tr v-for="jor in jornals" :key="jor.id">
                                             <td>{{ jor.jor_number }}</td>
                                             <td>{{ jor.jor_date }}</td>
-                                            <td>{{ jor.currency }}</td>
                                             <td>{{ jor.description }}</td>
                                             <td>
                                                 <a href="#" @click="editModal(jor)">
@@ -79,21 +77,9 @@ button{
 
                                     <div class="input-group my-3">
                                         <div class="input-group-prepend">
-                                            <label for="currency" class="input-group-text">{{ $t('111') }}</label>
-                                        </div>
-                                        <select v-model="form.currency" name="currency" id="currency" class="custom-select">
-                                            <option value="-1">{{ $t('115') }}</option>
-                                            <option value="1">جنيه مصرى EGP</option>
-                                            <option value="2">ريال سعودى SAR</option>
-                                            <option value="3">درهم إماراتى AED</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="input-group my-3">
-                                        <div class="input-group-prepend">
                                             <label for="jor_number" class="input-group-text">{{ $t('112') }}</label>
                                         </div>
-                                        <input v-model="form.jor_number" type="text" name="jor_number" placeholder="Number" class="form-control">
+                                        <input v-model="form.jor_number" disabled type="text" name="jor_number" placeholder="Number" class="form-control">
                                     </div>
                                 </div>
 
@@ -102,7 +88,7 @@ button{
                                         <div class="input-group-prepend">
                                             <label for="description" class="input-group-text">{{ $t('113') }}</label>
                                         </div>
-                                        <textarea v-model="form.description" class="form-control" rows="6"></textarea>
+                                        <textarea v-model="form.description" class="form-control" rows="4"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +211,7 @@ export default {
             jornal_new_id:'',
             form: new Form({
                 id:'',
-                jor_date: '',
-                currency: '',
+                jor_date:new Date().toISOString().substr(0, 10),
                 jor_number: '',
                 description: '',
             }),
@@ -257,7 +242,8 @@ export default {
 
         getJornalId(){
             axios.get('api/get_jornal_id').then((response) => {
-                this.jornal_new_id = response.data;
+                this.form.jor_number = response.data;
+                this.jornal_id = response.data;
             });
         },
 
@@ -337,8 +323,7 @@ export default {
         newModalDetails() {
             this.editmode1 = false;
             this.detailsForm.reset();
-            if(this.form.id=='')
-                this.detailsForm.jornal_id=this.jornal_new_id
+            this.detailsForm.jornal_id=this.form.jor_number
             $('#addNewDetails').modal('show');
         },
 

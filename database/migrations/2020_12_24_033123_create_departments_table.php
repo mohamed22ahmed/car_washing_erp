@@ -17,7 +17,6 @@ class CreateDepartmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('name_ar');
-            $table->string('abbreviation')->nullable();
             $table->boolean('status');
             $table->string('description')->nullable();
             $table->integer('employee_id');

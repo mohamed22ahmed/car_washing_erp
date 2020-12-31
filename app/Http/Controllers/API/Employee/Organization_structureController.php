@@ -50,7 +50,6 @@ class Organization_structureController extends Controller
             Department::create([
                 'name'=>$request->name,
                 'name_ar'=>$request->name_ar,
-                'abbreviation'=>$request->abbreviation,
                 'status'=>$request->status,
                 'description'=>$request->description,
                 'employee_id'=>$request->employee_id,
@@ -80,7 +79,6 @@ class Organization_structureController extends Controller
             Department::where('id',$request->id)->update([
                 'name'=>$request->name,
                 'name_ar'=>$request->name_ar,
-                'abbreviation'=>$request->abbreviation,
                 'status'=>$request->status,
                 'description'=>$request->description,
                 'employee_id'=>$request->employee_id,

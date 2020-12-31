@@ -26,7 +26,7 @@
                                             </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="type in types.data" :key="type.id">
+                                        <tr v-for="type in types" :key="type.id">
                                             <td>{{ type.id }}</td>
                                             <td :style="{color:type.colour}">{{ type.name }}</td>
                                             <td :style="{color:type.colour}">{{ type.name_ar }}</td>
@@ -44,10 +44,6 @@
                                 </table>
                             </div>
                         </div>
-
-                        <div class="card-footer">
-                        <pagination :data="types" @pagination-change-page="getResults"></pagination>
-                    </div>
                     </div>
                 </div>
             </div>

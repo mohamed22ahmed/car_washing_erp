@@ -25,7 +25,7 @@
                                         </tr>
                                     </thead>
                                 <tbody>
-                                        <tr v-for="machine in machines.data" :key="machine.id">
+                                        <tr v-for="machine in machines" :key="machine.id">
                                             <td>{{ machine.id }}</td>
                                             <td>{{ machine.name }}</td>
                                             <td>{{ machine.name_ar }}</td>
@@ -43,9 +43,6 @@
                             </div>
                         </div>
 
-                        <div class="card-footer">
-                        <pagination :data="machines" @pagination-change-page="getResults"></pagination>
-                    </div>
                     </div>
                 </div>
             </div>

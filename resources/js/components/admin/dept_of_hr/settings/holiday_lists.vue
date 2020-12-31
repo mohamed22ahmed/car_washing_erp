@@ -27,7 +27,7 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="holiday in holidays.data" :key="holiday.id">
+                                    <tr v-for="holiday in holidays" :key="holiday.id">
                                         <td>{{ holiday.id }}</td>
                                         <td>{{ holiday.name }}</td>
                                         <td>{{ holiday.name_ar }}</td>
@@ -47,9 +47,6 @@
                         </div>
                     </div>
 
-                    <div class="card-footer">
-                        <pagination :data="holidays" @pagination-change-page="getResults"></pagination>
-                    </div>
                 </div>
             </div>
         </div>

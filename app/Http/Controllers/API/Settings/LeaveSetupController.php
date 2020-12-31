@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class LeaveSetupController extends Controller
 {
     public function index(){
-        return Leave_Setup::paginate(5);
+        return Leave_Setup::all();
     }
 
     public function store(Request $request){

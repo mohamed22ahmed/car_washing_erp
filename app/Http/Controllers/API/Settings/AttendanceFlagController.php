@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class AttendanceFlagController extends Controller
 {
     public function index(){
-        return Attendance_flag::paginate(5);
+        return Attendance_flag::all();
     }
 
     public function store(Request $request){

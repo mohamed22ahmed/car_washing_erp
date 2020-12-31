@@ -1,7 +1,7 @@
 {
     "dic": [{
             "dic_id": 100,
-            "name": "Jornals",
+            "name": "Transactions",
             "name_ar": "القيود اليومية"
         },
         {
@@ -41,7 +41,7 @@
         },
         {
             "dic_id": 108,
-            "name": "Jornal",
+            "name": "Transaction",
             "name_ar": "قيد يومى"
         },
         {
