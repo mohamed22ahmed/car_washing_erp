@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaveSetupsTable extends Migration
+class CreateLeavePoliciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLeaveSetupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('leave_setups', function (Blueprint $table) {
+        Schema::create('leave_policies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('name_ar');
@@ -26,7 +26,6 @@ class CreateLeaveSetupsTable extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      *
@@ -34,6 +33,6 @@ class CreateLeaveSetupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leave_setups');
+        Schema::dropIfExists('leave_policies');
     }
 }

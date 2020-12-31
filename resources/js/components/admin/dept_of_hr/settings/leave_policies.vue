@@ -5,60 +5,52 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                        <h3 class="card-title">{{$t('166')}}</h3>
+                        <h3 class="card-title">{{$t('160')}}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('165') }}
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('159') }}
                                 </button>
-                                <router-link :to="{ path: '/leave_setups'}" class="btn btn-success">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('164') }}
-                                </router-link>
                             </div>
                         </div>
 
                         <div class="card-body">
                             <div class="card-body table-responsive p-0">
-                            <table class="table table-bordered table-hover text-center">
-                                <thead class="thead-light">
-                                        <tr>
-                                            <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('56') }}</th>
-                                            <th>{{ $t('18') }}</th>
-                                            <th>{{ $t('110') }}</th>
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead class="thead-light">
+                                            <tr>
+                                                <th>{{ $t('109') }}</th>
+                                                <th>{{ $t('50') }}</th>
+                                                <th>{{ $t('56') }}</th>
+                                                <th>{{ $t('174') }}</th>
+                                                <th>{{ $t('110') }}</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="type in types" :key="type.id">
+                                            <td>{{ type.id }}</td>
+                                            <td :style="{color:type.colour}">{{ type.name }}</td>
+                                            <td :style="{color:type.colour}">{{ type.name_ar }}</td>
+                                            <td :style="{color:type.colour}">{{ type.max_days }}</td>
+                                            <td>
+                                                <a href="#" @click="editModal(type)">
+                                                    <i class="fa fa-edit red"></i>
+                                                </a>&nbsp;/
+                                                <a href="#" @click="deleteLeave(type.id)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="leave in leaves.data" :key="leave.id">
-                                        <td>{{ leave.id }}</td>
-                                        <td>{{ leave.name }}</td>
-                                        <td>{{ leave.name_ar }}</td>
-                                        <td  v-if="leave.status==1"><span class="badge badge-sm badge-rounded badge-success">{{ leave.status==1?'active':'Stopped' }}</span></td>
-                                        <td  v-if="leave.status==2"><span class="badge badge-sm badge-rounded badge-danger">{{ leave.status==1?'active':'Stopped' }}</span></td>
-                                        <td>
-                                            <a href="#" @click="editModal(leave)">
-                                                <i class="fa fa-edit red"></i>
-                                            </a>&nbsp;/
-                                            <a href="#" @click="deleteLeave(leave.id)">
-                                                <i class="fa fa-trash red"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        </div>
-
-                        <div class="card-footer">
-                        <pagination :data="leaves" @pagination-change-page="getResults"></pagination>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!--Modal-->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+       <!--Modal-->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -90,11 +82,9 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="status" class="required">{{$t('18')}}<span style="color:red;">*</span></label>
-                                                <select name="status" v-model="form.status" id="status" class="form-control">
-                                                    <option value="1">{{$t('19')}}</option>
-                                                    <option value="2">{{$t('20')}}</option>
-                                                </select>
+                                                <label for="colour" class="control-label">{{$t('149')}}</label>
+                                                <input v-model="form.colour" type="color" name="colour" placeholder="Flag colour" class="form-control" :class="{ 'is-invalid': form.errors.has('colour') }">
+                                                <has-error :form="form" field="colour"></has-error>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -103,46 +93,29 @@
                                                 <textarea class="form-control" id="description" name="description" v-model="form.description" rows="3"></textarea>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div><hr>
 
-                                    <div class="panel-head bg-light" style="height:40px">
-                                        <span style="font-weight:bold;" class="pr-3">{{$t('163')}}</span>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="max_days">{{$t('171')}}<span style="color:red;">*</span></label>
+                                                <input type="number" class="form-control" v-model="form.max_days" name="max_days" id="max_days">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="max_applicable_days">{{$t('172')}}</label>
+                                                <input type="number" class="form-control" v-model="form.max_applicable_days" name="max_applicable_days" id="max_applicable_days">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-6">
-                                            <!-- <div id="table" class="table-editable">
-                                            <span class="table-add float-right mb-3 mr-2">Add new line<a @click="tableInsert" href="#!" class="text-success"><i
-                                            class="fas fa-plus mx-2" aria-hidden="true"></i></a></span>
-                                            <table class="table table-bordered table-responsive-md text-center">
-                                            <thead class="thead-light">
-                                                <tr >
-                                                    <th class="text-center">Leave Type</th>
-                                                    <th class="text-center">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="hide">
-                                                    <td class="pt-3-half">
-                                                    <div class="form-group">
-                                                        <select name="leave_type" v-model="form.leave_type" id="leave_type" class="form-control">
-                                                            <option value="-1">Select Leave Type</option>
-                                                        </select>
-                                                    </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="table-remove"><button type="button"
-                                                            class="btn btn-danger btn-rounded btn-sm my-0">delete</button>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            </table>
-                                            </div> -->
-                                            <label for="leave_type">{{$t('168')}}</label>
-                                            <select class="form-control" label="leave_type" id="leave_type" name="leave_type" v-model="form.leave_type">
-                                                <option v-for="type in types" :key="type.id" :value="type.id">{{ type.name }}</option>
-                                            </select>
+                                            <div class="form-group">
+                                                <label for="applicable_after">{{$t('173')}}</label>
+                                                <input type="number" class="form-control" v-model="form.applicable_after" name="applicable_after" id="applicable_after">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,16 +137,17 @@
     export default {
         data: function(){
         return{
-            leaves:{},
-            types:[],
+            types:{},
             editmode: false,
             form: new Form({
-               id:'',
+                 id:'',
                 name:'',
                 name_ar:'',
-                status:1,
+                colour:'',
                 description:'',
-                leave_type:-1,
+                max_days:'',
+                max_applicable_days:'',
+                applicable_after:'',
             })
         }
     },
@@ -181,14 +155,11 @@
 
         getResults(page = 1) {
             axios.get('api/leave_policies/?page=' + page).then((response) => {
-                this.leaves = response.data;
-            });
-            axios.get('api/get_leaves').then((response) => {
                 this.types = response.data;
             });
         },
 
-        newModal(){
+        newModal() {
             this.editmode = false;
             this.form.reset();
             $('#addNew').modal('show');
@@ -202,7 +173,7 @@
                 swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Leave Policy Created successfully',
+                    title: 'Leave Created successfully',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -217,7 +188,7 @@
             this.form.fill(user);
         },
 
-        updateLeave(){
+        updateLeave() {
             this.$Progress.start();
             this.form.put('api/leave_policies/'+ this.form.id)
                 .then(() => {
@@ -225,7 +196,7 @@
                     $('#addNew').modal('hide');
                     swal.fire(
                         'Updated!',
-                        'Leave Policy has been updated.',
+                        'Leave has been updated.',
                         'success'
                     )
                     this.$Progress.finish();
@@ -250,12 +221,12 @@
                     this.form.delete('api/leave_policies/'+id).then(()=>{
                         swal.fire(
                             'Deleted!',
-                            'Leave Policy has been deleted.',
+                            'Leave Type has been deleted.',
                             'success'
                         )
                         Fire.$emit('AfterCreate');
                     }).catch(()=> {
-                        swal.fire("Failed!", "This Leave Policy is Error", "warning");
+                        swal.fire("Failed!", "This Leave is Error", "warning");
                     });
                 }
             })

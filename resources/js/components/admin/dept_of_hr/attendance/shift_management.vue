@@ -82,16 +82,16 @@ button{
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="on_duty_time">{{ $t('67') }} *</label>
+                                    <label for="on_duty_time1">{{ $t('67') }} *</label>
                                     <div>
-                                        <input type="time" name="on_duty_time" v-model="form.on_duty_time" id="on_duty_time" class="form-control">
+                                        <input type="time" name="on_duty_time1" v-model="form.on_duty_time1" id="on_duty_time1" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="off_duty_time">{{ $t('68') }} *</label>
+                                    <label for="off_duty_time1">{{ $t('68') }} *</label>
                                     <div>
-                                        <input type="time" name="off_duty_time" v-model="form.off_duty_time" id="off_duty_time" class="form-control">
+                                        <input type="time" name="off_duty_time1" v-model="form.off_duty_time1" id="off_duty_time1" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -111,21 +111,42 @@ button{
                                     </div>
                                 </div>
                             </div>
+                            <div v-if="form.assign_another_shift==1">
+                                <fieldset style="border:1px solid black">
+                                    <legend>
+                                        &nbsp;&nbsp; {{ $t('95') }} {{ $t('71') }}
+                                    </legend>
+                                    <div class="row container">
+                                        <div class="form-group col-md-6">
+                                            <label for="on_duty_time2">{{ $t('67') }} * ({{ $t('71') }} 2)</label>
+                                            <div>
+                                                <input type="time" name="on_duty_time2" v-model="form.on_duty_time2" id="on_duty_time2" class="form-control">
+                                            </div>
+                                        </div>
 
-                            <div class="row" v-if="form.shift_two==1">
-                                <div class="form-group col-md-6">
-                                    <label for="begin2">{{ $t('69') }} * ({{ $t('71') }} 2)</label>
-                                    <div>
-                                        <input type="time" name="begin2" v-model="form.begin2" id="begin2" class="form-control">
+                                        <div class="form-group col-md-6">
+                                            <label for="off_duty_time">{{ $t('68') }} * ({{ $t('71') }} 2)</label>
+                                            <div>
+                                                <input type="time" name="off_duty_time2" v-model="form.off_duty_time2" id="off_duty_time2" class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row container">
+                                        <div class="form-group col-md-6">
+                                            <label for="begin2">{{ $t('69') }} * ({{ $t('71') }} 2)</label>
+                                            <div>
+                                                <input type="time" name="begin2" v-model="form.begin2" id="begin2" class="form-control">
+                                            </div>
+                                        </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="end2">{{ $t('70') }} * ({{ $t('71') }} 2)</label>
-                                    <div>
-                                        <input type="time" name="end2" v-model="form.end2" id="end2" class="form-control">
+                                        <div class="form-group col-md-6">
+                                            <label for="end2">{{ $t('70') }} * ({{ $t('71') }} 2)</label>
+                                            <div>
+                                                <input type="time" name="end2" v-model="form.end2" id="end2" class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </fieldset>
                             </div>
 
                             <div class="row">
@@ -134,25 +155,26 @@ button{
                                     <v-select multiple  :options="week_days_all"  label="week_days" id="week_days" name="week_days" v-model="form.week_days"></v-select>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" style="margin-top:10px">
                                     <label class="control-label"></label>
                                     <div class="custom-control custom-switch custom-switch-on-success">
                                         <input type="checkbox"  class="custom-control-input" id="assign_another_shift" checked name="assign_another_shift" v-model="form.assign_another_shift">
                                         <label class="custom-control-label" for="assign_another_shift">{{ $t('73') }}</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div><br>
 
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <div class="form-check">
-                                        <input v-model="form.start_late" type="checkbox" name="start_late" id="start_late" class="form-check-input">
-                                        <label for="start_late" class="form-check-label">{{ $t('74') }} *</label>
+                                <div class="form-group col-md-6" style="margin-top:-20px">
+                                    <label class="control-label"></label>
+                                    <div class="custom-control custom-switch custom-switch-on-success">
+                                        <input type="checkbox"  class="custom-control-input" id="start_late" checked name="start_late" v-model="form.start_late">
+                                        <label class="custom-control-label" for="start_late">{{ $t('74') }}</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <input :disabled="form.start_late==0" v-model="form.late_minutes" type="number" name="late_minutes" class="form-control">
+                                    <input :disabled="disable_late()" v-model="form.late_minutes" type="number" name="late_minutes" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -179,20 +201,30 @@ button{
                 id:'',
                 name:'',
                 name_ar:'',
-                on_duty_time:'',
-                off_duty_time:'',
+                on_duty_time1:'',
+                off_duty_time1:'',
                 begin1:'',
                 end1:'',
+                on_duty_time2:'',
+                off_duty_time2:'',
                 begin2:'',
                 end2:'',
                 assign_another_shift:0,
                 week_days:[],
                 start_late:0,
-                late_minutes:'',
+                late_minutes:0,
             })
         }
     },
     methods:{
+        disable_late(){
+            if(this.form.start_late==0){
+                this.form.late_minutes=0
+                return true;
+            }
+            return false;
+        },
+
         getResults(page = 1) {
             axios.get('api/shift_management/?page=' + page).then((response) => {
                 this.shifts = response.data;

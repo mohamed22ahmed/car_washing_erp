@@ -8,9 +8,45 @@ button{
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">{{ $t('51') }}</div>
+                    <div class="card-header">
+                        <h3 class="card-title">{{ $t('51') }}</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-success" @click="newModal">
+                            <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('55') }}</button>
+                        </div>
+                    </div>
 
                     <div class="card-body">
+                        <div class="row">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>{{ $t('109') }}</th>
+                                            <th>{{ $t('50') }}</th>
+                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('110') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="role in roles" :key="role.id">
+                                            <td>{{ role.id }}</td>
+                                            <td>{{ role.name }}</td>
+                                            <td>{{ role.name_ar }}</td>
+                                            <td>
+                                                <a href="#" @click="editRole(role)">
+                                                    <i class="fa fa-edit red"></i>
+                                                </a>&nbsp;/
+                                                <a href="#" @click="deleteRole(role.id)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><br><br>
+
                         <form @submit.prevent="set_permissions()">
                             <div class="modal-body">
                                 <div class="row">
@@ -68,6 +104,42 @@ button{
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">{{ $t('55') }}</h5>
+                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-4 control-label">{{ $t('50') }}</label>
+                                <input type="text" v-model="roleForm.name" name="name" placeholder="English Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                <has-error :form="roleForm" field="name"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-4 control-label">{{ $t('56') }}</label>
+                                <input v-model="roleForm.name_ar" type="text" name="name_ar" placeholder="Arabic Description" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
+                                <has-error :form="roleForm" field="name_ar"></has-error>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -78,15 +150,93 @@ export default {
             roles:{},
             modules:{},
             module_id:1,
+            editmode:false,
 
             form: new Form({
                 role_id:1,
                 pages:{},
             }),
+
+            roleForm: new Form({
+                id:'',
+                name : '',
+                name_ar: '',
+            })
         }
     },
 
     methods: {
+
+            newModal(){
+                this.editmode = false;
+                this.roleForm.reset();
+                $('#addNew').modal('show');
+            },
+
+            createUser(){
+                this.$Progress.start();
+                this.roleForm.post('api/roles').then(()=>{
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+                    swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Role Created successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.$Progress.finish();
+                })
+            },
+
+            editRole(user){
+                this.editmode = true;
+                this.roleForm.reset();
+                $('#addNew').modal('show');
+                this.roleForm.fill(user);
+            },
+
+            updateUser(){
+                this.$Progress.start();
+                this.roleForm.put('api/roles/'+this.roleForm.id).then(() => {
+                    $('#addNew').modal('hide');
+                    swal.fire(
+                        'Updated!',
+                        'Information has been updated.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
+
+            deleteRole(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.roleForm.delete('api/roles/'+id).then(()=>{
+                            swal.fire(
+                                'Deleted!',
+                                'Role has been deleted.',
+                                'success'
+                            )
+                            Fire.$emit('AfterCreate');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "This Role assigned to an employee.", "warning");
+                        });
+                    }
+                })
+            },
         get_roles(){
             axios.get('api/permission_roles').then((res)=>{
                 this.roles=res.data

@@ -16,7 +16,6 @@ class CreateJornalsTable extends Migration
         Schema::create('jornals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('jor_date');
-            $table->integer('currency')->default(-1);
             $table->integer('jor_number');
             $table->string('description')->default('0');
             $table->timestamps();

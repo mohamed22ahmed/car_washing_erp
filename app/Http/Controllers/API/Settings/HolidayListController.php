@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class HolidayListController extends Controller
 {
     public function index(){
-        return Holiday_list::paginate(5);
+        return Holiday_list::all();
     }
 
     public function get_leaves(){

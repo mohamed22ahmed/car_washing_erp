@@ -31,20 +31,12 @@
             "sort": 1
         },
         {
-            "screen_route": "roles",
-            "module_id": "2",
-            "module_name": "Employees",
-            "screen_name": "Roles",
-            "operation_type": "1,2,3",
-            "sort": 2
-        },
-        {
             "screen_route": "permission",
             "module_id": "2",
             "module_name": "Employees",
-            "screen_name": "Role Permission",
+            "screen_name": "Role Permissionس",
             "operation_type": "1",
-            "sort": 3
+            "sort": 2
         },
         {
             "screen_route": "organizational_structure",
@@ -52,7 +44,7 @@
             "module_name": "Employees",
             "screen_name": "Organizational Structure",
             "operation_type": "1,2,3,4",
-            "sort": 4
+            "sort": 3
         },
         {
             "screen_route": "attendance_logs",
@@ -60,15 +52,7 @@
             "module_name": "Employees",
             "screen_name": "Attendance Logs",
             "operation_type": "1,2,3",
-            "sort": 5
-        },
-        {
-            "screen_route": "Attendance Permissions",
-            "module_id": "2",
-            "module_name": "Employees",
-            "screen_name": "Attendance Permissions",
-            "operation_type": "1,2,3",
-            "sort": 6
+            "sort": 4
         },
         {
             "screen_route": "shift_management",
@@ -76,7 +60,7 @@
             "module_name": "Employees",
             "screen_name": "Shift Management",
             "operation_type": "1,2,3",
-            "sort": 7
+            "sort": 5
         },
         {
             "screen_route": "settings",
@@ -84,7 +68,20 @@
             "module_name": "Employees",
             "screen_name": "Settings",
             "operation_type": "1,2,3",
-            "sort": 8
+            "sort": 6
+        },
+
+
+
+
+
+        {
+            "screen_route": "car_washing",
+            "module_id": "3",
+            "module_name": "New Washing Ticket",
+            "screen_name": "car_washing",
+            "operation_type": "1,2,3",
+            "sort": 1
         }
     ]
 }

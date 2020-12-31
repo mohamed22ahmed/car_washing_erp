@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MachineSettingController extends Controller
 {
     public function index(){
-        return Machine_setting::paginate(5);
+        return Machine_setting::all();
     }
 
     public function store(Request $request){
