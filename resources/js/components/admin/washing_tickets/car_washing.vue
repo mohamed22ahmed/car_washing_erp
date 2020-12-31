@@ -1,21 +1,21 @@
 <style scoped>
-button{
-    color:white;
-}
-.form-rounded {
-    border-radius: 1rem;
-}
-.default{
-    border-radius: 30px;
-}
-.form-control:focus {
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.verticalLine {
-  border-left: thin solid black;
-}
+    button{
+        color:white;
+    }
+    .form-rounded {
+        border-radius: 1rem;
+    }
+    .default{
+        border-radius: 30px;
+    }
+    .form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    }
+    .verticalLine {
+    border-left: thin solid black;
+    }
 </style>
 <template>
     <div class="container">
