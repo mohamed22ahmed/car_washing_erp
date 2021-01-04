@@ -17,8 +17,8 @@ class CreateProductsManagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('name_ar');
-            $table->string('description');
             $table->integer('classifications');
+            $table->integer('type');
             $table->integer('part_unit')->nullable();
             $table->integer('unit_parts')->nullable();
             $table->integer('default_unit')->nullable();

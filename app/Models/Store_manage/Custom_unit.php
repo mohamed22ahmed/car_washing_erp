@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Tickets_manage;
+namespace App\Models\Store_manage;
 
 use Illuminate\Database\Eloquent\Model;
 

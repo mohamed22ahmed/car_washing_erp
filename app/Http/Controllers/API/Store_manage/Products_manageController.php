@@ -14,11 +14,36 @@ class Products_manageController extends Controller
         return Product_manage::paginate(5);
     }
 
-    public function get_units(){
-        return Custom_unit::paginate(5);
+    public function store(Request $request){
+        $data=new Product_manage;
+        $data->name =$request->name;
+        $data->name_ar = $request->name_ar;
+        $data->classifications = $request->classifications;
+        $data->type = $request->type;
+        $data->part_unit =$request->part_unit;
+        $data->default_unit =$request->default_unit;
+        $data->unit_parts = $request->unit_parts;
+        $data->unit_price = $request->unit_price;
+        $data->save();
+        return response(['success','your data Stored successfully'],200);
     }
 
-    public function get_services(){
-        return Service::paginate(5);
+    public function update(Request $request,$id){
+        $data=Product_manage::find($id);
+        $data->name =$request->name;
+        $data->name_ar = $request->name_ar;
+        $data->classifications = $request->classifications;
+        $data->type = $request->type;
+        $data->part_unit =$request->part_unit;
+        $data->default_unit =$request->default_unit;
+        $data->unit_parts = $request->unit_parts;
+        $data->unit_price = $request->unit_price;
+        $data->save();
+        return response(['success','your data Updated successfully'],200);
+    }
+
+    public function destroy($id){
+        $data=Product_manage::find($id)->delete();
+        return response(['success','your data deleted successfully'],200);
     }
 }

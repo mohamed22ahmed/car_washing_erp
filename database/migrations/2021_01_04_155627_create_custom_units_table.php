@@ -15,6 +15,7 @@ class CreateCustomUnitsTable extends Migration
     {
         Schema::create('custom_units', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->smallinteger('unit_id');
             $table->string('name');
             $table->integer('units');
             $table->integer('cost');

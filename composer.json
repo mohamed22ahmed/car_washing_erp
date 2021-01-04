@@ -45,11 +45,17 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Support\\": "app/Support"
+            "Support\\": "app/Support",
+            "Database\\Seeds\\": "database/seeds/DatabaseSeeder.php"
         },
 
         "files": [
             "app/Helpers/Helper.php"
+        ],
+
+        "classmap": [
+            "database/seeds",
+            "database/factories"
         ]
     },
     "autoload-dev": {

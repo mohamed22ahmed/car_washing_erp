@@ -155,6 +155,52 @@ button{
                                 </div>
                            </div>
 
+
+                            <div class="row mt-3  d-flex justify-content-center">
+                                <div class="col-md-10">
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            <div class="table-responsive p-0">
+                                                <form @submit.prevent="createUser()">
+                                                    <table class="table text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ $t('229') }}</th>
+                                                                <th>{{ $t('227') }}</th>
+                                                                <th>{{ $t('228') }}</th>
+                                                                <th>{{ $t('230') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><input  type="text"    class="form-control"   name="name"></td>
+                                                                <td><input  type="number"  class="form-control"   name="units"></td>
+                                                                <td><input  type="number"  class="form-control"   name="cost"></td>
+                                                                <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!--<table class="table text-center">
+                                            <tbody v-for="unit in units.data" :key="unit.id">
+                                                <tr>
+                                                    <td>{{unit.name}}</td>
+                                                    <td>{{unit.units}}</td>
+                                                    <td>{{unit.cost}}</td>
+                                                    <td>
+                                                        <a href="#" @click="deleteMaterial(unit.id)">
+                                                            <i class="fa fa-trash" style="color:red;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>-->
+                                    </div>
+                                </div>
+                            </div>
+
                            <div class="row mt-3">
                                 <div class="col-md-2"></div>
 

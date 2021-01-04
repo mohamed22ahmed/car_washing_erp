@@ -37,11 +37,11 @@ button{
                                         <td>{{ product.name_ar }}</td>
                                         <td>{{ product.classifications==1?'Car' : 'Carpets' }}</td>
                                         <td>
-                                            <a href="#" @click="editRole(product)">
+                                            <a href="#" @click="editProduct(product)">
                                                 <i class="fa fa-edit red"></i>
                                             </a>&nbsp;/
-                                            <a href="#" @click="deleteRole(product.id)">
-                                                <i class="fa fa-trash red"></i>
+                                            <a href="#" @click="deleteProduct(product.id)">
+                                                <i class="fa fa-trash" style="color:red;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -72,12 +72,12 @@ button{
 
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
                         <div class="modal-body bg-light">
-                           <div class="row">
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <input v-model="form.name" type="text" name="name" :placeholder="name" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('name') }">
+                                    <input v-model="form.name" type="text" name="name" :placeholder="name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                                     <has-error :form="form" field="name"></has-error><br>
 
-                                    <input v-model="form.name_ar" type="text" name="name_ar" :placeholder="name_ar" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
+                                    <input v-model="form.name_ar" type="text" name="name_ar" :placeholder="name_ar" class="form-control" :class="{ 'is-invalid': form.errors.has('name_ar') }" dir="rtl">
                                     <has-error :form="form" field="name_ar"></has-error><br>
 
                                     <select class="form-control" name="classifications" v-model="form.classifications">
@@ -92,7 +92,7 @@ button{
                                         <option selected value="2">{{$t('232')}}</option>
                                     </select><br>
 
-                                    <!--<div class="row">
+                                    <div class="row">
                                         <div class="col-sm-4 col-12">
                                             <select class="form-control" name="part_unit" v-model="form.part_unit">
                                                 <option selected value="-1">part_unit</option>
@@ -107,9 +107,9 @@ button{
                                                 <option selected value="-1">default_unit</option>
                                             </select>
                                         </div>
-                                    </div><br>-->
+                                    </div><br>
 
-                                    <input v-model="form.unit_price" type="number" name="unit_price" :placeholder="unit_price" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('unit_price') }">
+                                    <input v-model="form.unit_price" type="number" name="unit_price" :placeholder="unit_price" class="form-control" :class="{ 'is-invalid': form.errors.has('unit_price') }">
                                     <has-error :form="form" field="unit_price"></has-error><br>
                                 </div>
 
@@ -130,38 +130,30 @@ button{
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" class="form-control" v-modal="form2.name"></td>
-                                                            <td><input type="number" class="form-control" v-modal="form2.units"></td>
-                                                            <td><input type="number" class="form-control" v-modal="form2.cost"></td>
+                                                            <td><input  type="text"    class="form-control"   name="name"  v-model="form2.name"></td>
+                                                            <td><input  type="number"  class="form-control"   name="units" v-model="form2.units"></td>
+                                                            <td><input  type="number"  class="form-control"   name="cost"  v-model="form2.cost"></td>
                                                             <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
-                                                            <!--<td>
-                                                                <a href="#" @click="deleteProduct(product.id)">
-                                                                    <i class="fa fa-trash red"></i>
-                                                                </a>
-                                                            </td>-->
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                              </form>
                                             </div>
                                         </div>
-
-                                        <div class="card-body">
-                                            <table class="table text-center">
-                                                <tbody v-for="unit in units" :key="unit.id">
-                                                    <tr>
-                                                        <td>{{unit.name}}</td>
-                                                        <td>{{unit.quantity}}</td>
-                                                        <td>{{unit.cost}}</td>
-                                                        <td>
-                                                            <a href="#" @click="deleteProduct(unit.id)">
-                                                                <i class="fa fa-trash" style="color:red;"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <table class="table text-center">
+                                            <tbody v-for="unit in units.data" :key="unit.id">
+                                                <tr>
+                                                    <td>{{unit.name}}</td>
+                                                    <td>{{unit.units}}</td>
+                                                    <td>{{unit.cost}}</td>
+                                                    <td>
+                                                        <a href="#" @click="deleteMaterial(unit.id)">
+                                                            <i class="fa fa-trash" style="color:red;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                     <div class="card card-default" v-if="form.type==2">
@@ -179,8 +171,8 @@ button{
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" class="form-control" v-modal="form3.name"></td>
-                                                            <td><input type="number" class="form-control" v-modal="form3.quantity"></td>
+                                                            <td><input type="text" class="form-control" v-model="form3.name"></td>
+                                                            <td><input type="number" class="form-control" v-model="form3.quantity"></td>
                                                             <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                         </tr>
                                                     </tbody>
@@ -188,30 +180,26 @@ button{
                                              </form>
                                             </div>
                                         </div>
-
-                                        <div class="card-body">
-                                            <table class="table text-center">
-                                                <tbody v-for="ser in services" :key="ser.id">
-                                                    <tr>
-                                                        <td>{{ser.name}}</td>
-                                                        <td>{{ser.quantity}}</td>
-                                                        <td>{{ser.cost}}</td>
-                                                        <td>
-                                                            <a href="#" @click="deleteService(ser.id)">
-                                                                <i class="fa fa-trash" style="color:red;"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <table class="table text-center">
+                                            <tbody v-for="ser in services.data" :key="ser.id">
+                                                <tr>
+                                                    <td>{{ser.name}}</td>
+                                                    <td>{{ser.quantity}}</td>
+                                                    <td>
+                                                        <a href="#" @click="deleteService(ser.id)">
+                                                            <i class="fa fa-trash" style="color:red;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                            </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
                             <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
                             <button type="button" class="btn btn-danger"  data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
@@ -297,7 +285,7 @@ button{
                 })
             },
 
-            editRole(user){
+            editProduct(user){
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
@@ -345,12 +333,75 @@ button{
                     }
                 })
             },
+
+            createMaterial(){
+                this.$Progress.start();
+                this.form2.post('api/get_units').then(()=>{
+                    Fire.$emit('AfterCreate');
+                })
+            },
+
+            deleteMaterial(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.form2.delete('api/get_units/'+id).then(()=>{
+                            // swal.fire(
+                            //     'Deleted!',
+                            //     'Data has been deleted.',
+                            //     'success'
+                            // )
+                            Fire.$emit('AfterCreate');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "This data assigned to an employee.", "warning");
+                        });
+                    }
+                })
+            },
+
+            createService(){
+                this.$Progress.start();
+                this.form3.post('api/get_services').then(()=>{
+                    Fire.$emit('AfterCreate');
+                })
+            },
+
+            deleteService(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.form3.delete('api/get_services/'+id).then(()=>{
+                            Fire.$emit('AfterCreate');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "This data assigned to an employee.", "warning");
+                        });
+                    }
+                })
+            },
         },
 
         created(){
             this.getResults();
+            this.getUnits();
+            this.getServices();
             Fire.$on('AfterCreate',() => {
                 this.getResults();
+                this.getUnits();
+                this.getServices();
             });
         },
 
