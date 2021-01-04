@@ -21,8 +21,8 @@ class CreateCodeTablesTable extends Migration
         $table->smallInteger('parent_code')->default(1);
         $table->string('name',100);
         $table->string('name_ar',100);
+        // $table->primary(['id','sys_code_type','sys_code']);
         $table->timestamps();
-        $table->primary(['sys_code_type','sys_code']);
     });
 
     }
