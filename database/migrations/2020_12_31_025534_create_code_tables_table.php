@@ -15,15 +15,13 @@ class CreateCodeTablesTable extends Migration
     {
 
         Schema::create('code_tables', function (Blueprint $table) {
-        $table->bigIncrements('id');
-        $table->smallInteger('sys_code_type');
-        $table->smallInteger('sys_code');
-        $table->smallInteger('parent_code')->default(1);
-        $table->string('name',100);
-        $table->string('name_ar',100);
-        // $table->primary(['id','sys_code_type','sys_code']);
-        $table->timestamps();
-    });
+            $table->bigIncrements('id');
+            $table->smallInteger('sys_code_type');
+            $table->smallInteger('sys_code');
+            $table->string('name');
+            $table->string('name_ar');
+            $table->timestamps();
+        });
 
     }
 
