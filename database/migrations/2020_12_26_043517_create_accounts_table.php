@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kalnoy\Nestedset\NestedSet;
 
 class CreateAccountsTable extends Migration
 {
@@ -19,6 +18,7 @@ class CreateAccountsTable extends Migration
             $table->bigInteger('user_id');
             $table->string('name');
             $table->string('name_ar');
+            $table->smallInteger('parent_id');
             $table->string('account_type')->nullable();
             $table->string('balance_type')->nullable();
             $table->string('final_account')->nullable();
@@ -29,7 +29,6 @@ class CreateAccountsTable extends Migration
             $table->integer('accountable_id')->nullable();
             $table->integer('Column10')->nullable();
             $table->string('account_path')->default('0');
-            NestedSet::columns($table);
             $table->timestamps();
         });
     }

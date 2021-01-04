@@ -468,6 +468,133 @@
             "dic_id": 193,
             "name": "Session Logs",
             "name_ar": "سجلات الحضور"
+        },
+        {
+            "dic_id": 194,
+            "name": "Client Name",
+            "name_ar": "إسم العميــل"
+        },
+        {
+            "dic_id": 195,
+            "name": "Num of Tickets",
+            "name_ar": "رقم التذكــرة"
+        },
+        {
+            "dic_id": 196,
+            "name": "Num of Material",
+            "name_ar": "عدد الخامــات"
+        },
+        {
+            "dic_id": 197,
+            "name": "Total Price",
+            "name_ar": "إجمالى سعر الخامـات"
+        },
+        {
+            "dic_id": 198,
+            "name": "User Name",
+            "name_ar": "إسم المنشــأ"
+        },
+        {
+            "dic_id": 199,
+            "name": "Creation Date",
+            "name_ar": "تاريخ الإنشــاء"
+        },
+        {
+            "dic_id": 200,
+            "name": "Car Wash Ticket",
+            "name_ar": "تذكرة غسيل سيــارة"
+        },
+        {
+            "dic_id": 201,
+            "name": "Carpet Wash Ticket",
+            "name_ar": "تذكرة غسيل سجــاد"
+        },
+        {
+            "dic_id": 202,
+            "name": "Add New Ticket",
+            "name_ar": "إضافة تذكرة جديــدة"
+        },
+        {
+            "dic_id": 203,
+            "name": "Ticket Date",
+            "name_ar": "تاريخ التذكــرة "
+        },
+        {
+            "dic_id": 204,
+            "name": "Wash select",
+            "name_ar": "إختار المغسلــة"
+        },
+        {
+            "dic_id": 205,
+            "name": "Ticket Status",
+            "name_ar": "حالة التذكــرة"
+        },
+        {
+            "dic_id": 206,
+            "name": "select client",
+            "name_ar": "إختار العميــل"
+        },
+        {
+            "dic_id": 207,
+            "name": "Phone Number",
+            "name_ar": "رقم التليفون"
+        },
+        {
+            "dic_id": 208,
+            "name": "Select Size",
+            "name_ar": "إختار المقــاس"
+        },
+        {
+            "dic_id": 209,
+            "name": "Select Type",
+            "name_ar": "إختار النــوع"
+        },
+        {
+            "dic_id": 210,
+            "name": "Entrance Date",
+            "name_ar": "تاريخ الدخــول"
+        },
+        {
+            "dic_id": 211,
+            "name": "Expected Exit Date",
+            "name_ar": "تاريخ الخروج المتوقــع"
+        },
+        {
+            "dic_id": 212,
+            "name": "save & print",
+            "name_ar": "حفظ و طبــاعة"
+        },
+        {
+            "dic_id": 213,
+            "name": "update status",
+            "name_ar": "تحديث الحالـة"
+        },
+        {
+            "dic_id": 214,
+            "name": "add rate",
+            "name_ar": "إضافة تقييــم"
+        },
+        {
+            "dic_id": 215,
+            "name": "inform",
+            "name_ar": "إبــلاغ"
+        },
+        {
+            "dic_id": 216,
+            "name": "Machine model",
+            "name_ar": "مودل الماكــينة"
+        },
+        {
+            "dic_id": 217,
+            "name": "Brand",
+            "name_ar":"الماركـة"
+        },
+        {
+            "dic_id": 218,
+            "name": "Purchase Date",
+            "name_ar":"تاريخ الشــراء"
         }
+
+
     ]
 }

@@ -76,7 +76,9 @@ Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
 
 // ################################################## Washing Tickets ###########################################
 
-
+// Carpet Wash Ticket
+Route::apiResources(['carpet_wash' => 'API\Wahing_ticket\Carpets_washingController']);
+Route::delete('carpet_wash/{id}','API\Wahing_ticket\Carpets_washingController@destroy');
 
 
 

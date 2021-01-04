@@ -29,10 +29,10 @@ button {
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Car Wash Ticket</h3>
+                            <h3 class="card-title">{{ $t('200') }}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                    <i class="fas fa-plus fa-fw"></i>&nbsp; Add New Ticket
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}
                                 </button>
                             </div>
                         </div>
@@ -43,13 +43,12 @@ button {
                                     <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>Client Name</th>
-                                            <th>Num of Tickets</th>
-                                            <th>Total Price</th>
-                                            <th>Network value</th>
-                                            <th>Cash Value</th>
-                                            <th>Paid Up</th>
-                                            <th>Residual</th>
+                                            <th>{{ $t('194') }}</th>
+                                            <th>{{ $t('195') }}</th>
+                                            <th>{{ $t('196') }}</th>
+                                            <th>{{ $t('197') }}</th>
+                                            <th>{{ $t('205') }}</th>
+                                            <th>{{ $t('199') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
@@ -209,12 +208,12 @@ button {
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-success default mr-3" data-dismiss="modal">save</button>
-                            <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">save & print</button>
-                            <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">update status</button>
-                            <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">add rate</button>
-                            <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">inform</button>
-                            <button type="button" class="btn btn-danger default ml-3" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button type="submit" class="btn btn-success default mr-3">{{ $t('121') }}</button>
+                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
+                            <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
+                            <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
+                            <button type="button" class="btn btn-danger default ml-3"  data-dismiss="modal">{{ $t('114') }}</button>
                             <!--<button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
                                 <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>-->
                         </div>
