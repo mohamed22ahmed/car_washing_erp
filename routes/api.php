@@ -80,6 +80,12 @@ Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
 Route::apiResources(['carpet_wash' => 'API\Wahing_ticket\Carpets_washingController']);
 Route::delete('carpet_wash/{id}','API\Wahing_ticket\Carpets_washingController@destroy');
 
+// Car washing Tickets Routes
+Route::apiResources(['car_washing' => 'API\Washing_ticket\Car_washingController']);
+Route::post('car_washing_add_code_table','API\Washing_ticket\Car_washingController@add_code_table');
+Route::get('get_clients','API\Washing_ticket\Car_washingController@get_clients');
+Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
+
 
 
 

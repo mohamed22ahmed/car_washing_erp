@@ -15,6 +15,24 @@ class CreateCarWashingsTable extends Migration
     {
         Schema::create('car_washings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('serial_number');
+            $table->date('ticket_date');
+            $table->integer('wash');
+            $table->integer('ticket_status');
+            $table->string('car_number_num_en')->nullable();
+            $table->string('car_number_letters_en')->nullable();
+            $table->string('car_number_num_ar');
+            $table->string('car_number_letters_ar');
+
+            $table->integer('color');
+            $table->integer('brand');
+            $table->integer('car_status');
+            $table->integer('client');
+            $table->integer('client_status');
+            $table->string('phone');
+            $table->date('enterance_date');
+            $table->date('exit_expected_date');
+
             $table->timestamps();
         });
     }
