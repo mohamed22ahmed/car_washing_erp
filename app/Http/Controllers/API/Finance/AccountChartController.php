@@ -12,10 +12,10 @@ use DB;
 class AccountChartController extends Controller
 {
     public function index(){
-        $accounts = Account::withDepth()
-        ->with('ancestors')
-        ->get()
-        ->toTree();
+        $accounts = Account::all();
+        // ->with('ancestors')
+        // ->get()
+        // ->toTree();
         return $accounts;
     }
 
