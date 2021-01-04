@@ -6,7 +6,7 @@ button{
     border-radius: 1rem;
 }
 .default{
-    border-radius: 30px;
+    border-radius: 20px;
 }
 .form-control:focus {
   border-color: inherit;
@@ -24,7 +24,7 @@ button{
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Mat Wash Ticket</h3>
+                            <h3 class="card-title">Carpet Wash Ticket</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
                                 <i class="fas fa-plus fa-fw"></i>&nbsp; Add New Ticket</button>
@@ -78,9 +78,9 @@ button{
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title d-flex justify-content-center" v-show="!editmode">Add New Ticket</h5>&nbsp;
-                        <h5><span class="badge badge-pill badge-success">good client</span></h5>
+                    <div class="modal-header d-flex justify-content-center">
+                        <h5 class="modal-title" v-show="!editmode">Add New Ticket</h5>&nbsp;
+                        <span class="badge badge-pill badge-success">good client</span>
                         <h5 class="modal-title" v-show="editmode" id="addNewLabel">Add New Ticket</h5>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -132,20 +132,63 @@ button{
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                   <div class="form-group">
-                                        <input v-model="form.enter_date" type="date" name="enter_date" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_date') }">
-                                        <has-error :form="form" field="enter_date"></has-error>
-                                    </div>
+                                <div class="col-md-2">
+                                   <select class="form-control form-rounded" name="size" v-model="form.size">
+                                        <option selected value="-1">select Size</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mt-1" style="margin-left:-7px; width">
+                                    <button class="btn btn-sm btn-success default">
+                                    <i class="fas fa-plus"></i></button>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input v-model="form.exit_date" type="date" name="exit_date" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
-                                        <has-error :form="form" field="exit_date"></has-error>
-                                    </div>
+                                <div class="col-md-2">
+                                   <select class="form-control form-rounded" name="type" v-model="form.type">
+                                        <option selected value="-1">select Type</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mt-1" style="margin-left:-7px; width">
+                                    <button class="btn btn-sm btn-success default">
+                                    <i class="fas fa-plus"></i></button>
                                 </div>
                            </div>
+
+                           <div class="row mt-3">
+                                <button class="btn btn-sm btn-success default ml-2">
+                                <i class="fas fa-plus"></i>&nbsp; Add New Line</button>
+
+                                <div class="card-body table-responsive p-0 d-flex justify-content-center">
+                                    <table class="table table-bordered table-hover text-center" style="width:auto;">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>{{ $t('109') }}</th>
+                                            <th>Client Name</th>
+                                            <th>Size</th>
+                                            <th>Type</th>
+                                            <th>Wash</th>
+                                            <th>Status</th>
+                                            <th>{{ $t('110') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <!--<tbody>
+                                        <tr v-for="role in roles.data" :key="role.id">
+                                            <td>{{ role.id }}</td>
+                                            <td>{{ role.name }}</td>
+                                            <td>{{ role.name_ar }}</td>
+                                            <td>
+                                                <a href="#" @click="editRole(role)">
+                                                    <i class="fa fa-edit red"></i>
+                                                </a>&nbsp;/
+                                                <a href="#" @click="deleteRole(role.id)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>-->
+                                    </table>
+                                </div>
+                           </div>
+
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -154,7 +197,7 @@ button{
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">update status</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">add rate</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">inform</button>
-                            <button type="button" class="btn btn-danger default ml-3" data-dismiss="modal">{{ $t('114') }}</button>
+                            <button type="button" class="btn btn-danger default ml-3"  data-dismiss="modal">{{ $t('114') }}</button>
                             <!--<button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
                             <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>-->
                         </div>
@@ -178,12 +221,9 @@ button{
                     ticket_date:'',
                     ticket_status:-1,
                     wash_type:-1,
-                    color:-1,
-                    brand:-1,
-                    car_status:-1,
                     client:-1,
-                    enter_date:'',
-                    exit_date:'',
+                    size:-1,
+                    type:-1,
                     phone:'',
                 })
             }

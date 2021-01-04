@@ -36,7 +36,7 @@ button {
                                 </button>
                             </div>
                         </div>
-    
+
                         <div class="card-body">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
@@ -70,7 +70,7 @@ button {
                                     </tbody>-->
                                 </table>
                             </div>
-    
+
                             <!--<div class="card-footer">
                                 <pagination :data="roles" @pagination-change-page="getResults"></pagination>
                             </div>-->
@@ -79,7 +79,7 @@ button {
                 </div>
             </div>
         </div>
-    
+
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -92,34 +92,34 @@ button {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-    
+
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-2">
                                     <h5><span class="badge badge-pill badge-secondary">120000002536</span></h5>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <input v-model="form.ticket_date" type="text" name="ticket_date" placeholder="ticket date" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('ticket_date') }">
                                     <has-error :form="form" field="ticket_date"></has-error>
                                 </div>
-    
+
                                 <div class="col-md-1"></div>
-    
+
                                 <div class="col-md-3">
                                     <select class="form-control form-rounded" name="wash_type" v-model="form.wash_type">
                                         <option selected value="-1">Wash select</option>
                                     </select>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
                                         <option selected value="-1">Ticket Status</option>
                                     </select>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col-md-2" style="border:1px groove gray;border-radius: 30px;">
                                     <div class="input-group">
@@ -137,7 +137,7 @@ button {
                                 <div class="col-md-1 mt-5">
                                     <i class="fas fa-camera fa-2x"></i>
                                 </div>
-    
+
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
                                         <option selected value="-1">select color</option>
@@ -148,8 +148,8 @@ button {
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
-    
-    
+
+
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="brand" v-model="form.brand">
                                         <option selected value="-1">select brand</option>
@@ -160,7 +160,7 @@ button {
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
-    
+
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="car_status" v-model="form.car_status">
                                         <option selected value="-1">Car Status</option>
@@ -172,7 +172,7 @@ button {
                                     </button>
                                 </div>
                             </div>
-    
+
                             <div class="row mt-3">
                                 <div class="col-md-2">
                                     <select class="form-control form-rounded" name="client" v-model="form.client">
@@ -184,21 +184,21 @@ button {
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <input v-model="form.phone" type="text" name="phone" placeholder="Phone Number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
                                         <has-error :form="form" field="phone"></has-error>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <input v-model="form.enter_date" type="text" name="enter_date" onfocus="(this.type='date')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_date') }">
                                         <has-error :form="form" field="enter_date"></has-error>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <input v-model="form.exit_date" type="text" name="exit_date" onfocus="(this.type='date')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
@@ -207,7 +207,7 @@ button {
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-success default mr-3" data-dismiss="modal">save</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">save & print</button>

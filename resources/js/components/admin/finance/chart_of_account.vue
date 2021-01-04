@@ -16,23 +16,23 @@ button{
                             <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('102') }}</button>
                         </div>
                     </div>
-                   <!-- <v-row>
-                        <v-col cols="12" sm="12" md="5">
-                            <v-text-field v-model="search" label="Search Company Directory" hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
-                            <v-treeview :items="items" activatable active-class="primary lighten-3" v-model="tree" hoverable :active.sync="active_item" return-object>
-                                <template v-slot:prepend="{ item }">
-                                    <v-icon :color="item.account_type == 'sub' ? 'primary' : ''" v-text="
-                                            `mdi-${
-                                                item.account_type == 'main'
-                                                    ? 'folder-network'
-                                                    : 'file'
-                                            }`
-                                        "></v-icon>
-                                    <v-chip small label>{{ item.id }}</v-chip>
-                                </template>
-                            </v-treeview>
-                        </v-col>
-                    </v-row>-->
+                    <v-btn> test </v-btn>
+                    <v-app>
+                        <v-treeview :items="tree" activatable active-class="primary lighten-3" hoverable return-object>
+                            <template v-slot:prepend="{ item }">
+                                <v-icon :color="item.account_type == 'sub' ? 'primary' : ''" v-text=" `mdi-${item.account_type == 'main' ? 'folder-network' : 'file'}`"></v-icon>
+                                <v-chip small label>{{ item.id }}</v-chip>
+                            </template>
+
+                            <template v-slot:append="{ item }">
+                                <v-icon v-text="'mdi-eye'" @click="$router.push('/accounts/list/' + item.id)"></v-icon>
+
+                                <v-icon v-text="'mdi-pencil'"></v-icon>
+                                <v-icon color="red" v-text="'mdi-close'"></v-icon>
+                            </template>
+				        </v-treeview>
+                        {{tree}}
+                    </v-app>
                 </div>
             </div>
         </div>
@@ -130,6 +130,7 @@ button{
                             <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                             <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
                             <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>
+
                         </div>
                     </form>
                 </div>
@@ -146,6 +147,7 @@ export default {
         return {
             pathes:{},
             accounts:{},
+            active_item:'',
             editmode: false,
             form: new Form({
                 account_id:'',
@@ -199,6 +201,30 @@ export default {
             $('#addNew').modal('show');
             this.form.fill(user);
         },
+    },
+    computed:{
+        tree(){
+            //if (this.filtered_accounts.length == 0) return [];
+			let parent_id = 0;
+			//if (this.search) parent_id = this.filtered_accounts[0].parent_id;
+
+			const completeTree = parseTree(this.accounts, parent_id);
+
+			function parseTree (nodes, parentID) {
+				let tree = [];
+				let length = nodes.length;
+				for (let i = 0; i < length; i++) {
+					let node = JSON.parse(JSON.stringify(nodes[i]));
+					if (node.parent_id == parentID) {
+						node.children = parseTree(nodes, node.id);
+						tree.push(JSON.parse(JSON.stringify(node)));
+					}
+				}
+				return tree;
+			}
+			this.items = completeTree;
+			return completeTree;
+        }
     },
     created(){
         this.loadAccounts()
