@@ -86,18 +86,18 @@ button {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex justify-content-center" v-show="!editmode">Add New Ticket</h5>&nbsp;
-                        <h5><span class="badge badge-pill badge-success">good client</span></h5>
+                        <h5><span class="badge badge-pill badge-success">{{ form.client_status }}</span></h5>
                         <h5 class="modal-title" v-show="editmode" id="addNewLabel">Add New Ticket</h5>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
-                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                    <form @submit.prevent="editmode ? updateTicket() : createTicket()">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <h5><span class="badge badge-pill badge-secondary">120000002536</span></h5>
+                                    <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
                                 </div>
 
                                 <div class="col-md-3">
@@ -108,7 +108,7 @@ button {
                                 <div class="col-md-1"></div>
 
                                 <div class="col-md-3">
-                                    <select class="form-control form-rounded" name="wash_type" v-model="form.wash_type">
+                                    <select class="form-control form-rounded" name="wash" v-model="form.wash">
                                         <option selected value="-1">Wash select</option>
                                     </select>
                                 </div>
@@ -121,18 +121,10 @@ button {
                             </div>
 
                             <div class="row">
-                                <div class="col-md-2" style="border:1px groove gray;border-radius: 30px;">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" style="border:none">
+                                <div class="input-group col-md-2" style="border:1px groove gray;border-radius: 30px;">
+                                        <input type="text" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar">
                                         <div class="verticalLine"></div>
-                                        <input type="text" class="form-control" style="border:none">
-                                    </div>
-                                    <hr>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" style="border:none">
-                                        <div class="verticalLine"></div>
-                                        <input type="text" class="form-control" style="border:none">
-                                    </div>
+                                        <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar">
                                 </div>
                                 <div class="col-md-1 mt-5">
                                     <i class="fas fa-camera fa-2x"></i>
@@ -140,11 +132,11 @@ button {
 
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
-                                        <option selected value="-1">select color</option>
+                                        <option v-for="colr in colors" :key="colr.sys_code" :value="colr.sys_code">{{ colr.name }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-5" style="margin-left:-5px;">
-                                    <button class="btn btn-sm btn-success default">
+                                    <button class="btn btn-sm btn-success default" type="button" @click="newCode_tableModal(1)">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -152,22 +144,22 @@ button {
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="brand" v-model="form.brand">
-                                        <option selected value="-1">select brand</option>
+                                        <option v-for="brnd in brands" :key="brnd.sys_code" :value="brnd.sys_code">{{ brnd.name }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-5" style="margin-left:-5px;">
-                                    <button class="btn btn-sm btn-success default">
+                                    <button class="btn btn-sm btn-success default" type="button" @click="newCode_tableModal(2)">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="car_status" v-model="form.car_status">
-                                        <option selected value="-1">Car Status</option>
+                                        <option v-for="car_st in car_status_all" :key="car_st.sys_code" :value="car_st.sys_code">{{ car_st.name }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-5" style="margin-left:-5px;">
-                                    <button class="btn btn-sm btn-success default">
+                                    <button class="btn btn-sm btn-success default" type="button" @click="newCode_tableModal(3)">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -180,7 +172,7 @@ button {
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-1" style="margin-left:-7px; width">
-                                    <button class="btn btn-sm btn-success default">
+                                    <button class="btn btn-sm btn-success default" type="button">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -194,22 +186,22 @@ button {
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.enter_date" type="text" name="enter_date" onfocus="(this.type='date')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_date') }">
-                                        <has-error :form="form" field="enter_date"></has-error>
+                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
+                                        <has-error :form="form" field="enterance_date"></has-error>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.exit_date" type="text" name="exit_date" onfocus="(this.type='date')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
-                                        <has-error :form="form" field="exit_date"></has-error>
+                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
+                                        <has-error :form="form" field="exit_expected_date"></has-error>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-success default mr-3" data-dismiss="modal">save</button>
+                            <button type="submit" class="btn btn-success default mr-3">save</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">save & print</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">update status</button>
                             <button type="button" class="btn btn-success default mx-3" data-dismiss="modal">add rate</button>
@@ -217,6 +209,36 @@ button {
                             <button type="button" class="btn btn-danger default ml-3" data-dismiss="modal">{{ $t('114') }}</button>
                             <!--<button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
                                 <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="codeTableModal" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNewLabel">Add New</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createNew">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>English Name</label>
+                                <input v-model="code_tableForm.sys_code_type" type="hidden" name="sys_code_type">
+                                <input v-model="code_tableForm.name" type="text" name="name" placeholder="English Description" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Arabic Name</label>
+                                <input v-model="code_tableForm.name_ar" type="text" name="name_ar" placeholder="الاسم بالعربية" class="form-control" dir="rtl">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>
@@ -230,53 +252,131 @@ export default {
     data: function() {
         return {
             editmode: false,
-            roles: {},
+            colors:{},
+            brands:{},
+            car_status_all:{},
+            clients:{},
             form: new Form({
-                id: '',
-                name: '',
-                name_ar: '',
-                ticket_date: '',
-                ticket_status: -1,
-                wash_type: -1,
-                color: -1,
-                brand: -1,
-                car_status: -1,
-                client: -1,
-                enter_date: '',
-                exit_date: '',
-                phone: '',
+                id :'',
+                serial_number :-1,
+                ticket_date :new Date().toISOString().slice(0, 10),
+                wash :-1,
+                ticket_status :-1,
+                car_number_num_ar :'',
+                car_number_letters_ar :'',
+                car_number_num_en :'',
+                car_number_letters_en :'',
+                color :-1,
+                brand :-1,
+                car_status :-1,
+                client :-1,
+                client_status :-1,
+                phone :'',
+                enterance_date :'',
+                exit_expected_date:'',
+            }),
+
+            code_tableForm:new Form({
+                sys_code_type:'',
+                sys_code:'',
+                name:'',
+                name_ar:'',
             })
         }
     },
 
     methods: {
-        // getResults(page = 1) {
-        //     axios.get('api/roles/?page=' + page).then((response) => {
-        //         this.roles = response.data;
-        //     });
-        // },
+        get_serial(){
+            axios.get('api/get_serial').then((res) => {
+                this.form.serial_number = res.data;
+            });
+        },
+
+        getResults() {
+            axios.get('api/get_clients').then((res) => {
+                this.clients = res.data;
+            });
+            axios.get('api/car_washing/1').then((res) => {
+                this.colors=res.data
+                this.form.color=res.data[0]['sys_code']
+            });
+            axios.get('api/car_washing/2').then((res) => {
+                this.brands=res.data
+                this.form.brand=res.data[0]['sys_code']
+            });
+            axios.get('api/car_washing/3').then((res) => {
+                this.car_status_all=res.data
+                this.form.car_status=res.data[0]['sys_code']
+            });
+        },
+
+        getCodeTable() {
+            axios.get('api/car_washing/' + this.code_tableForm.sys_code_type).then((res) => {
+                if(this.code_tableForm.sys_code_type==1){
+                    this.colors=res.data
+                    this.form.color=res.data[0]['sys_code']
+                }
+                else if(this.code_tableForm.sys_code_type==2){
+                    this.brands=res.data
+                    this.form.brand=res.data[0]['sys_code']
+                }
+                else if(this.code_tableForm.sys_code_type==3){
+                    this.car_status_all=res.data
+                    this.form.car_status=res.data[0]['sys_code']
+                }
+            });
+        },
 
         newModal() {
             this.editmode = false;
             this.form.reset();
+            this.form.color=this.colors[0]['sys_code']
+            this.form.brand=this.brands[0]['sys_code']
+            this.form.car_status=this.car_status_all[0]['sys_code']
+            this.get_serial()
             $('#addNew').modal('show');
         },
 
-        // createUser(){
-        //     this.$Progress.start();
-        //     this.form.post('api/roles').then(()=>{
-        //         Fire.$emit('AfterCreate');
-        //         $('#addNew').modal('hide')
-        //         swal.fire({
-        //             position: 'top-end',
-        //             icon: 'success',
-        //             title: 'Role Created successfully',
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         })
-        //         this.$Progress.finish();
-        //     })
-        // },
+        openModal(){
+            $('#addNew').modal('show');
+        },
+
+        newCode_tableModal(x){
+            this.code_tableForm.reset();
+            this.code_tableForm.sys_code_type=x
+            $('#codeTableModal').modal('show');
+        },
+
+        createNew(){
+            this.code_tableForm.post('api/car_washing_add_code_table').then(()=>{
+                Fire.$emit('AfterCreateCode_table');
+                $('#codeTableModal').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Item Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
+        },
+
+        createTicket(){
+            this.$Progress.start();
+            this.form.post('api/car_washing').then(()=>{
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide')
+                swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Role Created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.$Progress.finish();
+            })
+        },
 
         editRole(user) {
             this.editmode = true;
@@ -328,11 +428,11 @@ export default {
         // },
     },
 
-    // created(){
-    //     this.getResults();
-    //     Fire.$on('AfterCreate',() => {
-    //         this.getResults();
-    //     });
-    // }
+    created(){
+        this.getResults();
+        Fire.$on('AfterCreateCode_table',() => {
+            this.getCodeTable();
+        });
+    }
 }
 </script>
