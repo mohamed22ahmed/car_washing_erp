@@ -45,6 +45,7 @@ class Car_washingController extends Controller
     }
 
     public function get_clients(){
+        return 0;
         return Client::all();
     }
 
