@@ -136,7 +136,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row mt-4" v-if="form.allow_access==1">
+                                                <div class="row mt-4" v-show="form.allow_access">
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="language" class="required">{{ $t('22') }}<span style="color:red">*</span></label>
@@ -422,7 +422,7 @@ export default {
                 email:'',
                 status:1,
                 send_credentials:'',
-                allow_access:'',
+                allow_access:0,
                 language:1,
                 role:'',
                 date_of_birth:'',
