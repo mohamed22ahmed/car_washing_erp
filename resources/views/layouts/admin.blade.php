@@ -205,7 +205,7 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item has-treeview {{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
+                        <li class="nav-item has-treeview {{ url()->current()==url('/transactions')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -229,7 +229,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item has-treeview {{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'menu-open':''}}">
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -237,7 +237,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')||url()->current()==url('/roles')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'display:block':'' }}">
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/manage_emp')||url()->current()==url('/permissions')||url()->current()==url('/organizational_structure')||url()->current()==url('/attendance_logs')||url()->current()==url('/attendance_permissions')||url()->current()==url('/attendance_logs')||url()->current()==url('/shift_management')||url()->current()==url('/settings')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/manage_emp')?'current':'' }}">
                                     <router-link to='/manage_emp' class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
@@ -280,7 +280,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item has-treeview {{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -288,7 +288,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'display:block':'' }}">
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/carpets_washing')||url()->current()==url('/car_washing')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/car_washing')?'current':'' }}">
                                     <router-link to='/car_washing' class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
@@ -316,7 +316,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item has-treeview {{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'menu-open':'' }}">
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -324,7 +324,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/jornals')||url()->current()==url('/chart_of_account')?'display:block':'' }}">
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/washing_machines')||url()->current()==url('/maintenance_management')?'display:block':'' }}">
                                 <li class="nav-item {{  url()->current()==url('/washing_machines')?'current':'' }}">
                                     <router-link to='/washing_machines' class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
@@ -335,6 +335,30 @@
                                     <router-link to='/maintenance_management' class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('90') }}</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    {{ t('219') }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="{{ url()->current()==url('/stored_management')||url()->current()==url('/products_management')?'display:block':'' }}">
+                                <li class="nav-item {{  url()->current()==url('/stored_management')?'current':'' }}">
+                                    <router-link to='/stored_management' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('220') }}</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item {{  url()->current()==url('/products_management')?'current':'' }}">
+                                    <router-link to='/products_management' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('221') }}</p>
                                     </router-link>
                                 </li>
                             </ul>

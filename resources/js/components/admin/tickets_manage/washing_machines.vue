@@ -41,7 +41,7 @@ button{
                                         <th>{{$t('216')}}</th>
                                         <th>{{$t('217')}}</th>
                                         <th>{{$t('218')}}</th>
-                                        <th>Network value</th>
+                                        <th>{{$t('219')}}</th>
                                         <th>Cash Value</th>
                                         <th>Paid Up</th>
                                         <th>Residual</th>

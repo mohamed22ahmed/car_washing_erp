@@ -28,6 +28,10 @@ import car_reports from './components/admin/washing_tickets/car_reports.vue'
 import washing_machines from './components/admin/tickets_manage/washing_machines.vue'
 import maintenance_management from './components/admin/tickets_manage/maintenance_management.vue'
 
+// Store Management
+import stored_management from './components/admin/store_management/stored_management.vue'
+import products_management from './components/admin/store_management/products_management.vue'
+
 
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
@@ -59,6 +63,10 @@ const routes = [
     // Ticket Managements
     { name: 'washing_machines', path: '/washing_machines', component: washing_machines },
     { name: 'maintenance_management', path: '/maintenance_management', component: maintenance_management },
+
+    // Store Managements
+    { name: 'stored_management', path: '/stored_management', component: stored_management },
+    { name: 'products_management', path: '/products_management', component: products_management },
 ]
 
 

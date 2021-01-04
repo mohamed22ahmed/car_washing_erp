@@ -86,7 +86,19 @@ Route::post('car_washing_add_code_table','API\Washing_ticket\Car_washingControll
 Route::get('get_clients','API\Washing_ticket\Car_washingController@get_clients');
 Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
 
-
-
-
 // ################################################## Tickets Management ###########################################
+
+
+
+
+
+// ################################################## Store Management ###########################################
+// Products Management
+Route::apiResources(['products_management' => 'API\Store_manage\Products_manageController']);
+Route::get('get_units','API\Store_manage\Products_manageController@get_units');
+Route::get('get_services','API\Store_manage\Products_manageController@get_services');
+Route::delete('products_management/{id}','API\Store_manage\Products_manageController@destroy');
+
+// Stored Management
+Route::apiResources(['stored_management' => 'API\Store_manage\Stored_manageController']);
+Route::delete('stored_management/{id}','API\Store_manage\Stored_manageController@destroy');

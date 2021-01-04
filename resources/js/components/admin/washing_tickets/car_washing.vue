@@ -297,15 +297,18 @@ export default {
             });
             axios.get('api/car_washing/1').then((res) => {
                 this.colors=res.data
+                if(res.data!=[])
                 this.form.color=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/2').then((res) => {
                 this.brands=res.data
+                if(res.data!=[])
                 this.form.brand=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/3').then((res) => {
                 this.car_status_all=res.data
-                this.form.car_status=res.data[0]['sys_code']
+                if(res.data!=[])
+                    this.form.car_status=res.data[0]['sys_code']
             });
         },
 
@@ -313,14 +316,17 @@ export default {
             axios.get('api/car_washing/' + this.code_tableForm.sys_code_type).then((res) => {
                 if(this.code_tableForm.sys_code_type==1){
                     this.colors=res.data
+                    if(res.data!=[])
                     this.form.color=res.data[0]['sys_code']
                 }
                 else if(this.code_tableForm.sys_code_type==2){
                     this.brands=res.data
+                    if(res.data!=[])
                     this.form.brand=res.data[0]['sys_code']
                 }
                 else if(this.code_tableForm.sys_code_type==3){
                     this.car_status_all=res.data
+                    if(res.data!=[])
                     this.form.car_status=res.data[0]['sys_code']
                 }
             });

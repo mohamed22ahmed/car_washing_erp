@@ -593,8 +593,97 @@
             "dic_id": 218,
             "name": "Purchase Date",
             "name_ar":"تاريخ الشــراء"
+        },
+        {
+            "dic_id": 219,
+            "name": "Store Management",
+            "name_ar":"إدارة المخــازن"
+        },
+        {
+            "dic_id": 220,
+            "name": "Stored Management",
+            "name_ar":"إدارة المخــزون"
+        },
+        {
+            "dic_id": 221,
+            "name": "Products Management",
+            "name_ar":"إدارة المنتجــات"
+        },
+        {
+            "dic_id": 222,
+            "name": "Service Type",
+            "name_ar":"نوع الخدمــة"
+        },
+        {
+            "dic_id": 223,
+            "name": "Classifications",
+            "name_ar":"التصنيفــات"
+        },
+        {
+            "dic_id": 224,
+            "name": "Unit Parts",
+            "name_ar":"أجزاءالوحدات"
+        },
+        {
+            "dic_id": 225,
+            "name": "Unit Price",
+            "name_ar":"سعر الوحدة"
+        },
+        {
+            "dic_id": 226,
+            "name": "Custom Unites",
+            "name_ar":"وحدات مخصصــة"
+        },
+        {
+            "dic_id": 227,
+            "name": "Unites",
+            "name_ar":"الوحـدات"
+        },
+        {
+            "dic_id": 228,
+            "name": "Cost",
+            "name_ar":"التكــلفة"
+        },
+        {
+            "dic_id": 229,
+            "name": "Name",
+            "name_ar":"الإســم"
+        },
+        {
+            "dic_id": 230,
+            "name": "Choices",
+            "name_ar":"خيارات"
+        },
+        {
+            "dic_id": 231,
+            "name": "Material",
+            "name_ar":"خامـة"
+        },
+        {
+            "dic_id": 232,
+            "name": "Service",
+            "name_ar":"خدمـة"
+        },
+        {
+            "dic_id": 233,
+            "name": "Materials",
+            "name_ar":"خامــات"
+        },
+        {
+            "dic_id": 234,
+            "name": "Quantity",
+            "name_ar":"الكمـية"
+        },
+        {
+            "dic_id": 235,
+            "name": "Car",
+            "name_ar":"سيــارات"
+        },
+        {
+            "dic_id": 236,
+            "name": "Carpets",
+            "name_ar":"سجــاد"
         }
-
 
     ]
 }
