@@ -428,6 +428,12 @@
                 this.getId()
             },
 
+            newStatus(){
+                this.editmode = false;
+                this.form.reset();
+                $('#addNew').modal('show');
+            },
+
             createUser(){
                 this.$Progress.start();
                 this.form.post('api/carpet_wash').then(()=>{

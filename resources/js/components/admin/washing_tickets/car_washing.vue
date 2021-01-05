@@ -91,7 +91,7 @@ button {
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5><span class="badge badge-pill badge-success">{{ form.client_status }}</span></h5>
+                        <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
