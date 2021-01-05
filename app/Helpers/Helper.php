@@ -3,6 +3,13 @@
 use App\Models\Dictionary;
 use App\Models\ManageEmployees\Screen;
 
+//codetables sys_code_types
+//1- colors
+//2- brands
+//3- car_status
+//4- carpet_size
+//5- wash_type
+
 function description_lang($english_desc, $other_desc){
     $lang = session('lang');
     if ($lang == 'ar')

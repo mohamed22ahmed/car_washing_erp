@@ -63,7 +63,7 @@ button{
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-center">
-                       <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('102') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('102') }}</h5>
                         <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -303,7 +303,6 @@ button{
                 this.form.reset();
                 $('#addNew').modal('show');
                 this.form.fill(user);
-
                 this.getUnits();
                 this.getServices();
             },

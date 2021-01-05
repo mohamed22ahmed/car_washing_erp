@@ -34,7 +34,9 @@ class Carpets_washingController extends Controller
 
     public function store(Request $request){
         $data=new Carpet_washing;
+        $data->serial_number=$request->serial_number;
         $data->ticket_date=$request->ticket_date;
+        $data->client_status=$request->client_status;
         $data->wash=$request->wash;
         $data->ticket_status=$request->ticket_status;
         $data->client=$request->client;
@@ -65,6 +67,21 @@ class Carpets_washingController extends Controller
     public function destroy($id){
         $data=Carpet_washing::find($id)->delete();
         return response(['success','your data deleted successfully'],200);
+    }
+
+    public function get_serial(){
+        $serial=Carpet_washing::max('serial_number')+1;
+        $ser=0;
+        if($serial<=9)
+            $ser=' 000'.$serial;
+        else if($serial<=99)
+            $ser=' 00'.$serial;
+        else if($serial<=999)
+            $ser=' 0'.$serial;
+        else
+            $ser=' '.$serial;
+        $serial=date('Y').' 0000'.$ser;
+        return $serial;
     }
 
 

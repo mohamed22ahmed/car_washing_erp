@@ -16,6 +16,8 @@ class CreateCarpetWashingsTable extends Migration
         Schema::create('carpet_washings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('ticket_date');
+            $table->string('serial_number');
+            $table->string('client_status');
             $table->integer('wash')->default(-1);
             $table->integer('ticket_status')->default(-1);
             $table->integer('client')->default(-1);
