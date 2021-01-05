@@ -28,11 +28,12 @@ class CreateCarWashingsTable extends Migration
             $table->integer('brand');
             $table->integer('car_status');
             $table->integer('client');
-            $table->integer('client_status');
+            $table->string('client_status');
             $table->string('phone');
             $table->date('enterance_date');
             $table->date('exit_expected_date');
-
+            $table->integer('total_price')->nullable();
+            $table->integer('num_of_materials')->nullable();
             $table->timestamps();
         });
     }

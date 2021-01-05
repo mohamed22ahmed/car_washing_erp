@@ -78,11 +78,14 @@ Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
 
 // Carpet Wash Ticket
 Route::apiResources(['carpet_wash' => 'API\Washing_ticket\Carpets_washingController']);
+Route::apiResources(['carpet_material' => 'API\Washing_ticket\Carpets_materialController']);
 Route::get('carpet_washing_get_id','API\Washing_ticket\Carpets_washingController@get_id');
 Route::get('carpet_washing_get_product_manages','API\Washing_ticket\Carpets_washingController@get_product_manages');
 Route::get('carpet_washing_get_units/{unit_id}','API\Washing_ticket\Carpets_washingController@get_units');
 Route::get('carpet_washing_get_cost/{unit_id}','API\Washing_ticket\Carpets_washingController@get_cost');
+Route::get('get_carpet_serial','API\Washing_ticket\Carpets_washingController@get_serial');
 Route::delete('carpet_wash/{id}','API\Washing_ticket\Carpets_washingController@destroy');
+Route::delete('carpet_material/{id}','API\Washing_ticket\Carpets_materialController@destroy');
 
 // Car washing Tickets Routes
 Route::apiResources(['car_washing' => 'API\Washing_ticket\Car_washingController']);

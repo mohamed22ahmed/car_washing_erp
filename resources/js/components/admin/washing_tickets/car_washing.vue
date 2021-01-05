@@ -52,27 +52,34 @@ button {
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
-                                    <!--<tbody>
-                                        <tr v-for="role in roles.data" :key="role.id">
-                                            <td>{{ role.id }}</td>
-                                            <td>{{ role.name }}</td>
-                                            <td>{{ role.name_ar }}</td>
+                                    <tbody>
+                                        <tr v-for="car in cars.data" :key="car.id">
+                                            <td>{{ car.id }}</td>
+                                            <td>{{ car.client }}</td>
+                                            <td>{{ car.id }}</td>
+                                            <td>{{ car.num_of_materials }}</td>
+                                            <td>{{ car.total_price }}</td>
+                                            <td v-if="car.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
+                                            <td v-else-if="car.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
+                                            <td v-else-if="car.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                            <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
+                                            <td>{{ car.ticket_date }}</td>
                                             <td>
-                                                <a href="#" @click="editRole(role)">
+                                                <a href="#" @click="editTicket(car)">
                                                     <i class="fa fa-edit red"></i>
                                                 </a>&nbsp;/
-                                                <a href="#" @click="deleteRole(role.id)">
+                                                <a href="#" @click="deleteTicket(car.id)">
                                                     <i class="fa fa-trash red"></i>
                                                 </a>
                                             </td>
                                         </tr>
-                                    </tbody>-->
+                                    </tbody>
                                 </table>
                             </div>
 
-                            <!--<div class="card-footer">
-                                <pagination :data="roles" @pagination-change-page="getResults"></pagination>
-                            </div>-->
+                            <div class="card-footer">
+                                <pagination :data="cars" @pagination-change-page="getResults"></pagination>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,9 +91,7 @@ button {
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title d-flex justify-content-center" v-show="!editmode">Add New Ticket</h5>&nbsp;
                         <h5><span class="badge badge-pill badge-success">{{ form.client_status }}</span></h5>
-                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Add New Ticket</h5>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -100,7 +105,7 @@ button {
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input v-model="form.ticket_date" type="text" name="ticket_date" placeholder="ticket date" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('ticket_date') }">
+                                    <input v-model="form.ticket_date" type="text" name="ticket_date" :placeholder="ticket_date" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('ticket_date') }">
                                     <has-error :form="form" field="ticket_date"></has-error>
                                 </div>
 
@@ -108,21 +113,25 @@ button {
 
                                 <div class="col-md-3">
                                     <select class="form-control form-rounded" name="wash" v-model="form.wash">
-                                        <option selected value="-1">Wash select</option>
+                                        <option selected value="-1">{{$t('204')}}</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-3">
                                     <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
-                                        <option selected value="-1">Ticket Status</option>
+                                        <option selected value="-1">{{$t('205')}}</option>
+                                        <option selected value="1">{{$t('238')}}</option>
+                                        <option selected value="2">{{$t('239')}}</option>
+                                        <option selected value="3">{{$t('240')}}</option>
+                                        <option selected value="4">{{$t('241')}}</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="input-group col-md-2" style="border:1px groove gray;border-radius: 30px;">
+                                <div class="input-group col-md-2 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
                                         <input type="text" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar">
-                                        <div class="verticalLine"></div>
+                                        <div class="verticalLine" style="height=5px"></div>
                                         <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar">
                                 </div>
                                 <div class="col-md-1 mt-5">
@@ -167,7 +176,7 @@ button {
                             <div class="row mt-3">
                                 <div class="col-md-2">
                                     <select class="form-control form-rounded" name="client" v-model="form.client">
-                                        <option selected value="-1">select client</option>
+                                        <option selected value="-1">{{$t('206')}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-1" style="margin-left:-7px; width">
@@ -178,7 +187,7 @@ button {
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.phone" type="text" name="phone" placeholder="Phone Number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
+                                        <input v-model="form.phone" type="text" name="phone" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
                                         <has-error :form="form" field="phone"></has-error>
                                     </div>
                                 </div>
@@ -200,7 +209,8 @@ button {
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" class="btn btn-success default mr-3">{{ $t('121') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
+                            <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
@@ -214,11 +224,13 @@ button {
             </div>
         </div>
 
+        <!-- Codetable_Modal -->
         <div class="modal fade" id="codeTableModal" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">Add New</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{ $t('102') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="addNewLabel">{{ $t('105') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -226,18 +238,19 @@ button {
                     <form @submit.prevent="createNew">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>English Name</label>
+                                <label>{{ $t('50') }}</label>
                                 <input v-model="code_tableForm.sys_code_type" type="hidden" name="sys_code_type">
                                 <input v-model="code_tableForm.name" type="text" name="name" placeholder="English Description" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Arabic Name</label>
+                                <label>{{ $t('56') }}</label>
                                 <input v-model="code_tableForm.name_ar" type="text" name="name_ar" placeholder="الاسم بالعربية" class="form-control" dir="rtl">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
                     </form>
                 </div>
@@ -255,12 +268,13 @@ export default {
             brands:{},
             car_status_all:{},
             clients:{},
+            cars:{},
             form: new Form({
                 id :'',
-                serial_number :-1,
+                serial_number :'',
                 ticket_date :new Date().toISOString().slice(0, 10),
                 wash :-1,
-                ticket_status :-1,
+                ticket_status :1,
                 car_number_num_ar :'',
                 car_number_letters_ar :'',
                 car_number_num_en :'',
@@ -269,7 +283,7 @@ export default {
                 brand :-1,
                 car_status :-1,
                 client :-1,
-                client_status :-1,
+                client_status :'good client',
                 phone :'',
                 enterance_date :'',
                 exit_expected_date:'',
@@ -291,7 +305,10 @@ export default {
             });
         },
 
-        getResults() {
+        getResults(page = 1) {
+            axios.get('api/car_washing/?page=' + page).then((res) => {
+                this.cars = res.data;
+            });
             axios.get('api/get_clients').then((res) => {
                 this.clients = res.data;
             });
@@ -375,7 +392,7 @@ export default {
                 swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Role Created successfully',
+                    title: 'Data Created successfully',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -383,61 +400,82 @@ export default {
             })
         },
 
-        editRole(user) {
+        editTicket(user) {
             this.editmode = true;
             this.form.reset();
             $('#addNew').modal('show');
             this.form.fill(user);
         },
 
-        // updateUser(){
-        //     this.$Progress.start();
-        //     this.form.put('api/roles/'+this.form.id).then(() => {
-        //         $('#addNew').modal('hide');
-        //         swal.fire(
-        //             'Updated!',
-        //             'Information has been updated.',
-        //             'success'
-        //         )
-        //         this.$Progress.finish();
-        //         Fire.$emit('AfterCreate');
-        //     })
-        //     .catch(() => {
-        //         this.$Progress.fail();
-        //     });
-        // },
+        updateTicket(){
+            this.$Progress.start();
+            this.form.put('api/car_washing/'+this.form.id).then(() => {
+                $('#addNew').modal('hide');
+                swal.fire(
+                    'Updated!',
+                    'Information has been updated.',
+                    'success'
+                )
+                this.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            })
+            .catch(() => {
+                this.$Progress.fail();
+            });
+        },
 
-        // deleteRole(id){
-        //     swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         type: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //         if (result.value) {
-        //             this.form.delete('api/roles/'+id).then(()=>{
-        //                 swal.fire(
-        //                     'Deleted!',
-        //                     'Role has been deleted.',
-        //                     'success'
-        //                 )
-        //                 Fire.$emit('AfterCreate');
-        //             }).catch(()=> {
-        //                 swal.fire("Failed!", "This Role assigned to an employee.", "warning");
-        //             });
-        //         }
-        //     })
-        // },
+        deleteTicket(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.form.delete('api/car_washing/'+id).then(()=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Data has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('AfterCreate');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This Data assigned to an employee.", "warning");
+                    });
+                }
+            })
+        },
     },
 
     created(){
         this.getResults();
+            Fire.$on('AfterCreate',() => {
+                this.getResults();
+            });
+
         Fire.$on('AfterCreateCode_table',() => {
             this.getCodeTable();
         });
-    }
+    },
+    computed: {
+            ticket_date() {
+                return this.$t('203')
+            },
+
+            phone_number() {
+                return this.$t('207')
+            },
+
+            entrance_date() {
+                return this.$t('210')
+            },
+
+            expected_exit_date() {
+                return this.$t('211')
+            },
+        }
 }
 </script>

@@ -476,7 +476,7 @@
         },
         {
             "dic_id": 195,
-            "name": "Num of Tickets",
+            "name": "Num of Ticket",
             "name_ar": "رقم التذكــرة"
         },
         {
@@ -683,6 +683,31 @@
             "dic_id": 236,
             "name": "Carpets",
             "name_ar":"سجــاد"
+        },
+        {
+            "dic_id": 237,
+            "name": "Size",
+            "name_ar":"المقــاس"
+        },
+        {
+            "dic_id": 238,
+            "name": "Waiting",
+            "name_ar":"الإنتظــار"
+        },
+        {
+            "dic_id": 239,
+            "name": "Binding",
+            "name_ar":"تحت الإجـراء"
+        },
+        {
+            "dic_id": 240,
+            "name": "Completed",
+            "name_ar":"إكتمـلت"
+        },
+        {
+            "dic_id": 241,
+            "name": "Dileverd/Closed",
+            "name_ar":"وصلـت/إنتـهت"
         }
 
     ]
