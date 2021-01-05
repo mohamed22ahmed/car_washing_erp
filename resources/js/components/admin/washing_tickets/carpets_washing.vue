@@ -35,39 +35,39 @@ button{
                         <div class="card-body">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>{{ $t('109') }}</th>
-                                        <th>{{ $t('194') }}</th>
-                                        <th>{{ $t('195') }}</th>
-                                        <th>{{ $t('196') }}</th>
-                                        <th>{{ $t('197') }}</th>
-                                        <th>{{ $t('205') }}</th>
-                                        <th>{{ $t('199') }}</th>
-                                        <th>{{ $t('110') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="carpet in carpets.data" :key="carpet.id">
-                                        <td>{{ carpet.id }}</td>
-                                        <td>{{ carpet.client }}</td>
-                                        <td>{{ carpet.id }}</td>
-                                        <td>{{ carpet.num_of_materials }}</td>
-                                        <td>{{ carpet.total_price }}</td>
-                                        <td>{{ carpet.ticket_status }}</td>
-                                        <td>{{ carpet.ticket_date }}</td>
-                                        <td>
-                                            <a href="#" @click="editRole(carpet)">
-                                                <i class="fa fa-edit red"></i>
-                                            </a>&nbsp;/
-                                            <a href="#" @click="deleteRole(carpet.id)">
-                                                <i class="fa fa-trash red"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>{{ $t('109') }}</th>
+                                            <th>{{ $t('194') }}</th>
+                                            <th>{{ $t('195') }}</th>
+                                            <th>{{ $t('196') }}</th>
+                                            <th>{{ $t('197') }}</th>
+                                            <th>{{ $t('205') }}</th>
+                                            <th>{{ $t('199') }}</th>
+                                            <th>{{ $t('110') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="carpet in carpets.data" :key="carpet.id">
+                                            <td>{{ carpet.id }}</td>
+                                            <td>{{ carpet.client }}</td>
+                                            <td>{{ carpet.id }}</td>
+                                            <td>{{ carpet.num_of_materials }}</td>
+                                            <td>{{ carpet.total_price }}</td>
+                                            <td>{{ carpet.ticket_status }}</td>
+                                            <td>{{ carpet.ticket_date }}</td>
+                                            <td>
+                                                <a href="#" @click="editRole(carpet)">
+                                                    <i class="fa fa-edit red"></i>
+                                                </a>&nbsp;/
+                                                <a href="#" @click="deleteRole(carpet.id)">
+                                                    <i class="fa fa-trash red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <div class="card-footer">
                                 <pagination :data="carpets" @pagination-change-page="getResults"></pagination>
@@ -173,9 +173,17 @@ button{
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><input  type="text"    class="form-control"   name="name"></td>
-                                                                <td><input  type="number"  class="form-control"   name="units"></td>
-                                                                <td><input  type="number"  class="form-control"   name="cost"></td>
+                                                                <td>
+                                                                    <select class="form-control col-md-12" name="product_id" v-model="serviceForm.product_id" @change="get_services">
+                                                                        <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control col-md-12" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost">
+                                                                        <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input  type="number"  class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -275,6 +283,8 @@ button{
             return{
                 editmode: false,
                 carpets :{},
+                products:{},
+                units:{},
                 form: new Form({
                     id:'',
                     ticket_date:new Date().toISOString().slice(0, 10),
@@ -288,11 +298,43 @@ button{
                     expected_exit_date:'',
                     total_price:'',
                     num_of_materials:'',
+                }),
+
+                serviceForm:new Form({
+                    id:'',
+                    ticket_id:'',
+                    product_id:'',
+                    unit_id:'',
+                    cost:0,
                 })
             }
         },
 
         methods: {
+            getId(){
+                axios.get('api/carpet_washing_get_id').then((res) => {
+                    this.form.id = res.data
+                });
+            },
+
+            get_product_manages(){
+                axios.get('api/carpet_washing_get_product_manages').then((res) => {
+                    this.products = res.data
+                });
+            },
+
+            get_services(){
+                axios.get('api/carpet_washing_get_units/'+this.serviceForm.product_id).then((res) => {
+                    this.units = res.data
+                });
+            },
+
+            get_cost(){
+                axios.get('api/carpet_washing_get_cost/'+this.serviceForm.unit_id).then((res) => {
+                    this.serviceForm.cost = res.data
+                });
+            },
+
             getResults(page = 1) {
                 axios.get('api/carpet_wash/?page=' + page).then((response) => {
                     this.carpets = response.data;
@@ -303,6 +345,7 @@ button{
                 this.editmode = false;
                 this.form.reset();
                 $('#addNew').modal('show');
+                this.getId()
             },
 
             createUser(){
@@ -372,6 +415,7 @@ button{
         },
 
         created(){
+            this.get_product_manages()
             this.getResults();
             Fire.$on('AfterCreate',() => {
                 this.getResults();
