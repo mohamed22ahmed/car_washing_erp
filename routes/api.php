@@ -90,6 +90,10 @@ Route::delete('carpet_material/{id}','API\Washing_ticket\Carpets_materialControl
 // Car washing Tickets Routes
 Route::apiResources(['car_washing' => 'API\Washing_ticket\Car_washingController']);
 Route::post('car_washing_add_code_table','API\Washing_ticket\Car_washingController@add_code_table');
+Route::get('car_washing_get_id','API\Washing_ticket\Car_washingController@get_id');
+Route::get('car_washing_get_product_manages','API\Washing_ticket\Car_washingController@get_product_manages');
+Route::get('car_washing_get_units/{unit_id}','API\Washing_ticket\Car_washingController@get_units');
+Route::get('car_washing_get_cost/{unit_id}','API\Washing_ticket\Car_washingController@get_cost');
 Route::get('get_clients','API\Washing_ticket\Car_washingController@get_clients');
 Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
 

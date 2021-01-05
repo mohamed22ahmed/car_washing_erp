@@ -38,7 +38,7 @@ button{
                                     <h3 class="card-title">{{ $t('35') }}</h3>
                                 </div>
 
-                                <div class="table-responsive p-0" id="forPrint">
+                                <div class="table-responsive p-0">
                                     <table class="table table-bordered table-hover text-center" >
                                         <thead class="thead-light">
                                             <tr>
@@ -325,7 +325,6 @@ export default {
         },
 
         addNew() {
-            this.$htmlToPaper('forPrint');
             this.editmode = false;
             this.form.reset();
             $('#addNew').modal('show');

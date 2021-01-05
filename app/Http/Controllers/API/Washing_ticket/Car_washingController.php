@@ -4,11 +4,31 @@ namespace App\Http\Controllers\API\Washing_ticket;
 
 use App\Http\Controllers\Controller;
 use App\Models\code_table;
+use App\Models\Store_manage\Custom_unit;
+use App\Models\Store_manage\Product_manage;
+use App\Models\Store_manage\Service;
 use App\Models\Washing_tickets\Car_washing;
 use Illuminate\Http\Request;
 
 class Car_washingController extends Controller
 {
+    public function get_id(){
+        return Car_washing::max('id')+1;
+    }
+
+    public function get_product_manages(){
+        return Product_manage::where('type',1)->get();
+    }
+
+    public function get_units($product_id){
+        return Custom_unit::where('product_id',$product_id)->get();
+    }
+
+    public function get_cost($unit_id){
+        $unit=Custom_unit::where('id',$unit_id)->first();
+        return $unit->cost;
+    }
+
     public function index(){
         return Car_washing::paginate(5);
     }

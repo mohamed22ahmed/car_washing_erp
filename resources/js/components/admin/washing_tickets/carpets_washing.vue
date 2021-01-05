@@ -213,6 +213,9 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
+                                            <tfooter class="ml-3">
+                                                <pagination :data="materials" @pagination-change-page="getMaterials"></pagination>
+                                            </tfooter>
                                         </table>
                                     </div>
                                 </div>
@@ -511,7 +514,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.value) {
-                        this.form3.delete('api/carpet_material/'+id).then(()=>{
+                        this.serviceForm.delete('api/carpet_material/'+id).then(()=>{
                             Fire.$emit('AfterCreateInside');
                         }).catch(()=> {
                             swal.fire("Failed!", "This data assigned to an employee.", "warning");
@@ -532,6 +535,7 @@
                 this.getCodeTable();
             });
 
+            this.getMaterials();
             Fire.$on('AfterCreateInside',() => {
                 this.getMaterials();
             });

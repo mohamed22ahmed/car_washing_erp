@@ -206,6 +206,62 @@ button {
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row mt-3  d-flex justify-content-center">
+                                <div class="col-md-10">
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            <div class="table-responsive p-0">
+                                                <form @submit.prevent="createMaterial()">
+                                                    <table class="table text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ $t('229') }}</th>
+                                                                <th>{{ $t('227') }}</th>
+                                                                <th>{{ $t('228') }}</th>
+                                                                <th>{{ $t('230') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services">
+                                                                        <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost">
+                                                                        <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
+                                                                <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <table class="table text-center">
+                                            <tbody v-for="mat in materials.data" :key="mat.id">
+                                                <tr>
+                                                    <td>{{mat.name}}</td>
+                                                    <td>{{mat.units}}</td>
+                                                    <td>{{mat.cost}}</td>
+                                                    <td>
+                                                        <a href="#" @click="deleteMaterial(mat.id)">
+                                                            <i class="fa fa-trash" style="color:red;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfooter>
+                                                <pagination :data="materials" @pagination-change-page="getMaterials"></pagination>
+                                            </tfooter>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -268,7 +324,10 @@ export default {
             brands:{},
             car_status_all:{},
             clients:{},
+            products:{},
+            units:{},
             cars:{},
+            materials:{},
             form: new Form({
                 id :'',
                 serial_number :'',
@@ -289,12 +348,20 @@ export default {
                 exit_expected_date:'',
             }),
 
+            serviceForm:new Form({
+                id:'',
+                ticket_id:'',
+                product_id:'',
+                unit_id:'',
+                cost:0,
+            }),
+
             code_tableForm:new Form({
                 sys_code_type:'',
                 sys_code:'',
                 name:'',
                 name_ar:'',
-            })
+            }),
         }
     },
 
@@ -327,6 +394,38 @@ export default {
                 if(res.data!=[])
                     this.form.car_status=res.data[0]['sys_code']
             });
+            this.get_services();
+        },
+
+        getMaterials(page = 1) {
+            axios.get('api/carpet_material/'+this.form.id+'?page=' + page).then((res) => {
+                this.materials = res.data;
+            });
+        },
+
+        getId(){
+            axios.get('api/car_washing_get_id').then((res) => {
+                this.form.id = res.data
+            });
+            this.getMaterials();
+        },
+
+        get_product_manages(){
+            axios.get('api/car_washing_get_product_manages').then((res) => {
+                this.products = res.data
+            });
+        },
+
+        get_services(){
+            axios.get('api/car_washing_get_units/'+this.serviceForm.product_id).then((res) => {
+                this.units = res.data
+            });
+        },
+
+        get_cost(){
+            axios.get('api/car_washing_get_cost/'+this.serviceForm.unit_id).then((res) => {
+                this.serviceForm.cost = res.data
+            });
         },
 
         getCodeTable() {
@@ -357,6 +456,7 @@ export default {
             this.form.car_status=this.car_status_all[0]['sys_code']
             this.get_serial()
             $('#addNew').modal('show');
+            this.getId()
         },
 
         openModal(){
@@ -405,6 +505,7 @@ export default {
             this.form.reset();
             $('#addNew').modal('show');
             this.form.fill(user);
+            this.getMaterials();
         },
 
         updateTicket(){
@@ -448,9 +549,39 @@ export default {
                 }
             })
         },
+
+        createMaterial(){
+            this.serviceForm.ticket_id=this.form.id
+            this.$Progress.start();
+            this.serviceForm.post('api/carpet_material').then(()=>{
+                Fire.$emit('AfterCreateInside');
+                this.serviceForm.reset()
+            })
+        },
+
+        deleteMaterial(id){
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.serviceForm.delete('api/carpet_material/'+id).then(()=>{
+                        Fire.$emit('AfterCreateInside');
+                    }).catch(()=> {
+                        swal.fire("Failed!", "This data assigned to an employee.", "warning");
+                    });
+                }
+            })
+        },
     },
 
     created(){
+        this.get_product_manages();
         this.getResults();
             Fire.$on('AfterCreate',() => {
                 this.getResults();
@@ -459,23 +590,29 @@ export default {
         Fire.$on('AfterCreateCode_table',() => {
             this.getCodeTable();
         });
+
+        this.getMaterials();
+            Fire.$on('AfterCreateInside',() => {
+                this.getMaterials();
+        });
     },
+
     computed: {
-            ticket_date() {
-                return this.$t('203')
-            },
+        ticket_date() {
+            return this.$t('203')
+        },
 
-            phone_number() {
-                return this.$t('207')
-            },
+        phone_number() {
+            return this.$t('207')
+        },
 
-            entrance_date() {
-                return this.$t('210')
-            },
+        entrance_date() {
+            return this.$t('210')
+        },
 
-            expected_exit_date() {
-                return this.$t('211')
-            },
-        }
+        expected_exit_date() {
+            return this.$t('211')
+        },
+    }
 }
 </script>
