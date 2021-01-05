@@ -201,7 +201,7 @@ button {
 
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="submit" class="btn btn-success default mr-3">{{ $t('121') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button type="button" class="btn btn-success default mx-3" @click="print">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
