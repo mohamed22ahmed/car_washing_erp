@@ -240,7 +240,6 @@ export default {
     data: function() {
         return {
             editmode: false,
-
             des: true,
             dep: true,
             emp: true,

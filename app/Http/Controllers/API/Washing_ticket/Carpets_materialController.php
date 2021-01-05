@@ -10,6 +10,7 @@ use DB;
 class Carpets_materialController extends Controller
 {
     public function index(){
+
     }
 
     public function show($id){

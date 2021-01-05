@@ -213,9 +213,9 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                            <tfooter class="ml-3">
+                                            <div class="d-flex justify-content-center">
                                                 <pagination :data="materials" @pagination-change-page="getMaterials"></pagination>
-                                            </tfooter>
+                                            </div>
                                         </table>
                                     </div>
                                 </div>
