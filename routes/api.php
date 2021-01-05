@@ -95,6 +95,7 @@ Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
 // ################################################## Store Management ###########################################
 // Products Management
 Route::apiResources(['products_management' => 'API\Store_manage\Products_manageController']);
+Route::get('get_id','API\Store_manage\Products_manageController@getId');
 Route::apiResources(['get_units' => 'API\Store_manage\Units_manageController']);
 Route::apiResources(['get_services' => 'API\Store_manage\Services_manageController']);
 Route::delete('products_management/{id}','API\Store_manage\Products_manageController@destroy');

@@ -10,14 +10,15 @@ use App\Models\Store_manage\Custom_unit;
 
 class Units_manageController extends Controller
 {
-    public function index(){
-        return Custom_unit::paginate(5);
+    public function index(){}
+    public function show($id){
+        return Custom_unit::where('product_id',$id)->paginate(5);
     }
 
     public function store(Request $request){
         $data=new Custom_unit;
         $data->name=$request->name;
-        $data->unit_id=1;
+        $data->product_id=$request->product_id;
         $data->units=$request->units;
         $data->cost=$request->cost;
         $data->save();
