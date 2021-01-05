@@ -11,6 +11,31 @@ use App\Models\Store_manage\Custom_unit;
 class Products_manageController extends Controller
 {
     public function index(){
+        $products=Product_manage::all();
+        $services=Service::all();
+        foreach($services as $ser){
+            $x=1;
+            foreach($products as $pro){
+                if($ser->product_id==$pro->id){
+                    $x=2;
+                    break;
+                }
+            }
+            if($x==1)
+                $ser->delete();
+        }
+        $units=Custom_unit::all();
+        foreach($units as $unit){
+            $x=1;
+            foreach($products as $pro){
+                if($unit->product_id==$pro->id){
+                    $x=2;
+                    break;
+                }
+            }
+            if($x==1)
+                $unit->delete();
+        }
         return Product_manage::paginate(5);
     }
 
@@ -43,7 +68,13 @@ class Products_manageController extends Controller
     }
 
     public function destroy($id){
-        $data=Product_manage::find($id)->delete();
+        Product_manage::find($id)->delete();
+        Service::where('product_id',$id)->delete();
+        Custom_unit::where('product_id',$id)->delete();
         return response(['success','your data deleted successfully'],200);
+    }
+
+    public function getId(){
+        return Product_manage::max('id')+1;
     }
 }

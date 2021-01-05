@@ -10,14 +10,17 @@ use App\Models\Store_manage\Custom_unit;
 
 class Services_manageController extends Controller
 {
-    public function index(){
-        return Service::paginate(5);
+    public function index(){}
+
+    public function show($id){
+        return Service::where('product_id',$id)->paginate(5);
     }
 
     public function store(Request $request){
         $data=new Service;
-        $data->name =$request->name;
-        $data->quantity = $request->quantity;
+        $data->product_id=$request->product_id;
+        $data->name=$request->name;
+        $data->quantity=$request->quantity;
         $data->save();
         return response(['success','your data Stored successfully'],200);
     }

@@ -231,6 +231,7 @@ button{
 
                 form2: new Form({
                     id:'',
+                    product_id:'',
                     name:'',
                     units:'',
                     cost:'',
@@ -238,6 +239,7 @@ button{
 
                 form3: new Form({
                     id:'',
+                    product_id:'',
                     name:'',
                     quantity:'',
                 })
@@ -252,13 +254,13 @@ button{
             },
 
             getUnits(page = 1) {
-                axios.get('api/get_units/?page=' + page).then((response) => {
+                axios.get('api/get_units/'+this.form.id+'?page=' + page).then((response) => {
                     this.units = response.data;
                 });
             },
 
             getServices(page = 1) {
-                axios.get('api/get_services/?page=' + page).then((response) => {
+                axios.get('api/get_services/'+this.form.id+'?page=' + page).then((response) => {
                     this.services = response.data;
                 });
             },
@@ -266,7 +268,18 @@ button{
             newModal(){
                 this.editmode = false;
                 this.form.reset();
+                this.getId();
                 $('#addNew').modal('show');
+            },
+
+            getId(){
+                axios.get('api/get_id').then((response) => {
+                    this.form.id = response.data;
+                    this.form2.product_id = response.data;
+                    this.form3.product_id = response.data;
+                });
+                this.getUnits();
+                this.getServices();
             },
 
             createUser(){
@@ -290,6 +303,9 @@ button{
                 this.form.reset();
                 $('#addNew').modal('show');
                 this.form.fill(user);
+
+                this.getUnits();
+                this.getServices();
             },
 
             updateUser(){
@@ -335,9 +351,11 @@ button{
             },
 
             createMaterial(){
+                this.form2.product_id=this.form.id
                 this.$Progress.start();
                 this.form2.post('api/get_units').then(()=>{
-                    Fire.$emit('AfterCreate');
+                    Fire.$emit('AfterCreateInside');
+                    this.form2.reset()
                 })
             },
 
@@ -353,12 +371,7 @@ button{
                 }).then((result) => {
                     if (result.value) {
                         this.form2.delete('api/get_units/'+id).then(()=>{
-                            // swal.fire(
-                            //     'Deleted!',
-                            //     'Data has been deleted.',
-                            //     'success'
-                            // )
-                            Fire.$emit('AfterCreate');
+                            Fire.$emit('AfterCreateInside');
                         }).catch(()=> {
                             swal.fire("Failed!", "This data assigned to an employee.", "warning");
                         });
@@ -367,9 +380,11 @@ button{
             },
 
             createService(){
+                this.form3.product_id=this.form.id
                 this.$Progress.start();
                 this.form3.post('api/get_services').then(()=>{
-                    Fire.$emit('AfterCreate');
+                    Fire.$emit('AfterCreateInside');
+                    this.form3.reset()
                 })
             },
 
@@ -385,7 +400,7 @@ button{
                 }).then((result) => {
                     if (result.value) {
                         this.form3.delete('api/get_services/'+id).then(()=>{
-                            Fire.$emit('AfterCreate');
+                            Fire.$emit('AfterCreateInside');
                         }).catch(()=> {
                             swal.fire("Failed!", "This data assigned to an employee.", "warning");
                         });
@@ -396,10 +411,11 @@ button{
 
         created(){
             this.getResults();
-            this.getUnits();
-            this.getServices();
             Fire.$on('AfterCreate',() => {
                 this.getResults();
+            });
+
+            Fire.$on('AfterCreateInside',() => {
                 this.getUnits();
                 this.getServices();
             });
