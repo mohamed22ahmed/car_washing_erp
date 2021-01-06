@@ -17,7 +17,7 @@ class Car_washingController extends Controller
     }
 
     public function get_product_manages(){
-        return Product_manage::where('type',1)->get();
+        return Product_manage::where('classifications',1)->get();
     }
 
     public function get_units($product_id){

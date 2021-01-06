@@ -16,7 +16,7 @@ class Carpets_washingController extends Controller
     }
 
     public function get_product_manages(){
-        return Product_manage::where('type',2)->get();
+        return Product_manage::where('classifications',2)->get();
     }
 
     public function get_units($product_id){

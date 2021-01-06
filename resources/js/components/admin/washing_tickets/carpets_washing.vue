@@ -93,7 +93,7 @@
                     </div>
 
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
-                        <div class="modal-body">
+                        <div class="modal-body bg-light">
                            <div class="row">
                                 <div class="col-md-2">
                                    <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
