@@ -10,7 +10,13 @@ use DB;
 class Carpets_materialController extends Controller
 {
     public function index(){
-
+        $data=DB::table('services')
+        ->join('custom_units','services.unit_id','custom_units.id')
+        ->join('products_manages','services.product_id','products_manages.id')
+        ->select('services.id as id','custom_units.name as units','products_manages.name as name','products_manages.name_ar',
+                 'custom_units.cost')
+        ->paginate(5);
+        return $data;
     }
 
     public function show($id){

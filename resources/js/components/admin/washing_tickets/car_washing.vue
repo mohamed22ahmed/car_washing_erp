@@ -140,6 +140,7 @@ button {
 
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
+                                        <option value="-1" disabled>{{ $t('97') }}</option>
                                         <option v-for="colr in colors" :key="colr.sys_code" :value="colr.sys_code">{{ colr.name }}</option>
                                     </select>
                                 </div>
@@ -152,6 +153,7 @@ button {
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="brand" v-model="form.brand">
+                                        <option value="-1" disabled>{{ $t('98') }}</option>
                                         <option v-for="brnd in brands" :key="brnd.sys_code" :value="brnd.sys_code">{{ brnd.name }}</option>
                                     </select>
                                 </div>
@@ -163,6 +165,7 @@ button {
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="car_status" v-model="form.car_status">
+                                        <option value="-1" disabled>{{ $t('96') }}</option>
                                         <option v-for="car_st in car_status_all" :key="car_st.sys_code" :value="car_st.sys_code">{{ car_st.name }}</option>
                                     </select>
                                 </div>
@@ -381,18 +384,12 @@ export default {
             });
             axios.get('api/car_washing/1').then((res) => {
                 this.colors=res.data
-                if(res.data!=[])
-                this.form.color=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/2').then((res) => {
                 this.brands=res.data
-                if(res.data!=[])
-                this.form.brand=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/3').then((res) => {
                 this.car_status_all=res.data
-                if(res.data!=[])
-                    this.form.car_status=res.data[0]['sys_code']
             });
             this.get_services();
         },
@@ -451,9 +448,6 @@ export default {
         newModal() {
             this.editmode = false;
             this.form.reset();
-            this.form.color=this.colors[0]['sys_code']
-            this.form.brand=this.brands[0]['sys_code']
-            this.form.car_status=this.car_status_all[0]['sys_code']
             this.get_serial()
             $('#addNew').modal('show');
             this.getId()

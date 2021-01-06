@@ -473,6 +473,21 @@
             "dic_id": 95,
             "name": "Second",
             "name_ar": "الثانى"
+        },
+        {
+            "dic_id": 96,
+            "name": "Car Status",
+            "name_ar": "حالة السيارة"
+        },
+        {
+            "dic_id": 97,
+            "name": "Select Color",
+            "name_ar": "اختار اللون"
+        },
+        {
+            "dic_id": 98,
+            "name": "Select Brand",
+            "name_ar": "اختار الماركة"
         }
     ]
 }
