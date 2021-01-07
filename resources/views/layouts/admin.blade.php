@@ -301,7 +301,7 @@
                                         <p>{{ t('85') }}</p>
                                     </router-link>
                                 </li>
-                                <li class="nav-item {{  url()->current()==url('/daily_report')?'current':'' }}">
+                                {{-- <li class="nav-item {{  url()->current()==url('/daily_report')?'current':'' }}">
                                     <router-link to='/daily_report' class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('86') }}</p>
@@ -312,7 +312,7 @@
                                         <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('87') }}</p>
                                     </router-link>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 

@@ -90,6 +90,10 @@ class Car_washingController extends Controller
         return response(['success','your data deleted successfully'],200);
     }
 
+    public function show_ticket($id){
+        return Car_washing::find($id);
+    }
+
     public function add_code_table(Request $request){
         $sys_code=code_table::where('sys_code_type',$request->sys_code_type)->max('sys_code')+1;
         code_table::create([

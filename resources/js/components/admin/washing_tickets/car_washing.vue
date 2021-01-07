@@ -77,7 +77,7 @@ input[disabled][type='number']{
                                                 <a href="#" @click="editTicket(car)">
                                                     <i class="fa fa-edit red"></i>
                                                 </a>&nbsp;/
-                                                <a href="#">
+                                                <a href="#" @click="showTicket(car.id)">
                                                     <i class="fa fa-eye" style="color:green;"></i>
                                                 </a>&nbsp;/
                                                 <a href="#" @click="deleteTicket(car.id)">
@@ -342,6 +342,115 @@ input[disabled][type='number']{
                 </div>
             </div>
         </div>
+
+        <!-- showTicket_Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('252') }}</h5>
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PrintTicket">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('247') }}</th>
+                                    <td>
+                                        {{ ticket.serial_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('194') }}</th>
+                                    <td>
+                                        {{ ticket.client }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('207') }}</th>
+                                    <td>
+                                        {{ ticket.phone }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('195') }}</th>
+                                    <td>
+                                        {{ ticket.id }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('249') }}</th>
+                                    <td>
+                                        {{ ticket.car_number_letters_ar }}&nbsp; {{ticket.car_number_num_ar}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('217') }}</th>
+                                    <td>
+                                        {{ ticket.brand }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('149') }}</th>
+                                    <td>
+                                        {{ ticket.color }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('250') }}</th>
+                                    <td>
+                                        {{ ticket.car_status }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('242') }}</th>
+                                    <td>
+                                        {{ ticket.num_of_materials }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('197') }}</th>
+                                    <td>
+                                        {{ ticket.total_price }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('205') }}</th>
+                                    <td v-if="ticket.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
+                                    <td v-else-if="ticket.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
+                                    <td v-else-if="ticket.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                    <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('203') }}</th>
+                                    <td>
+                                        {{ ticket.ticket_date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('210') }}</th>
+                                    <td>
+                                        {{ ticket.enterance_date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('243') }}</th>
+                                    <td>
+                                        {{ ticket.exit_expected_date }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                    <button class="btn btn-info" @click="PrintTicket"><i class="fas fa-print fa-fw"></i>&nbsp; {{$t('212')}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -358,7 +467,7 @@ export default {
             units:{},
             cars:{},
             materials:{},
-
+            ticket:{},
             form: new Form({
                 id :'',
                 serial_number :'',
@@ -407,6 +516,10 @@ export default {
 
         printForCar(){
             this.$htmlToPaper('PrintCar');
+        },
+
+        PrintTicket(){
+            this.$htmlToPaper('PrintTicket');
         },
 
         get_serial(){
@@ -583,6 +696,14 @@ export default {
                 }
             })
         },
+
+        showTicket(id){
+            $('#showTicket').modal('show');
+            this.form.get('api/car_wash_show/'+id).then((response) => {
+                this.ticket = response.data;
+            });
+        },
+
 
         createMaterial(){
             this.serviceForm.type=this.type_x

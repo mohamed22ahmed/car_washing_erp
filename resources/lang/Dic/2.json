@@ -733,7 +733,36 @@
             "dic_id": 246,
             "name": "Carpet Ticket",
             "name_ar":"تذكرة المفــروشات"
+        },
+        {
+            "dic_id": 247,
+            "name": "Serial Number",
+            "name_ar":"الرقم التسلسلى"
+        },
+        {
+            "dic_id": 248,
+            "name": "Wash Type",
+            "name_ar":"نوع الغســيل"
+        },
+        {
+            "dic_id": 249,
+            "name": "Car Number",
+            "name_ar":"رقم السيارة"
+        },
+        {
+            "dic_id": 250,
+            "name": "Car Status",
+            "name_ar":"حالة السيارة"
+        },
+        {
+            "dic_id": 251,
+            "name": "Carpet Size",
+            "name_ar":"حجم السجـادة"
+        },
+        {
+            "dic_id": 252,
+            "name": "Car Ticket",
+            "name_ar":"تذكرة السيــارة"
         }
-
     ]
 }

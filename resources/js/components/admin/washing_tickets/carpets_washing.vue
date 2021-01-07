@@ -33,10 +33,13 @@
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
                                 <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}</button>
+                                <button class="btn btn-info" @click="printForCarpet">
+                                    <i class="fas fa-print fa-fw"></i>&nbsp; {{$t('212')}}
+                                </button>
                             </div>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" id="PrintCarpet">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
@@ -312,17 +315,29 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('246') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="PrintTicket">
                         <table class="table table-bordered table-striped">
                             <tbody>
+                                <tr>
+                                    <th>{{ $t('247') }}</th>
+                                    <td>
+                                        {{ ticket.serial_number }}
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>{{ $t('194') }}</th>
                                     <td>
                                         {{ ticket.client }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('207') }}</th>
+                                    <td>
+                                        {{ ticket.phone_number }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -332,7 +347,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ $t('242') }}</th>
+                                    <th>{{ $t('248') }}</th>
+                                    <td>
+                                        {{ ticket.wash_type }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('251') }}</th>
+                                    <td>
+                                        {{ ticket.carpet_size }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('196') }}</th>
                                     <td>
                                         {{ ticket.num_of_materials }}
                                     </td>
@@ -351,6 +378,12 @@
                                     <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                 </tr>
                                 <tr>
+                                    <th>{{ $t('203') }}</th>
+                                    <td>
+                                        {{ ticket.ticket_date }}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>{{ $t('210') }}</th>
                                     <td>
                                         {{ ticket.receipt_date }}
@@ -366,6 +399,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
+                    <button class="btn btn-info" @click="print"><i class="fas fa-print fa-fw"></i>&nbsp; {{$t('212')}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                     </div>
                 </div>
@@ -402,10 +436,11 @@
                     num_of_materials:'',
                     client_status:'good client',
                 }),
-
+                type_x:2,
                 serviceForm:new Form({
                     id:'',
                     ticket_id:'',
+                    type:'',
                     product_id:'',
                     unit_id:'',
                     cost:0,
@@ -424,6 +459,14 @@
         },
 
         methods: {
+            print(){
+                this.$htmlToPaper('PrintTicket');
+            },
+
+            printForCarpet(){
+                this.$htmlToPaper('PrintCarpet');
+            },
+
             getResults(page = 1) {
                 axios.get('api/carpet_wash/?page=' + page).then((response) => {
                     this.carpets = response.data;
@@ -448,7 +491,8 @@
             },
 
             getMaterials(page = 1) {
-                axios.get('api/carpet_material/'+this.form.id+'?page=' + page).then((res) => {
+                if(this.form.id!='')
+                axios.get('api/carpet_material/'+this.form.id+'/2?page=' + page).then((res) => {
                     this.materials = res.data;
                 });
             },
@@ -457,7 +501,6 @@
                 axios.get('api/carpet_washing_get_id').then((res) => {
                     this.form.id = res.data
                 });
-                this.getMaterials();
             },
 
             get_product_manages(){
@@ -517,6 +560,7 @@
             newModal(){
                 this.editmode = false;
                 this.form.reset();
+                this.get_serial()
                 $('#addNew').modal('show');
                 this.getId()
             },
@@ -601,6 +645,7 @@
             },
 
             createMaterial(){
+                this.serviceForm.type=this.type_x
                 this.serviceForm.ticket_id=this.form.id
                 this.$Progress.start();
                 this.serviceForm.post('api/carpet_material').then(()=>{
@@ -641,7 +686,6 @@
                 this.getCodeTable();
             });
 
-            this.getMaterials();
             Fire.$on('AfterCreateInside',() => {
                 this.getMaterials();
             });

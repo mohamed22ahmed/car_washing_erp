@@ -73,8 +73,7 @@ class Carpets_washingController extends Controller
     }
 
     public function destroy($id){
-        Service::where(['ticket_id'=>$id,'type'=>2])->delete();
-        Carpet_washing::find($id)->delete();
+        $data=Carpet_washing::find($id)->delete();
         return response(['success','your data deleted successfully'],200);
     }
 

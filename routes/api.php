@@ -91,6 +91,7 @@ Route::get('carpet_material/{id}/{type}','API\Washing_ticket\Carpets_materialCon
 
 // Car washing Tickets Routes
 Route::apiResources(['car_washing' => 'API\Washing_ticket\Car_washingController']);
+Route::get('car_wash_show/{id}' , 'API\Washing_ticket\Car_washingController@show_ticket');
 Route::post('car_washing_add_code_table','API\Washing_ticket\Car_washingController@add_code_table');
 Route::get('car_washing_get_id','API\Washing_ticket\Car_washingController@get_id');
 Route::get('car_washing_get_product_manages','API\Washing_ticket\Car_washingController@get_product_manages');
