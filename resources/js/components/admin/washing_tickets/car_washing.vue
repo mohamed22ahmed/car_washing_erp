@@ -38,10 +38,13 @@ input[disabled][type='number']{
                                 <button class="btn btn-success" @click="newModal">
                                     <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}
                                 </button>
+                                <button class="btn btn-info" @click="print">
+                                    <i class="fas fa-print fa-fw"></i>&nbsp; Print
+                                </button>
                             </div>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" id="forPrint">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
@@ -97,7 +100,7 @@ input[disabled][type='number']{
 
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCar">
                 <div class="modal-content">
                     <div class="modal-header">
                         <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
@@ -149,6 +152,7 @@ input[disabled][type='number']{
 
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
+                                        <option value="-1" disabled>{{ $t('97') }}</option>
                                         <option v-for="colr in colors" :key="colr.sys_code" :value="colr.sys_code">{{ colr.name }}</option>
                                     </select>
                                 </div>
@@ -161,6 +165,7 @@ input[disabled][type='number']{
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="brand" v-model="form.brand">
+                                        <option value="-1" disabled>{{ $t('98') }}</option>
                                         <option v-for="brnd in brands" :key="brnd.sys_code" :value="brnd.sys_code">{{ brnd.name }}</option>
                                     </select>
                                 </div>
@@ -172,6 +177,7 @@ input[disabled][type='number']{
 
                                 <div class="col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="car_status" v-model="form.car_status">
+                                        <option value="-1" disabled>{{ $t('96') }}</option>
                                         <option v-for="car_st in car_status_all" :key="car_st.sys_code" :value="car_st.sys_code">{{ car_st.name }}</option>
                                     </select>
                                 </div>
@@ -291,7 +297,7 @@ input[disabled][type='number']{
                         <div class="modal-footer d-flex justify-content-center">
                             <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
                             <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button type="button" class="btn btn-success default mr-3" @click="printForCar">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
@@ -352,6 +358,7 @@ export default {
             units:{},
             cars:{},
             materials:{},
+
             form: new Form({
                 id :'',
                 serial_number :'',
@@ -371,11 +378,12 @@ export default {
                 enterance_date :'',
                 exit_expected_date:'',
             }),
-
+            type_x:1,
             serviceForm:new Form({
                 id:'',
                 ticket_id:'',
                 product_id:'',
+                type:'',
                 unit_id:'',
                 cost:0,
                 extra_cost:0,
@@ -393,6 +401,14 @@ export default {
     },
 
     methods: {
+        print(){
+            this.$htmlToPaper('forPrint');
+        },
+
+        printForCar(){
+            this.$htmlToPaper('PrintCar');
+        },
+
         get_serial(){
             axios.get('api/get_serial').then((res) => {
                 this.form.serial_number = res.data;
@@ -408,24 +424,19 @@ export default {
             });
             axios.get('api/car_washing/1').then((res) => {
                 this.colors=res.data
-                if(res.data!=[])
-                this.form.color=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/2').then((res) => {
                 this.brands=res.data
-                if(res.data!=[])
-                this.form.brand=res.data[0]['sys_code']
             });
             axios.get('api/car_washing/3').then((res) => {
                 this.car_status_all=res.data
-                if(res.data!=[])
-                    this.form.car_status=res.data[0]['sys_code']
             });
             this.get_services();
         },
 
         getMaterials(page = 1) {
-            axios.get('api/carpet_material/'+this.form.id+'?page=' + page).then((res) => {
+            if(this.form.id!='')
+            axios.get('api/carpet_material/'+this.form.id+'/1?page=' + page).then((res) => {
                 this.materials = res.data;
             });
         },
@@ -434,7 +445,6 @@ export default {
             axios.get('api/car_washing_get_id').then((res) => {
                 this.form.id = res.data
             });
-            this.getMaterials();
         },
 
         get_product_manages(){
@@ -478,9 +488,6 @@ export default {
         newModal() {
             this.editmode = false;
             this.form.reset();
-            this.form.color=this.colors[0]['sys_code']
-            this.form.brand=this.brands[0]['sys_code']
-            this.form.car_status=this.car_status_all[0]['sys_code']
             this.get_serial()
             $('#addNew').modal('show');
             this.getId()
@@ -578,6 +585,7 @@ export default {
         },
 
         createMaterial(){
+            this.serviceForm.type=this.type_x
             this.serviceForm.ticket_id=this.form.id
             this.$Progress.start();
             this.serviceForm.post('api/carpet_material').then(()=>{
@@ -610,17 +618,17 @@ export default {
     created(){
         this.get_product_manages();
         this.getResults();
-            Fire.$on('AfterCreate',() => {
-                this.getResults();
-            });
+        Fire.$on('AfterCreate',() => {
+            this.getResults();
+        });
 
         Fire.$on('AfterCreateCode_table',() => {
             this.getCodeTable();
         });
 
-        this.getMaterials();
-            Fire.$on('AfterCreateInside',() => {
-                this.getMaterials();
+
+        Fire.$on('AfterCreateInside',() => {
+            this.getMaterials();
         });
     },
 

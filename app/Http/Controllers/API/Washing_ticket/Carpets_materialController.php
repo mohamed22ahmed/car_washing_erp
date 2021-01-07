@@ -9,17 +9,13 @@ use DB;
 
 class Carpets_materialController extends Controller
 {
-    public function index(){
-
-    }
-
-    public function show($id){
+    public function show($id,$type){
         $data=DB::table('services')
         ->join('custom_units','services.unit_id','custom_units.id')
         ->join('products_manages','services.product_id','products_manages.id')
         ->select('services.id as id','custom_units.name as units','products_manages.name as name','products_manages.name_ar',
                  'custom_units.cost')
-        ->where('ticket_id',$id)
+        ->where(['ticket_id'=>$id,'services.type'=>$type])
         ->paginate(5);
         return $data;
     }
@@ -30,6 +26,7 @@ class Carpets_materialController extends Controller
         $data->product_id=$request->product_id;
         $data->unit_id=$request->unit_id;
         $data->cost=$request->cost;
+        $data->type=$request->type;
         $data->save();
         return response(['success','your data created successfully'],200);
     }

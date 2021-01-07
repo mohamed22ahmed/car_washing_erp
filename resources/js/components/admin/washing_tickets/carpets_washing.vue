@@ -595,8 +595,8 @@
 
             showCarpet(id){
                 $('#showTicket').modal('show');
-                this.form.get('api/carpet_wash_show/'+id).then((data) => {
-                    this.ticket = data;
+                this.form.get('api/carpet_wash_show/'+id).then((response) => {
+                    this.ticket = response.data;
                 });
             },
 

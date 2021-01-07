@@ -33,6 +33,8 @@ class Carpets_washingController extends Controller
     }
 
     public function store(Request $request){
+        $materials=Service::where(['ticket_id'=>$request->id,'type'=>2])->count();
+        $total=Service::where(['ticket_id'=>$request->id,'type'=>2])->sum('cost');
         $data=new Carpet_washing;
         $data->serial_number=$request->serial_number;
         $data->ticket_date=$request->ticket_date;
@@ -45,11 +47,15 @@ class Carpets_washingController extends Controller
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;
         $data->expected_exit_date=$request->expected_exit_date;
+        $data->num_of_materials=$materials;
+        $data->total_price=$total;
         $data->save();
         return response(['success','your data created successfully'],200);
     }
 
     public function update(Request $request,$id){
+        $materials=Service::where(['ticket_id'=>$request->id,'type'=>2])->count();
+        $total=Service::where(['ticket_id'=>$request->id,'type'=>2])->sum('cost');
         $data=Carpet_washing::find($id);
         $data->ticket_date=$request->ticket_date;
         $data->wash=$request->wash;
@@ -60,12 +66,15 @@ class Carpets_washingController extends Controller
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;
         $data->expected_exit_date=$request->expected_exit_date;
+        $data->num_of_materials=$materials;
+        $data->total_price=$total;
         $data->save();
         return response(['success','your data Updated successfully'],200);
     }
 
     public function destroy($id){
-        $data=Carpet_washing::find($id)->delete();
+        Service::where(['ticket_id'=>$id,'type'=>2])->delete();
+        Carpet_washing::find($id)->delete();
         return response(['success','your data deleted successfully'],200);
     }
 
@@ -74,7 +83,7 @@ class Carpets_washingController extends Controller
     }
 
     public function get_serial(){
-        $serial=Carpet_washing::max('serial_number')+1;
+        $serial=Carpet_washing::max('id')+1;
         $ser=0;
         if($serial<=9)
             $ser=' 000'.$serial;
@@ -84,9 +93,7 @@ class Carpets_washingController extends Controller
             $ser=' 0'.$serial;
         else
             $ser=' '.$serial;
-        $serial=date('Y').' 0000'.$ser;
+        $serial=date('Y').' 0220'.$ser;
         return $serial;
     }
-
-
 }

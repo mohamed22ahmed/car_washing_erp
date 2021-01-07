@@ -34,6 +34,8 @@ class Car_washingController extends Controller
     }
 
     public function store(Request $request){
+        $materials=Service::where(['ticket_id'=>$request->id,'type'=>1])->count();
+        $total=Service::where(['ticket_id'=>$request->id,'type'=>1])->sum('cost');
         $car_wash=new Car_washing;
         $car_wash->serial_number=$request->serial_number;
         $car_wash->ticket_date=$request->ticket_date;
@@ -51,11 +53,15 @@ class Car_washingController extends Controller
         $car_wash->phone=$request->phone;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->num_of_materials=$materials;
+        $car_wash->total_price=$total;
         $car_wash->save();
         return response(['success','your data created successfully'],200);
     }
 
     public function update(Request $request,$id){
+        $materials=Service::where(['ticket_id'=>$request->id,'type'=>1])->count();
+        $total=Service::where(['ticket_id'=>$request->id,'type'=>1])->sum('cost');
         $car_wash=Car_washing::find($id);
         $car_wash->ticket_date=$request->ticket_date;
         $car_wash->wash=$request->wash;
@@ -72,12 +78,15 @@ class Car_washingController extends Controller
         $car_wash->phone=$request->phone;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->num_of_materials=$materials;
+        $car_wash->total_price=$total;
         $car_wash->save();
         return response(['success','your data Updated successfully'],200);
     }
 
     public function destroy($id){
-        $data=Car_washing::find($id)->delete();
+        Service::where(['ticket_id'=>$id,'type'=>1])->delete();
+        Car_washing::find($id)->delete();
         return response(['success','your data deleted successfully'],200);
     }
 
@@ -101,7 +110,7 @@ class Car_washingController extends Controller
     }
 
     public function get_serial(){
-        $serial=Car_washing::max('serial_number')+1;
+        $serial=Car_washing::max('id')+1;
         $ser=0;
         if($serial<=9)
             $ser=' 000'.$serial;
@@ -111,7 +120,7 @@ class Car_washingController extends Controller
             $ser=' 0'.$serial;
         else
             $ser=' '.$serial;
-        $serial=date('Y').' 0000'.$ser;
+        $serial=date('Y').' 0110'.$ser;
         return $serial;
     }
 }
