@@ -708,6 +708,31 @@
             "dic_id": 241,
             "name": "Dileverd/Closed",
             "name_ar":"وصلـت/إنتـهت"
+        },
+        {
+            "dic_id": 242,
+            "name": "Total Services",
+            "name_ar":"إجمالى الخدمـات"
+        },
+        {
+            "dic_id": 243,
+            "name": "Exit Date",
+            "name_ar":"تاريخ الخـروج"
+        },
+        {
+            "dic_id": 244,
+            "name": "Extra Cost",
+            "name_ar":"تكلفة إضافــية"
+        },
+        {
+            "dic_id": 245,
+            "name": "Total Cost",
+            "name_ar":"إجمالى التكلـفة"
+        },
+        {
+            "dic_id": 246,
+            "name": "Carpet Ticket",
+            "name_ar":"تذكرة المفــروشات"
         }
 
     ]

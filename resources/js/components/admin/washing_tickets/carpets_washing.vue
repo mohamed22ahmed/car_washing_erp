@@ -16,6 +16,10 @@
     .verticalLine {
     border-left: thin solid black;
     }
+    input[disabled][type='number']{
+        /*color: rgb(0,0,0);*/
+        background-color:lightblue;
+    }
 </style>
 
 <template>
@@ -43,7 +47,8 @@
                                         <th>{{ $t('196') }}</th>
                                         <th>{{ $t('197') }}</th>
                                         <th>{{ $t('205') }}</th>
-                                        <th>{{ $t('199') }}</th>
+                                        <th>{{ $t('210') }}</th>
+                                        <th>{{ $t('243') }}</th>
                                         <th>{{ $t('110') }}</th>
                                     </tr>
                                 </thead>
@@ -58,13 +63,17 @@
                                         <td v-else-if="carpet.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
                                         <td v-else-if="carpet.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                         <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
-                                        <td>{{ carpet.ticket_date }}</td>
+                                        <td>{{ carpet.receipt_date }}</td>
+                                        <td>{{ carpet.expected_exit_date }}</td>
                                         <td>
                                             <a href="#" @click="editCarpet(carpet)">
-                                                <i class="fa fa-edit red"></i>
+                                                <i class="fa fa-edit"></i>
+                                            </a>&nbsp;/
+                                            <a href="#" @click="showCarpet(carpet.id)">
+                                                <i class="fa fa-eye" style="color:green;"></i>
                                             </a>&nbsp;/
                                             <a href="#" @click="deleteCarpet(carpet.id)">
-                                                <i class="fa fa-trash red"></i>
+                                                <i class="fa fa-trash" style="color:red;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -166,7 +175,7 @@
 
 
                             <div class="row mt-3  d-flex justify-content-center">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <div class="card card-default">
                                         <div class="card-body">
                                             <div class="table-responsive p-0">
@@ -177,6 +186,7 @@
                                                                 <th>{{ $t('229') }}</th>
                                                                 <th>{{ $t('227') }}</th>
                                                                 <th>{{ $t('228') }}</th>
+                                                                <th>{{ $t('244') }}</th>
                                                                 <th>{{ $t('230') }}</th>
                                                             </tr>
                                                         </thead>
@@ -193,6 +203,7 @@
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -218,6 +229,18 @@
                                             </div>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row d-flex justify-content-center">
+                                <div class="col-sm-4">
+                                    <label for="total_cost">{{$t('245')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label for="total_materials">{{$t('196')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_materials" :value="serviceForm.total_materials">
                                 </div>
                             </div>
 
@@ -282,6 +305,72 @@
                 </div>
             </div>
         </div>
+
+        <!-- showTicket_Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('246') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('194') }}</th>
+                                    <td>
+                                        {{ ticket.client }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('195') }}</th>
+                                    <td>
+                                        {{ ticket.id }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('242') }}</th>
+                                    <td>
+                                        {{ ticket.num_of_materials }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('197') }}</th>
+                                    <td>
+                                        {{ ticket.total_price }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('205') }}</th>
+                                    <td v-if="ticket.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
+                                    <td v-else-if="ticket.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
+                                    <td v-else-if="ticket.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                    <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('210') }}</th>
+                                    <td>
+                                        {{ ticket.receipt_date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('243') }}</th>
+                                    <td>
+                                        {{ ticket.expected_exit_date }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -296,6 +385,7 @@
                 products:{},
                 units:{},
                 materials:{},
+                ticket:{},
                 form: new Form({
                     id:'',
                     serial_number :-1,
@@ -319,6 +409,9 @@
                     product_id:'',
                     unit_id:'',
                     cost:0,
+                    extra_cost:0,
+                    total_cost:0,
+                    total_materials:0,
                 }),
 
                 code_tableForm:new Form({
@@ -498,6 +591,13 @@
                         });
                     }
                 })
+            },
+
+            showCarpet(id){
+                $('#showTicket').modal('show');
+                this.form.get('api/carpet_wash_show/'+id).then((data) => {
+                    this.ticket = data;
+                });
             },
 
             createMaterial(){

@@ -20,6 +20,10 @@ button {
 .verticalLine {
     border-left: thin solid black;
 }
+input[disabled][type='number']{
+    /*color: rgb(0,0,0);*/
+    background-color:lightblue;
+}
 </style>
 
 <template>
@@ -45,10 +49,11 @@ button {
                                             <th>{{ $t('109') }}</th>
                                             <th>{{ $t('194') }}</th>
                                             <th>{{ $t('195') }}</th>
-                                            <th>{{ $t('196') }}</th>
+                                            <th>{{ $t('242') }}</th>
                                             <th>{{ $t('197') }}</th>
                                             <th>{{ $t('205') }}</th>
-                                            <th>{{ $t('199') }}</th>
+                                            <th>{{ $t('210') }}</th>
+                                            <th>{{ $t('243') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
@@ -63,13 +68,17 @@ button {
                                             <td v-else-if="car.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
                                             <td v-else-if="car.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                             <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
-                                            <td>{{ car.ticket_date }}</td>
+                                            <td>{{ car.enterance_date }}</td>
+                                            <td>{{ car.exit_expected_date }}</td>
                                             <td>
                                                 <a href="#" @click="editTicket(car)">
                                                     <i class="fa fa-edit red"></i>
                                                 </a>&nbsp;/
+                                                <a href="#">
+                                                    <i class="fa fa-eye" style="color:green;"></i>
+                                                </a>&nbsp;/
                                                 <a href="#" @click="deleteTicket(car.id)">
-                                                    <i class="fa fa-trash red"></i>
+                                                    <i class="fa fa-trash" style="color:red;"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -219,6 +228,7 @@ button {
                                                                 <th>{{ $t('229') }}</th>
                                                                 <th>{{ $t('227') }}</th>
                                                                 <th>{{ $t('228') }}</th>
+                                                                <th>{{ $t('244') }}</th>
                                                                 <th>{{ $t('230') }}</th>
                                                             </tr>
                                                         </thead>
@@ -235,6 +245,7 @@ button {
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -262,6 +273,19 @@ button {
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group row d-flex justify-content-center">
+                                <div class="col-sm-4">
+                                    <label for="total_cost">{{$t('245')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label for="total_services">{{$t('242')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_services" :value="serviceForm.total_services">
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -354,6 +378,9 @@ export default {
                 product_id:'',
                 unit_id:'',
                 cost:0,
+                extra_cost:0,
+                total_cost:0,
+                total_services:0,
             }),
 
             code_tableForm:new Form({

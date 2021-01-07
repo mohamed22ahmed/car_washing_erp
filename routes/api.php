@@ -78,6 +78,7 @@ Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
 
 // Carpet Wash Ticket
 Route::apiResources(['carpet_wash' => 'API\Washing_ticket\Carpets_washingController']);
+Route::get('carpet_wash_show/{id}' , 'API\Washing_ticket\Carpets_washingController@show_ticket');
 Route::apiResources(['carpet_material' => 'API\Washing_ticket\Carpets_materialController']);
 Route::get('carpet_washing_get_id','API\Washing_ticket\Carpets_washingController@get_id');
 Route::get('carpet_washing_get_product_manages','API\Washing_ticket\Carpets_washingController@get_product_manages');

@@ -69,6 +69,10 @@ class Carpets_washingController extends Controller
         return response(['success','your data deleted successfully'],200);
     }
 
+    public function show_ticket($id){
+        return Carpet_washing::find($id);
+    }
+
     public function get_serial(){
         $serial=Carpet_washing::max('serial_number')+1;
         $ser=0;
