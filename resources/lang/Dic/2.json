@@ -476,17 +476,17 @@
         },
         {
             "dic_id": 195,
-            "name": "Num of Ticket",
+            "name": "Ticket Number",
             "name_ar": "رقم التذكــرة"
         },
         {
             "dic_id": 196,
-            "name": "Num of Material",
+            "name": "Total Materials",
             "name_ar": "عدد الخامــات"
         },
         {
             "dic_id": 197,
-            "name": "Total Price",
+            "name": "Total Cost",
             "name_ar": "إجمالى سعر الخامـات"
         },
         {
@@ -561,8 +561,8 @@
         },
         {
             "dic_id": 212,
-            "name": "save & print",
-            "name_ar": "حفظ و طبــاعة"
+            "name": "Print",
+            "name_ar": "طبــاعة"
         },
         {
             "dic_id": 213,
@@ -587,127 +587,127 @@
         {
             "dic_id": 217,
             "name": "Brand",
-            "name_ar":"الماركـة"
+            "name_ar": "الماركـة"
         },
         {
             "dic_id": 218,
             "name": "Purchase Date",
-            "name_ar":"تاريخ الشــراء"
+            "name_ar": "تاريخ الشــراء"
         },
         {
             "dic_id": 219,
             "name": "Store Management",
-            "name_ar":"إدارة المخــازن"
+            "name_ar": "إدارة المخــازن"
         },
         {
             "dic_id": 220,
             "name": "Stored Management",
-            "name_ar":"إدارة المخــزون"
+            "name_ar": "إدارة المخــزون"
         },
         {
             "dic_id": 221,
             "name": "Products Management",
-            "name_ar":"إدارة المنتجــات"
+            "name_ar": "إدارة المنتجــات"
         },
         {
             "dic_id": 222,
             "name": "Service Type",
-            "name_ar":"نوع الخدمــة"
+            "name_ar": "نوع الخدمــة"
         },
         {
             "dic_id": 223,
             "name": "Classifications",
-            "name_ar":"التصنيفــات"
+            "name_ar": "التصنيفــات"
         },
         {
             "dic_id": 224,
             "name": "Unit Parts",
-            "name_ar":"أجزاءالوحدات"
+            "name_ar": "أجزاءالوحدات"
         },
         {
             "dic_id": 225,
             "name": "Unit Price",
-            "name_ar":"سعر الوحدة"
+            "name_ar": "سعر الوحدة"
         },
         {
             "dic_id": 226,
             "name": "Custom Unites",
-            "name_ar":"وحدات مخصصــة"
+            "name_ar": "وحدات مخصصــة"
         },
         {
             "dic_id": 227,
             "name": "Unites",
-            "name_ar":"الوحـدات"
+            "name_ar": "الوحـدات"
         },
         {
             "dic_id": 228,
             "name": "Cost",
-            "name_ar":"التكــلفة"
+            "name_ar": "التكــلفة"
         },
         {
             "dic_id": 229,
             "name": "Name",
-            "name_ar":"الإســم"
+            "name_ar": "الإســم"
         },
         {
             "dic_id": 230,
             "name": "Choices",
-            "name_ar":"خيارات"
+            "name_ar": "خيارات"
         },
         {
             "dic_id": 231,
             "name": "Material",
-            "name_ar":"خامـة"
+            "name_ar": "خامـة"
         },
         {
             "dic_id": 232,
             "name": "Service",
-            "name_ar":"خدمـة"
+            "name_ar": "خدمـة"
         },
         {
             "dic_id": 233,
             "name": "Materials",
-            "name_ar":"خامــات"
+            "name_ar": "خامــات"
         },
         {
             "dic_id": 234,
             "name": "Quantity",
-            "name_ar":"الكمـية"
+            "name_ar": "الكمـية"
         },
         {
             "dic_id": 235,
             "name": "Car",
-            "name_ar":"سيــارات"
+            "name_ar": "سيــارات"
         },
         {
             "dic_id": 236,
             "name": "Carpets",
-            "name_ar":"سجــاد"
+            "name_ar": "سجــاد"
         },
         {
             "dic_id": 237,
             "name": "Size",
-            "name_ar":"المقــاس"
+            "name_ar": "المقــاس"
         },
         {
             "dic_id": 238,
             "name": "Waiting",
-            "name_ar":"الإنتظــار"
+            "name_ar": "الإنتظــار"
         },
         {
             "dic_id": 239,
             "name": "Binding",
-            "name_ar":"تحت الإجـراء"
+            "name_ar": "تحت الإجـراء"
         },
         {
             "dic_id": 240,
             "name": "Completed",
-            "name_ar":"إكتمـلت"
+            "name_ar": "إكتمـلت"
         },
         {
             "dic_id": 241,
             "name": "Dileverd/Closed",
-            "name_ar":"وصلـت/إنتـهت"
+            "name_ar": "وصلـت/إنتـهت"
         }
 
     ]

@@ -61,6 +61,33 @@ class CodetablesTableSeeder extends Seeder
                 'created_at' => '2020-04-15 19:14:42',
                 'updated_at' => '2020-04-15 19:14:42',
             ],
+            [
+                'id'            => '7',
+                'sys_code_type' => '4',
+                'sys_code'      => '1',
+                'name'          => '300*300',
+                'name_ar'       => '300*300',
+                'created_at' => '2020-04-15 19:14:42',
+                'updated_at' => '2020-04-15 19:14:42',
+            ],
+            [
+                'id'            => '8',
+                'sys_code_type' => '4',
+                'sys_code'      => '2',
+                'name'          => '300*200',
+                'name_ar'       => '300*200',
+                'created_at' => '2020-04-15 19:14:42',
+                'updated_at' => '2020-04-15 19:14:42',
+            ],
+            [
+                'id'            => '9',
+                'sys_code_type' => '5',
+                'sys_code'      => '1',
+                'name'          => 'Fast',
+                'name_ar'       => 'سريغ',
+                'created_at' => '2020-04-15 19:14:42',
+                'updated_at' => '2020-04-15 19:14:42',
+            ],
 
         ];
 

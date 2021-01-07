@@ -34,10 +34,13 @@ button {
                                 <button class="btn btn-success" @click="newModal">
                                     <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}
                                 </button>
+                                <button class="btn btn-info" @click="print">
+                                    <i class="fas fa-print fa-fw"></i>&nbsp; Print
+                                </button>
                             </div>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" id="forPrint">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
                                     <thead class="thead-light">
@@ -88,7 +91,7 @@ button {
 
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCar">
                 <div class="modal-content">
                     <div class="modal-header">
                         <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
@@ -98,7 +101,7 @@ button {
                     </div>
 
                     <form @submit.prevent="editmode ? updateTicket() : createTicket()">
-                        <div class="modal-body">
+                        <div class="modal-body bg-light">
                             <div class="row">
                                 <div class="col-md-2">
                                     <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
@@ -270,7 +273,7 @@ button {
                         <div class="modal-footer d-flex justify-content-center">
                             <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
                             <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button type="button" class="btn btn-success default mr-3" @click="printForCar">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
@@ -331,6 +334,7 @@ export default {
             units:{},
             cars:{},
             materials:{},
+
             form: new Form({
                 id :'',
                 serial_number :'',
@@ -350,11 +354,12 @@ export default {
                 enterance_date :'',
                 exit_expected_date:'',
             }),
-
+            type_x:1,
             serviceForm:new Form({
                 id:'',
                 ticket_id:'',
                 product_id:'',
+                type:'',
                 unit_id:'',
                 cost:0,
             }),
@@ -369,6 +374,14 @@ export default {
     },
 
     methods: {
+        print(){
+            this.$htmlToPaper('forPrint');
+        },
+
+        printForCar(){
+            this.$htmlToPaper('PrintCar');
+        },
+
         get_serial(){
             axios.get('api/get_serial').then((res) => {
                 this.form.serial_number = res.data;
@@ -395,7 +408,8 @@ export default {
         },
 
         getMaterials(page = 1) {
-            axios.get('api/carpet_material/'+this.form.id+'?page=' + page).then((res) => {
+            if(this.form.id!='')
+            axios.get('api/carpet_material/'+this.form.id+'/1?page=' + page).then((res) => {
                 this.materials = res.data;
             });
         },
@@ -404,7 +418,6 @@ export default {
             axios.get('api/car_washing_get_id').then((res) => {
                 this.form.id = res.data
             });
-            this.getMaterials();
         },
 
         get_product_manages(){
@@ -545,6 +558,7 @@ export default {
         },
 
         createMaterial(){
+            this.serviceForm.type=this.type_x
             this.serviceForm.ticket_id=this.form.id
             this.$Progress.start();
             this.serviceForm.post('api/carpet_material').then(()=>{
@@ -577,17 +591,17 @@ export default {
     created(){
         this.get_product_manages();
         this.getResults();
-            Fire.$on('AfterCreate',() => {
-                this.getResults();
-            });
+        Fire.$on('AfterCreate',() => {
+            this.getResults();
+        });
 
         Fire.$on('AfterCreateCode_table',() => {
             this.getCodeTable();
         });
 
-        this.getMaterials();
-            Fire.$on('AfterCreateInside',() => {
-                this.getMaterials();
+
+        Fire.$on('AfterCreateInside',() => {
+            this.getMaterials();
         });
     },
 

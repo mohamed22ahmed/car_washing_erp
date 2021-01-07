@@ -28,11 +28,15 @@
                             <h3 class="card-title">{{ $t('201') }}</h3>
                             <div class="card-tools">
                                 <button class="btn btn-success" @click="newModal">
-                                <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}</button>
+                                    <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('202') }}
+                                </button>
+                                <button class="btn btn-info" @click="print">
+                                    <i class="fas fa-print fa-fw"></i>&nbsp; Print
+                                </button>
                             </div>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" id="forPrint">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
                                 <thead class="thead-light">
@@ -83,7 +87,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCarpet">
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-center">
                         <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
@@ -93,7 +97,7 @@
                     </div>
 
                     <form @submit.prevent="editmode ? updateUser() : createUser()">
-                        <div class="modal-body">
+                        <div class="modal-body bg-light">
                            <div class="row">
                                 <div class="col-md-2">
                                    <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
@@ -239,7 +243,7 @@
                         <div class="modal-footer d-flex justify-content-center">
                             <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
                             <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button type="button" class="btn btn-success default mr-3" @click="printForCarpet">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
@@ -298,7 +302,7 @@
                 materials:{},
                 form: new Form({
                     id:'',
-                    serial_number :-1,
+                    serial_number :'',
                     ticket_date:new Date().toISOString().slice(0, 10),
                     wash:-1,
                     ticket_status:1,
@@ -312,9 +316,10 @@
                     num_of_materials:'',
                     client_status:'good client',
                 }),
-
+                type_x:2,
                 serviceForm:new Form({
                     id:'',
+                    type:'',
                     ticket_id:'',
                     product_id:'',
                     unit_id:'',
@@ -331,6 +336,14 @@
         },
 
         methods: {
+            print(){
+                this.$htmlToPaper('forPrint');
+            },
+
+            printForCarpet(){
+                this.$htmlToPaper('PrintCarpet');
+            },
+
             getResults(page = 1) {
                 axios.get('api/carpet_wash/?page=' + page).then((response) => {
                     this.carpets = response.data;
@@ -355,7 +368,8 @@
             },
 
             getMaterials(page = 1) {
-                axios.get('api/carpet_material/'+this.form.id+'?page=' + page).then((res) => {
+                if(this.form.id!='')
+                axios.get('api/carpet_material/'+this.form.id+'/2?page=' + page).then((res) => {
                     this.materials = res.data;
                 });
             },
@@ -364,7 +378,6 @@
                 axios.get('api/carpet_washing_get_id').then((res) => {
                     this.form.id = res.data
                 });
-                this.getMaterials();
             },
 
             get_product_manages(){
@@ -426,6 +439,7 @@
                 this.form.reset();
                 $('#addNew').modal('show');
                 this.getId()
+                this.get_serial()
             },
 
             newStatus(){
@@ -501,6 +515,7 @@
             },
 
             createMaterial(){
+                this.serviceForm.type=this.type_x
                 this.serviceForm.ticket_id=this.form.id
                 this.$Progress.start();
                 this.serviceForm.post('api/carpet_material').then(()=>{
@@ -541,7 +556,6 @@
                 this.getCodeTable();
             });
 
-            this.getMaterials();
             Fire.$on('AfterCreateInside',() => {
                 this.getMaterials();
             });
