@@ -10,6 +10,7 @@ use DB;
 class Carpets_materialController extends Controller
 {
     public function show($id,$type){
+        
         $data=DB::table('services')
         ->join('custom_units','services.unit_id','custom_units.id')
         ->join('products_manages','services.product_id','products_manages.id')
@@ -25,7 +26,7 @@ class Carpets_materialController extends Controller
         $data->ticket_id=$request->ticket_id;
         $data->product_id=$request->product_id;
         $data->unit_id=$request->unit_id;
-        $data->cost=$request->cost;
+        $data->cost=$request->cost+$request->extra_cost;
         $data->type=$request->type;
         $data->save();
         return response(['success','your data created successfully'],200);

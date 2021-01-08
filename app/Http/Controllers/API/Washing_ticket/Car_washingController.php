@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class Car_washingController extends Controller
 {
+    public function get_total_cost($ticket_id){
+        return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('cost');
+    }
+
     public function get_id(){
         return Car_washing::max('id')+1;
     }

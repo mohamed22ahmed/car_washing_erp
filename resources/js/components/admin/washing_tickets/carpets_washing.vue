@@ -264,8 +264,8 @@
 
                         <div class="modal-footer d-flex justify-content-center">
                             <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
-                            <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('212') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
+                            <button v-show="editmode" type="button" class="btn btn-success default mx-3" @click="printForTicket">{{ $t('212') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
@@ -461,6 +461,13 @@
         methods: {
             print(){
                 this.$htmlToPaper('PrintTicket');
+            },
+
+            printForTicket(){
+                this.form.get('api/carpet_wash_show/'+this.form.id).then((response) => {
+                    this.ticket = response.data;
+                });
+                $('#showTicket').modal('show');
             },
 
             printForCarpet(){

@@ -281,14 +281,24 @@ input[disabled][type='number']{
                             </div>
 
                             <div class="form-group row d-flex justify-content-center">
-                                <div class="col-sm-4">
-                                    <label for="total_cost">{{$t('245')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
+                                <div class="col-sm-3">
+                                    <label for="taxes_value">Taxes Value</label>
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="serviceForm.taxes_value">
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <label for="price_after_taxes">Price After Taxes</label>
+                                    <input type="number" class="form-control" disabled name="price_after_taxes" :value="serviceForm.price_after_taxes">
+                                </div>
+
+                                <div class="col-sm-3">
                                     <label for="total_services">{{$t('242')}}</label>
                                     <input type="number" class="form-control" disabled name="total_services" :value="serviceForm.total_services">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="total_cost">{{$t('245')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
                                 </div>
                             </div>
 
@@ -310,7 +320,7 @@ input[disabled][type='number']{
             </div>
         </div>
 
-        <!-- Codetable_Modal -->
+        <!-- Codetable Modal -->
         <div class="modal fade" id="codeTableModal" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -343,7 +353,7 @@ input[disabled][type='number']{
             </div>
         </div>
 
-        <!-- showTicket_Modal -->
+        <!-- show Ticket Modal -->
         <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -498,6 +508,8 @@ export default {
                 extra_cost:0,
                 total_cost:0,
                 total_services:0,
+                taxes_value:0,
+                price_after_taxes:0,
             }),
 
             code_tableForm:new Form({
@@ -510,12 +522,21 @@ export default {
     },
 
     methods: {
+        get_total_cost(){
+            axios.get('api/car_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
+                this.serviceForm.total_cost = res.data
+            });
+        },
+
         print(){
             this.$htmlToPaper('forPrint');
         },
 
         printForCar(){
-            this.$htmlToPaper('PrintCar');
+            this.form.get('api/car_wash_show/'+this.form.id).then((response) => {
+                this.ticket = response.data;
+            });
+            $('#showTicket').modal('show');
         },
 
         PrintTicket(){
@@ -713,6 +734,7 @@ export default {
                 Fire.$emit('AfterCreateInside');
                 this.serviceForm.reset()
             })
+            this.get_total_cost()
         },
 
         deleteMaterial(id){

@@ -99,6 +99,8 @@ Route::get('car_washing_get_units/{unit_id}','API\Washing_ticket\Car_washingCont
 Route::get('car_washing_get_cost/{unit_id}','API\Washing_ticket\Car_washingController@get_cost');
 Route::get('get_clients','API\Washing_ticket\Car_washingController@get_clients');
 Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
+Route::get('car_washing_get_total_cost/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_cost');
+
 
 // ################################################## Tickets Management ###########################################
 
