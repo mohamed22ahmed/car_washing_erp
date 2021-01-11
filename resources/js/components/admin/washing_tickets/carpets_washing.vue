@@ -50,8 +50,7 @@
                                         <th>{{ $t('196') }}</th>
                                         <th>{{ $t('197') }}</th>
                                         <th>{{ $t('205') }}</th>
-                                        <th>{{ $t('210') }}</th>
-                                        <th>{{ $t('243') }}</th>
+                                        <th>{{ $t('203') }}</th>
                                         <th>{{ $t('254') }}</th>
                                         <th>{{ $t('255') }}</th>
                                         <th>{{ $t('110') }}</th>
@@ -68,8 +67,7 @@
                                         <td v-else-if="carpet.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
                                         <td v-else-if="carpet.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                         <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
-                                        <td>{{ carpet.receipt_date }}</td>
-                                        <td>{{ carpet.expected_exit_date }}</td>
+                                        <td>{{ carpet.ticket_date }}</td>
                                         <td>{{ carpet.receipt_time }}</td>
                                         <td>{{ carpet.exit_time }}</td>
                                         <td>
@@ -181,14 +179,22 @@
                            </div>
 
                             <div class="row mt-3">
-                                <div class="col-md-2"></div>
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
+                                    <has-error :form="form" field="receipt_time"></has-error>
+                                </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_time') }">
+                                    <has-error :form="form" field="exit_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
                                     <input v-model="form.receipt_date" type="text" name="Time of receipt" :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
                                     <has-error :form="form" field="receipt_date"></has-error>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
                                     <has-error :form="form" field="expected_exit_date"></has-error>
                                 </div>

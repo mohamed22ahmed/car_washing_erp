@@ -99,6 +99,8 @@ class Car_washingController extends Controller
         $car_wash->client_id=$request->client;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->receipt_time=$request->receipt_time;
+        $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;
         $car_wash->total_price=$request->total_cost;
         $car_wash->save();
@@ -135,6 +137,8 @@ class Car_washingController extends Controller
         $car_wash->client_id=$request->client;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->receipt_time=$request->receipt_time;
+        $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;
         $car_wash->total_price=$request->total_cost;
         $car_wash->save();

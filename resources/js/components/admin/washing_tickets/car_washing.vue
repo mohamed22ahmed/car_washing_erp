@@ -55,8 +55,7 @@ input[disabled][type='number']{
                                             <th>{{ $t('242') }}</th>
                                             <th>{{ $t('197') }}</th>
                                             <th>{{ $t('205') }}</th>
-                                            <th>{{ $t('210') }}</th>
-                                            <th>{{ $t('243') }}</th>
+                                            <th>{{ $t('203') }}</th>
                                             <th>{{ $t('254') }}</th>
                                             <th>{{ $t('255') }}</th>
                                             <th>{{ $t('110') }}</th>
@@ -73,8 +72,7 @@ input[disabled][type='number']{
                                             <td v-else-if="car.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
                                             <td v-else-if="car.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                             <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
-                                            <td>{{ car.enterance_date }}</td>
-                                            <td>{{ car.exit_expected_date }}</td>
+                                            <td>{{ carpet.ticket_date }}</td>
                                             <td>{{ car.receipt_time }}</td>
                                             <td>{{ car.exit_time }}</td>
                                             <td>
@@ -147,7 +145,7 @@ input[disabled][type='number']{
                             <div class="row">
                                 <span v-if="letter_error!=''">{{ letter_error }}</span>
                                 <span v-if="num_error!=''">{{ num_error }}</span>
-                                <div class="input-group col-md-2 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
+                                <div class="input-group col-md-3 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
                                         <input type="number" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar" @change="get_car">
                                         <div class="verticalLine" style="height=5px"></div>
                                         <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar" @change="get_car" required>

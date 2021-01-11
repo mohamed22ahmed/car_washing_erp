@@ -67,6 +67,8 @@ class Carpets_washingController extends Controller
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;
         $data->expected_exit_date=$request->expected_exit_date;
+        $data->receipt_time=$request->receipt_time;
+        $data->exit_time=$request->exit_time;
         $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
         $data->save();
@@ -84,7 +86,9 @@ class Carpets_washingController extends Controller
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;
         $data->expected_exit_date=$request->expected_exit_date;
-                $data->num_of_materials=$request->total_services;
+        $data->receipt_time=$request->receipt_time;
+        $data->exit_time=$request->exit_time;
+        $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
         $data->save();
         return response(['success','your data Updated successfully'],200);
