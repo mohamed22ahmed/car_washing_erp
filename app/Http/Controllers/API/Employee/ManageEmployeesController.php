@@ -12,7 +12,11 @@ use Image;
 class ManageEmployeesController extends Controller
 {
     public function index(){
-        return Employee::paginate(5);
+        $data=DB::table('employees')
+        ->leftJoin('departments','departments.id','employees.department')
+        ->select('employees.*','departments.name as dep_name')
+        ->paginate(5);
+        return $data;
     }
 
     public function get_all_employees(){

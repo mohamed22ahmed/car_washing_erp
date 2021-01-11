@@ -27,6 +27,7 @@ class Carpets_materialController extends Controller
         $data->unit_id=$request->unit_id;
         $data->cost=$request->cost;
         $data->extra_cost=$request->extra_cost;
+        $data->description=$request->description;
         $data->type=$request->type;
         $data->save();
         return response(['success','your data created successfully'],200);

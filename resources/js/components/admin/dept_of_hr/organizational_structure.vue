@@ -346,6 +346,7 @@ export default {
         },
 
         editData(data) {
+            this.addNewValue=2
             this.editmode = true;
             this.form.reset();
             $('#addNew').modal('show');

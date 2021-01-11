@@ -40,7 +40,7 @@
                                     <td>{{ employee.join_date }}</td>
                                     <td v-if="employee.status==2"><span class="badge badge-danger">Stopped</span></td>
                                     <td v-if="employee.status==1"><span class="badge badge-success">Active</span></td>
-                                    <td>{{ employee.department }}</td>
+                                    <td>{{ employee.dep_name }}</td>
                                     <td>
                                         <router-link :to="{ path: '/emp_infos_create?employee='+employee.id}">
                                             <i class="fa fa-edit blue"></i>
