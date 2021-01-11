@@ -17,19 +17,17 @@ class CreateCarpetWashingsTable extends Migration
             $table->bigIncrements('id');
             $table->date('ticket_date');
             $table->string('serial_number');
-            $table->string('client_status');
             $table->integer('wash')->default(-1);
             $table->integer('ticket_status')->default(-1);
-            $table->integer('client')->default(-1);
-            $table->string('phone_number')->nullable();
+            $table->integer('client_id');
             $table->integer('carpet_size')->default(-1);
             $table->integer('wash_type')->default(-1);
             $table->dateTime('receipt_date');
             $table->dateTime('expected_exit_date');
             $table->time('receipt_time');
             $table->time('exit_time');
-            $table->integer('total_price')->nullable();
-            $table->integer('num_of_materials')->nullable();
+            $table->integer('total_price')->default(0);
+            $table->integer('num_of_materials')->default(0);
             $table->timestamps();
         });
     }

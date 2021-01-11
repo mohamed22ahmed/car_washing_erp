@@ -25,8 +25,6 @@ class CreateCarWashingsTable extends Migration
             $table->date('exit_expected_date');
             $table->time('receipt_time');
             $table->time('exit_time');
-            $table->integer('total_price')->nullable();
-            $table->integer('num_of_materials')->nullable();
             $table->integer('total_price')->default(0);
             $table->integer('num_of_materials')->default(0);
             $table->timestamps();

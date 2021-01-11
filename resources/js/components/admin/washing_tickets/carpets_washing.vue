@@ -213,23 +213,25 @@
                                                                 <th>{{ $t('227') }}</th>
                                                                 <th>{{ $t('228') }}</th>
                                                                 <th>{{ $t('244') }}</th>
+                                                                <th>{{ $t('113') }}</th>
                                                                 <th>{{ $t('230') }}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:150px;">
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:120px;">
                                                                         <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:150px;">
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:120px;">
                                                                         <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
                                                                 <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost" style="min-width:80px;"></td>
+                                                                <td><textarea class="form-control" name="description" v-model="serviceForm.description" style="min-width:80px;"></textarea></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -470,6 +472,7 @@
                     extra_cost:0,
                     total_cost:0,
                     total_materials:0,
+                    description:'',
                 }),
 
                 code_tableForm:new Form({

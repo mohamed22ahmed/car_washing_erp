@@ -154,9 +154,7 @@ input[disabled][type='number']{
                                     <i class="fas fa-camera fa-2x"></i>
                                 </div>
 
-                                <div class="col-md-2"></div>
-
-                                <div class="row col-md-2 mt-5">
+                                <div class="row col-md-3 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
                                         <option value="-1" disabled>{{ $t('97') }}</option>
                                         <option v-for="colr in colors" :key="colr.sys_code" :value="colr.sys_code">{{ colr.name }}</option>
@@ -169,7 +167,7 @@ input[disabled][type='number']{
                                 </div>
 
 
-                                <div class="col-md-2 mt-5">
+                                <div class="col-md-3 mt-5">
                                     <select class="form-control form-rounded" name="brand" v-model="form.brand">
                                         <option value="-1" disabled>{{ $t('98') }}</option>
                                         <option v-for="brnd in brands" :key="brnd.sys_code" :value="brnd.sys_code">{{ brnd.name }}</option>
@@ -205,12 +203,13 @@ input[disabled][type='number']{
                                     </button>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <input v-model="form.phone" type="text" name="phone" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
                                         <has-error :form="form" field="phone"></has-error>
                                     </div>
                                 </div>
+                                <div class="col-md-1"></div>
                             </div>
 
                              <div class="row mt-3">
@@ -252,23 +251,25 @@ input[disabled][type='number']{
                                                                 <th>{{ $t('227') }}</th>
                                                                 <th>{{ $t('228') }}</th>
                                                                 <th>{{ $t('244') }}</th>
+                                                                <th>{{ $t('113') }}</th>
                                                                 <th>{{ $t('230') }}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:150px;">
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:120px;">
                                                                         <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:150px;">
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:120px;">
                                                                         <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
                                                                 <td><input  type="number" class="form-control" name="extra_cost" v-model="serviceForm.extra_cost" style="min-width:80px;"></td>
+                                                                <td><textarea class="form-control" name="description" v-model="serviceForm.description" style="min-width:80px;"></textarea></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -300,12 +301,12 @@ input[disabled][type='number']{
 
                             <div class="form-group row d-flex justify-content-center">
                                 <div class="col-sm-3">
-                                    <label for="taxes_value">Taxes Value</label>
+                                    <label for="taxes_value">{{$t('256')}}</label>
                                     <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
                                 </div>
 
                                 <div class="col-sm-3">
-                                    <label for="price_before_taxes">Price Before Taxes</label>
+                                    <label for="price_before_taxes">{{$t('257')}}</label>
                                     <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
                                 </div>
 
@@ -528,6 +529,7 @@ export default {
                 unit_id:'',
                 cost:0,
                 extra_cost:0,
+                description:'',
             }),
 
             letter_error:'',
