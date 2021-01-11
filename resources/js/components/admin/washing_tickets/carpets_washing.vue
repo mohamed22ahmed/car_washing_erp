@@ -557,6 +557,7 @@
             },
 
             get_services(){
+                if(this.serviceForm.product_id!='')
                 axios.get('api/carpet_washing_get_units/'+this.serviceForm.product_id).then((res) => {
                     this.units = res.data
                 });

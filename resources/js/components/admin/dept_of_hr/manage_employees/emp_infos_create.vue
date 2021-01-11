@@ -536,12 +536,13 @@ export default {
         get_roles(){
             axios.get('api/permission_roles').then((res)=>{
                 this.roles=res.data
+                if(res.data!='')
                 this.form.role=res.data[0]['id']
             })
         },
 
         loadUsers(){
-            if(this.form.id!=null)
+            if(this.form.id!=undefined)
                 axios.get('api/manage_emp/'+this.form.id).then((res)=>{
                     this.form.fill(res.data)
                 })

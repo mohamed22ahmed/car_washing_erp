@@ -72,7 +72,7 @@ input[disabled][type='number']{
                                             <td v-else-if="car.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
                                             <td v-else-if="car.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                             <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
-                                            <td>{{ carpet.ticket_date }}</td>
+                                            <td>{{ car.ticket_date }}</td>
                                             <td>{{ car.receipt_time }}</td>
                                             <td>{{ car.exit_time }}</td>
                                             <td>
@@ -225,14 +225,14 @@ input[disabled][type='number']{
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
+                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
                                         <has-error :form="form" field="enterance_date"></has-error>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
+                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
                                         <has-error :form="form" field="exit_expected_date"></has-error>
                                     </div>
                                 </div>
@@ -650,6 +650,7 @@ export default {
         },
 
         get_services(){
+            if(this.serviceForm.product_id!='')
             axios.get('api/car_washing_get_units/'+this.serviceForm.product_id).then((res) => {
                 this.units = res.data
             });

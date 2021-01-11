@@ -11,19 +11,41 @@ use Illuminate\Http\Request;
 class Organization_structureController extends Controller
 {
     public function getDesignations(){
-        return Designation::where('type',1)->get();
+        $design=Designation::where('type',1)->get();
+        if(session('lang')=='ar')
+            foreach($design as $des){
+                $des->name=$des->name_ar;
+            }
+        return $design;
     }
 
     public function getDepartments(){
-        return Department::all();
+        $depts=Department::all();
+        if(session('lang')=='ar')
+            foreach($depts as $dept){
+                $dept->name=$dept->name_ar;
+            }
+        return $depts;
     }
 
     public function getEmployments(){
-        return Designation::where('type',2)->get();
+        $emp_levs=Designation::where('type',2)->get();
+        if(session('lang')=='ar')
+            foreach($emp_levs as $emp_lev){
+                $emp_lev->name=$emp_lev->name_ar;
+            }
+        return $emp_levs;
     }
 
     public function getEmployees(){
-        return Employee::all();
+        $emps= Employee::all();
+            foreach($emps as $emp){
+                if(session('lang')=='ar')
+                    $emp->name_en=$emp->name;
+                else
+                    $emp->name=$emp->name_en;
+            }
+        return $emps;
     }
 
     public function get_month_days($month){
