@@ -44,6 +44,60 @@ input[disabled][type='number']{
                             </div>
                         </div>
 
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="filters">{{ $t('134') }}</label>
+                                    <select name="filters" id="filters"  v-model="filter" class="form-control">
+                                        <option value="-1">{{ $t('135') }}</option>
+                                        <option value="1">{{ $t('210') }} / {{$t('211')}}</option>
+                                        <option value="2">{{ $t('254') }} / {{$t('255')}}</option>
+                                        <option value="3">{{ $t('195') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==1">
+                                    <div class="form-group">
+                                        <label>{{ $t('210') }}</label>
+                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
+                                        <has-error :form="form" field="enterance_date"></has-error>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==1">
+                                    <div class="form-group">
+                                        <label>{{ $t('211') }}</label>
+                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control" :class="{ 'is-invalid': form.errors.has('exit_date') }">
+                                        <has-error :form="form" field="exit_expected_date"></has-error>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==2">
+                                    <div class="form-group">
+                                        <label>{{ $t('254') }}</label>
+                                        <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
+                                        <has-error :form="form" field="receipt_time"></has-error>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==2">
+                                    <div class="form-group">
+                                        <label>{{ $t('255') }}</label>
+                                        <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" :class="{ 'is-invalid': form.errors.has('exit_time') }">
+                                        <has-error :form="form" field="exit_time"></has-error>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" v-if="filter==3">
+                                    <div class="form-group">
+                                        <label>{{ $t('195') }}</label>
+                                        <input v-model="form.ticket_number" type="number" name="ticket_number" class="form-control" :class="{ 'is-invalid': form.errors.has('ticket_number') }">
+                                        <has-error :form="form" field="ticket_number"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card-body" id="forPrint">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-bordered table-hover text-center">
@@ -497,6 +551,7 @@ export default {
             cars:{},
             materials:{},
             ticket:{},
+            filter:-1,
             form: new Form({
                 id :'',
                 serial_number :'',

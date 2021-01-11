@@ -788,6 +788,11 @@
             "dic_id": 257,
             "name": "Cost Before Taxes",
             "name_ar":"التكلفة قبل الضريــبة"
+        },
+        {
+            "dic_id": 258,
+            "name": "Search",
+            "name_ar":"بحـــث"
         }
     ]
 }
