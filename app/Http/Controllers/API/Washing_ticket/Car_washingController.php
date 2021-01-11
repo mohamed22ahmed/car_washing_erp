@@ -7,13 +7,29 @@ use App\Models\code_table;
 use App\Models\Store_manage\Custom_unit;
 use App\Models\Store_manage\Product_manage;
 use App\Models\Store_manage\Service;
+use App\Models\Washing_tickets\Car;
 use App\Models\Washing_tickets\Car_washing;
 use Illuminate\Http\Request;
 
 class Car_washingController extends Controller
 {
+    public function check_car_number($number,$letters){
+
+        if(strlen($number)!=3)
+            return 'num_error';
+        if(strlen($letters)>4){
+            return 'letter_error';
+        }
+        $car=Car::where(['car_number'=>$number,'car_letters'=>$letters])->first();
+        return $car??'';
+    }
+
+    public function get_total_services($ticket_id){
+        return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->count();
+    }
+
     public function get_total_cost($ticket_id){
-        return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('cost');
+        return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('cost')+Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('extra_cost');
     }
 
     public function get_id(){
@@ -34,12 +50,23 @@ class Car_washingController extends Controller
     }
 
     public function index(){
+        $cars=Car_washing::all();
+        $services=Service::where('type',1)->get();
+        foreach($services as $ser){
+            $x=1;
+            foreach($cars as $car){
+                if($ser->ticket_id==$car->id){
+                    $x=2;
+                    break;
+                }
+            }
+            if($x==1)
+                $ser->delete();
+        }
         return Car_washing::paginate(5);
     }
 
     public function store(Request $request){
-        $materials=Service::where(['ticket_id'=>$request->id,'type'=>1])->count();
-        $total=Service::where(['ticket_id'=>$request->id,'type'=>1])->sum('cost');
         $car_wash=new Car_washing;
         $car_wash->serial_number=$request->serial_number;
         $car_wash->ticket_date=$request->ticket_date;
@@ -57,15 +84,13 @@ class Car_washingController extends Controller
         $car_wash->phone=$request->phone;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
-        $car_wash->num_of_materials=$materials;
-        $car_wash->total_price=$total;
+        $car_wash->num_of_materials=$request->total_services;
+        $car_wash->total_price=$request->total_cost;
         $car_wash->save();
         return response(['success','your data created successfully'],200);
     }
 
     public function update(Request $request,$id){
-        $materials=Service::where(['ticket_id'=>$request->id,'type'=>1])->count();
-        $total=Service::where(['ticket_id'=>$request->id,'type'=>1])->sum('cost');
         $car_wash=Car_washing::find($id);
         $car_wash->ticket_date=$request->ticket_date;
         $car_wash->wash=$request->wash;
@@ -82,8 +107,8 @@ class Car_washingController extends Controller
         $car_wash->phone=$request->phone;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
-        $car_wash->num_of_materials=$materials;
-        $car_wash->total_price=$total;
+        $car_wash->num_of_materials=$request->total_services;
+        $car_wash->total_price=$request->total_cost;
         $car_wash->save();
         return response(['success','your data Updated successfully'],200);
     }

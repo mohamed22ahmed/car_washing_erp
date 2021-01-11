@@ -20,7 +20,7 @@ class CreateServicesTable extends Migration
             $table->bigInteger('product_id');
             $table->bigInteger('unit_id');
             $table->integer('cost');
-            $table->integer('extra_cost')->nullable();
+            $table->integer('extra_cost')->default(0);
             $table->string('description')->nullable();
             $table->timestamps();
         });

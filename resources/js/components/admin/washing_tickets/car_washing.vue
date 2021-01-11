@@ -141,14 +141,17 @@ input[disabled][type='number']{
                             </div>
 
                             <div class="row">
+                                <span v-if="letter_error!=''">{{ letter_error }}</span>
+                                <span v-if="num_error!=''">{{ num_error }}</span>
                                 <div class="input-group col-md-2 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
-                                        <input type="text" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar">
+                                        <input type="number" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar" @change="get_car">
                                         <div class="verticalLine" style="height=5px"></div>
-                                        <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar">
+                                        <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar" @change="get_car" required>
                                 </div>
                                 <div class="col-md-1 mt-5">
                                     <i class="fas fa-camera fa-2x"></i>
                                 </div>
+
 
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
@@ -251,7 +254,7 @@ input[disabled][type='number']{
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
-                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" v-model="serviceForm.extra_cost"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -265,6 +268,7 @@ input[disabled][type='number']{
                                                     <td>{{mat.name}}</td>
                                                     <td>{{mat.units}}</td>
                                                     <td>{{mat.cost}}</td>
+                                                    <td>{{mat.extra_cost}}</td>
                                                     <td>
                                                         <a href="#" @click="deleteMaterial(mat.id)">
                                                             <i class="fa fa-trash" style="color:red;"></i>
@@ -283,22 +287,22 @@ input[disabled][type='number']{
                             <div class="form-group row d-flex justify-content-center">
                                 <div class="col-sm-3">
                                     <label for="taxes_value">Taxes Value</label>
-                                    <input type="number" class="form-control" disabled name="taxes_value" :value="serviceForm.taxes_value">
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
                                 </div>
 
                                 <div class="col-sm-3">
-                                    <label for="price_after_taxes">Price After Taxes</label>
-                                    <input type="number" class="form-control" disabled name="price_after_taxes" :value="serviceForm.price_after_taxes">
+                                    <label for="price_before_taxes">Price Before Taxes</label>
+                                    <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
                                 </div>
 
                                 <div class="col-sm-3">
                                     <label for="total_services">{{$t('242')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_services" :value="serviceForm.total_services">
+                                    <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
                                 </div>
 
                                 <div class="col-sm-3">
                                     <label for="total_cost">{{$t('245')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
                                 </div>
                             </div>
 
@@ -486,8 +490,6 @@ export default {
                 ticket_status :1,
                 car_number_num_ar :'',
                 car_number_letters_ar :'',
-                car_number_num_en :'',
-                car_number_letters_en :'',
                 color :-1,
                 brand :-1,
                 car_status :-1,
@@ -496,6 +498,10 @@ export default {
                 phone :'',
                 enterance_date :'',
                 exit_expected_date:'',
+                total_cost:0,
+                total_services:0,
+                taxes_value:0,
+                price_before_taxes:0,
             }),
             type_x:1,
             serviceForm:new Form({
@@ -506,11 +512,10 @@ export default {
                 unit_id:'',
                 cost:0,
                 extra_cost:0,
-                total_cost:0,
-                total_services:0,
-                taxes_value:0,
-                price_after_taxes:0,
             }),
+
+            letter_error:'',
+            num_error:'',
 
             code_tableForm:new Form({
                 sys_code_type:'',
@@ -522,10 +527,49 @@ export default {
     },
 
     methods: {
+        get_car(){
+            if(this.form.car_number_num_ar!=''&&this.form.car_number_letters_ar!=''){
+                axios.get('api/car_washing_get_car/'+this.form.car_number_num_ar+"/"+this.form.car_number_letters_ar).then((res) => {
+                    this.num_error=''
+                    this.letter_error=''
+                    if(res.data=='num_error'){
+                        this.num_error='Car Number should be containing 3 digits'
+                    }else if(res.data=='letter_error'){
+                        this.letter_error='Car Letters should be greater or equal one letter and less than or equal 4 letters'
+                    }else if(res.data!=''){
+                        this.form.color=res.data.color;
+                        this.form.brand=res.data.brand;
+                        this.form.car_status=res.data.status;
+                        this.form.client_id=res.data.client;
+                        // this.get_client_phone(res.data.client)
+                    }else{
+                        this.form.color=-1
+                        this.form.brand=-1
+                        this.form.car_status=-1
+                        this.form.client_id=-1
+                    }
+                })
+            }
+        },
+
+        get_client_phone(id){
+            axios.get('api/car_washing_get_client/'+id).then((res) => {
+                this.form.phone=res.data
+            })
+        },
+
         get_total_cost(){
             axios.get('api/car_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
-                this.serviceForm.total_cost = res.data
+                var r=(res.data/100*15).toFixed(2)
+                var x=res.data
+                this.form.taxes_value=r
+                this.form.price_before_taxes = x
+                this.form.total_cost=(parseFloat(r)+parseFloat(x)).toFixed(2)
             });
+
+            axios.get('api/car_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
+                this.form.total_services=res.data
+            })
         },
 
         print(){
@@ -673,7 +717,9 @@ export default {
             this.form.reset();
             $('#addNew').modal('show');
             this.form.fill(user);
+            this.serviceForm.ticket_id=user.id
             this.getMaterials();
+            this.get_total_cost()
         },
 
         updateTicket(){
@@ -733,6 +779,7 @@ export default {
             this.serviceForm.post('api/carpet_material').then(()=>{
                 Fire.$emit('AfterCreateInside');
                 this.serviceForm.reset()
+                this.serviceForm.ticket_id=this.form.id
             })
             this.get_total_cost()
         },
@@ -772,6 +819,7 @@ export default {
 
         Fire.$on('AfterCreateInside',() => {
             this.getMaterials();
+            this.get_total_cost()
         });
     },
 

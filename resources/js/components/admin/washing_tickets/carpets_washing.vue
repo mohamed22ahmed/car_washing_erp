@@ -176,6 +176,19 @@
                                 </div>
                            </div>
 
+                            <div class="row mt-3">
+                                <div class="col-md-2"></div>
+
+                                <div class="col-md-4">
+                                    <input v-model="form.receipt_date" type="text" name="Time of receipt" :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
+                                    <has-error :form="form" field="receipt_date"></has-error>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
+                                    <has-error :form="form" field="expected_exit_date"></has-error>
+                                </div>
+                           </div>
 
                             <div class="row mt-3  d-flex justify-content-center">
                                 <div class="col-md-12">
@@ -236,30 +249,26 @@
                             </div>
 
                             <div class="form-group row d-flex justify-content-center">
-                                <div class="col-sm-4">
-                                    <label for="total_cost">{{$t('245')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_cost" :value="serviceForm.total_cost">
+                                <div class="col-sm-3">
+                                    <label for="taxes_value">Taxes Value</label>
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
                                 </div>
 
-                                <div class="col-sm-4">
-                                    <label for="total_materials">{{$t('196')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_materials" :value="serviceForm.total_materials">
+                                <div class="col-sm-3">
+                                    <label for="price_before_taxes">Price Before Taxes</label>
+                                    <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="total_services">{{$t('242')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="total_cost">{{$t('245')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
                                 </div>
                             </div>
-
-                           <div class="row mt-3">
-                                <div class="col-md-2"></div>
-
-                                <div class="col-md-4">
-                                    <input v-model="form.receipt_date" type="text" name="Time of receipt" :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
-                                    <has-error :form="form" field="receipt_date"></has-error>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
-                                    <has-error :form="form" field="expected_exit_date"></has-error>
-                                </div>
-                           </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -432,9 +441,12 @@
                     wash_type:-1,
                     receipt_date:'',
                     expected_exit_date:'',
-                    total_price:'',
-                    num_of_materials:'',
                     client_status:'good client',
+
+                    total_cost:0,
+                    total_services:0,
+                    taxes_value:0,
+                    price_before_taxes:0,
                 }),
                 type_x:2,
                 serviceForm:new Form({
@@ -459,6 +471,20 @@
         },
 
         methods: {
+            get_total_cost(){
+                axios.get('api/carpet_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
+                    var r=(res.data/100*15).toFixed(2)
+                    var x=res.data
+                    this.form.taxes_value=r
+                    this.form.price_before_taxes = x
+                    this.form.total_cost=(parseFloat(r)+parseFloat(x)).toFixed(2)
+                });
+
+                axios.get('api/carpet_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
+                    this.form.total_services=res.data
+                })
+            },
+
             print(){
                 this.$htmlToPaper('PrintTicket');
             },
@@ -599,7 +625,9 @@
                 this.form.reset();
                 $('#addNew').modal('show');
                 this.form.fill(user);
+                this.serviceForm.ticket_id=user.id
                 this.getMaterials();
+                this.get_total_cost()
             },
 
             updateUser(){
@@ -658,7 +686,9 @@
                 this.serviceForm.post('api/carpet_material').then(()=>{
                     Fire.$emit('AfterCreateInside');
                     this.serviceForm.reset()
+                    this.serviceForm.ticket_id=this.form.id
                 })
+                this.get_total_cost()
             },
 
             deleteMaterial(id){
@@ -695,6 +725,7 @@
 
             Fire.$on('AfterCreateInside',() => {
                 this.getMaterials();
+                this.get_total_cost()
             });
         },
 
