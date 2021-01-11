@@ -26,10 +26,6 @@
         padding-left: 25px;
     }
 
-    /*#accordion-style-1 .card-body {
-        border-top: 2px solid royalblue;
-    }*/
-
     #accordion-style-1 .card-header .btn.collapsed .fa.main{
         display:none;
     }
@@ -425,14 +421,17 @@
                             </div>
                         </form>
                     </div>
-                    <!--<div class="card-footer">
-                     <pagination :records="4" v-model="currentPage" aria-controls="nav-tab"></pagination>
+                    <div class="card-footer">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item previous">
+                            <a class="nav-item page-link" :id="tabs[previous--]" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                            <i class="fas fa-arrow-left"></i></a></li>&nbsp;
 
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item next"><a class="page-link" href="#" data-toggle="tab"><i class="fas fa-arrow-left"></i></a></li>&nbsp;
-                            <li class="page-item previous"><a class="page-link" href="#" data-toggle="tab"><i class="fas fa-arrow-right"></i></a></li>
+                            <li class="page-item next">
+                            <a class="nav-item page-link active" :id="tabs[previous--]" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                            <i class="fas fa-arrow-right"></i></a></li>
                         </ul>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -440,6 +439,9 @@
 </template>
 
 <script>
+ $(".page-link").click(function() {
+    $('#nav-tab a:eq(1)').tab('show');
+  })
 export default {
     props: ['employee'],
     data: function(){
@@ -451,6 +453,9 @@ export default {
             attendances:{},
             leaves:{},
             holidays:{},
+            tabs:['nav-home','nav-personal_prof','nav-job_info','nav-att_info'],
+            next:1,
+            previous:2,
             form: new Form({
                 id:'',
                 first_name:'',

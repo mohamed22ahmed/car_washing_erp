@@ -37,8 +37,8 @@
     h2 {
         margin-top: 40px;
     }
-    .btn{
-        color: black;
+    .out{
+        color:black;
     }
 </style>
 
@@ -58,7 +58,7 @@
                                         <div class="card card-primary text-center">
                                             <img class="card-img-top" src="images/holiday.png" alt="">
                                             <div class="card-body">
-                                                <router-link :to="{ path:'/holiday_lists'}" class="btn btn-outline-primary btn-icon-right">
+                                                <router-link :to="{ path:'/holiday_lists'}" class="btn btn-outline-primary btn-icon-right out">
                                                     <span>{{ $t('42') }}
                                                         <i class="fas fa-arrow-right ml-1"></i>
                                                     </span>
@@ -71,7 +71,7 @@
                                         <div class="card card-primary text-center">
                                             <img class="card-img-top" src="images/machine.png" alt="">
                                             <div class="card-body">
-                                                <router-link :to="{ path:'/machines'}" class="btn btn-outline-primary btn-icon-right">
+                                                <router-link :to="{ path:'/machines'}" class="btn btn-outline-primary btn-icon-right out">
                                                     <span>{{ $t('77') }}
                                                         <i class="fas fa-arrow-right ml-1"></i>
                                                     </span>
@@ -84,7 +84,7 @@
                                         <div class="card card-primary text-center">
                                             <img class="card-img-top" src="images/policy.png" alt="">
                                             <div class="card-body">
-                                                <router-link :to="{ path:'/leave_policies'}" class="btn btn-outline-primary btn-icon-right">
+                                                <router-link :to="{ path:'/leave_policies'}" class="btn btn-outline-primary btn-icon-right out">
                                                     <span>{{ $t('41') }}
                                                         <i class="fas fa-arrow-right ml-1"></i>
                                                     </span>

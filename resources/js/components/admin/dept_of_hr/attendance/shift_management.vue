@@ -11,7 +11,7 @@ button{
                     <div class="card">
                         <div class="card-header">
                         <h3 class="card-title">{{ $t('65') }}</h3>
-                            <div class="card-tools">
+                            <div class="card-tools" >
                                 <button class="btn btn-success" @click="newModal">
                                     <i class="fas fa-plus fa-fw"></i>&nbsp; {{ $t('66') }}
                                 </button>
