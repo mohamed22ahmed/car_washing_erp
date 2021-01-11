@@ -43,8 +43,7 @@ button{
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>{{ $t('109') }}</th>
-                                                <th>{{ $t('50') }}</th>
-                                                <th>{{ $t('56') }}</th>
+                                                <th>{{ $t('229') }}</th>
                                                 <th>{{ $t('18') }}</th>
                                                 <th>{{ $t('110') }}</th>
                                             </tr>
@@ -53,10 +52,9 @@ button{
                                             <tr v-for="design in designations" :key="design.id">
                                                 <td>{{ design.id }}</td>
                                                 <td>{{ design.name }}</td>
-                                                <td>{{ design.name_ar }}</td>
                                                 <td>{{ design.status == 1 ? $t('19') : $t('20') }}</td>
                                                 <td>
-                                                    <a href="#" @click="editData(design)">
+                                                    <a href="#" @click="editData(1,design)">
                                                         <i class="fa fa-edit blue"></i>
                                                     </a>
                                                     /
@@ -79,8 +77,7 @@ button{
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>{{ $t('109') }}</th>
-                                                <th>{{ $t('50') }}</th>
-                                                <th>{{ $t('56') }}</th>
+                                                <th>{{ $t('229') }}</th>
                                                 <th>{{ $t('18') }}</th>
                                                 <th>{{ $t('110') }}</th>
                                             </tr>
@@ -89,10 +86,9 @@ button{
                                             <tr v-for="dept in departments" :key="dept.id">
                                                 <td>{{ dept.id }}</td>
                                                 <td>{{ dept.name }}</td>
-                                                <td>{{ dept.name_ar }}</td>
                                                 <td>{{ dept.status == 1 ? $t('19') : $t('20') }}</td>
                                                 <td>
-                                                    <a href="#" @click="editData(dept)">
+                                                    <a href="#" @click="editData(2,dept)">
                                                         <i class="fa fa-edit blue"></i>
                                                     </a>
                                                     /
@@ -115,8 +111,7 @@ button{
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>{{ $t('109') }}</th>
-                                                <th>{{ $t('50') }}</th>
-                                                <th>{{ $t('56') }}</th>
+                                                <th>{{ $t('229') }}</th>
                                                 <th>{{ $t('18') }}</th>
                                                 <th>{{ $t('110') }}</th>
                                             </tr>
@@ -125,10 +120,9 @@ button{
                                             <tr v-for="emp in employements" :key="emp.id">
                                                 <td>{{ emp.id }}</td>
                                                 <td>{{ emp.name }}</td>
-                                                <td>{{ emp.name_ar }}</td>
                                                 <td>{{ emp.status == 1 ? $t('19') : $t('20') }}</td>
                                                 <td>
-                                                    <a href="#" @click="editData(emp)">
+                                                    <a href="#" @click="editData(3,emp)">
                                                         <i class="fa fa-edit blue"></i>
                                                     </a>
                                                     /
@@ -169,7 +163,7 @@ button{
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="required" for="name">{{ $t('56') }}<span style="color:red;">*</span></label>
-                                        <input class="form-control"  v-model="form.name_ar" type="text" name="name_ar" id="name_ar" required>
+                                        <input class="form-control"  v-model="form.name_ar" type="text" name="name_ar" id="name_ar" required dir="rtl">
                                     </div>
                                 </div>
                             </div>
@@ -239,6 +233,7 @@ button{
 export default {
     data: function() {
         return {
+            lang:'en',
             editmode: false,
             des: true,
             dep: true,
@@ -345,12 +340,12 @@ export default {
             this.$Progress.finish();
         },
 
-        editData(data) {
-            this.addNewValue=2
+        editData(val,data) {
             this.editmode = true;
             this.form.reset();
-            $('#addNew').modal('show');
             this.form.fill(data)
+            this.form.addNewValue=val
+            $('#addNew').modal('show');
         },
 
         updateData(){
@@ -397,6 +392,7 @@ export default {
     },
 
     created() {
+        this.lang=window.default_locale_lang
         this.search();
         this.getEmployees()
         Fire.$on('AfterCreate',() => {
