@@ -24,14 +24,23 @@
                                     <th>{{ $t('109') }}</th>
                                     <th>{{ $t('50') }}</th>
                                     <th>{{ $t('16') }}</th>
+                                    <th>{{ $t('253') }}</th>
+                                    <th>{{ $t('38') }}</th>
+                                    <th>{{ $t('18') }}</th>
+                                    <th>{{ $t('36') }}</th>
                                     <th>{{ $t('110') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="employee in employees.data" :key="employee.id">
                                     <td>{{ employee.id }}</td>
-                                    <td>{{ employee.first_name }}</td>
+                                    <td>{{ employee.name }}</td>
                                     <td>{{ employee.email }}</td>
+                                    <td>{{ employee.salary }}</td>
+                                    <td>{{ employee.join_date }}</td>
+                                    <td v-if="employee.status==2"><span class="badge badge-danger">Stopped</span></td>
+                                    <td v-if="employee.status==1"><span class="badge badge-success">Active</span></td>
+                                    <td>{{ employee.department }}</td>
                                     <td>
                                         <router-link :to="{ path: '/emp_infos_create?employee='+employee.id}">
                                             <i class="fa fa-edit blue"></i>

@@ -24,8 +24,10 @@ class CreateCarpetWashingsTable extends Migration
             $table->string('phone_number')->nullable();
             $table->integer('carpet_size')->default(-1);
             $table->integer('wash_type')->default(-1);
-            $table->date('receipt_date');
-            $table->date('expected_exit_date');
+            $table->dateTime('receipt_date');
+            $table->dateTime('expected_exit_date');
+            $table->time('receipt_time');
+            $table->time('exit_time');
             $table->integer('total_price')->nullable();
             $table->integer('num_of_materials')->nullable();
             $table->timestamps();

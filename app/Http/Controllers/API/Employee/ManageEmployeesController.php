@@ -40,6 +40,10 @@ class ManageEmployeesController extends Controller
         $emp->sir_name=$request->sir_name;
         $emp->last_name=$request->last_name;
         $emp->name=$request->first_name.' '.$request->sir_name.' '.$request->last_name;
+        $emp->fist_name_en=$request->fist_name_en;
+        $emp->sir_name_en=$request->sir_name_en;
+        $emp->last_name_en=$request->last_name_en;
+        $emp->name_en=$request->fist_name_en.' '.$request->sir_name_en.' '.$request->last_name_en;
         $emp->emp_picture=$fileNewName;
         $emp->notes=$request->notes;
         $emp->email=$request->email;
@@ -63,6 +67,7 @@ class ManageEmployeesController extends Controller
         $emp->emp_level=$request->emp_level;
         $emp->join_date=$request->join_date;
         $emp->branch=$request->branch;
+        $emp->salary=$request->salary;
         $emp->attendance_shift=$request->attendance_shift;
         $emp->leave_policy=$request->leave_policy;
         $emp->holiday_lists=$request->holiday_lists;

@@ -52,6 +52,8 @@
                                         <th>{{ $t('205') }}</th>
                                         <th>{{ $t('210') }}</th>
                                         <th>{{ $t('243') }}</th>
+                                        <th>{{ $t('254') }}</th>
+                                        <th>{{ $t('255') }}</th>
                                         <th>{{ $t('110') }}</th>
                                     </tr>
                                 </thead>
@@ -68,6 +70,8 @@
                                         <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                         <td>{{ carpet.receipt_date }}</td>
                                         <td>{{ carpet.expected_exit_date }}</td>
+                                        <td>{{ carpet.receipt_time }}</td>
+                                        <td>{{ carpet.exit_time }}</td>
                                         <td>
                                             <a href="#" @click="editCarpet(carpet)">
                                                 <i class="fa fa-edit"></i>
@@ -176,6 +180,27 @@
                                 </div>
                            </div>
 
+                           <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
+                                    <has-error :form="form" field="receipt_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_time') }">
+                                    <has-error :form="form" field="exit_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_date" type="text" name="receipt_date"  :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
+                                    <has-error :form="form" field="receipt_date"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
+                                    <has-error :form="form" field="expected_exit_date"></has-error>
+                                </div>
+                           </div>
 
                             <div class="row mt-3  d-flex justify-content-center">
                                 <div class="col-md-12">
@@ -196,17 +221,17 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services">
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:150px;">
                                                                         <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost">
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:150px;">
                                                                         <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
                                                                     </select>
                                                                 </td>
-                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
-                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost"></td>
+                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost" style="min-width:80px;"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -246,20 +271,6 @@
                                     <input type="number" class="form-control" disabled name="total_materials" :value="serviceForm.total_materials">
                                 </div>
                             </div>
-
-                           <div class="row mt-3">
-                                <div class="col-md-2"></div>
-
-                                <div class="col-md-4">
-                                    <input v-model="form.receipt_date" type="text" name="Time of receipt" :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
-                                    <has-error :form="form" field="receipt_date"></has-error>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
-                                    <has-error :form="form" field="expected_exit_date"></has-error>
-                                </div>
-                           </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -435,6 +446,8 @@
                     total_price:'',
                     num_of_materials:'',
                     client_status:'good client',
+                    exit_time:'',
+                    receipt_time:'',
                 }),
                 type_x:2,
                 serviceForm:new Form({
@@ -706,6 +719,14 @@
 
             expected_exit_date() {
                 return this.$t('211')
+            },
+
+            receipt_time() {
+                return this.$t('254')
+            },
+
+            exit_time() {
+                return this.$t('255')
             },
         }
     }

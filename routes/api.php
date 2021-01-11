@@ -65,6 +65,7 @@ Route::delete('leave_setups/{id}','API\Settings\LeaveSetupController@destroy');
 
 // Leave Types
 Route::apiResources(['holiday_lists' => 'API\Settings\HolidayListController']);
+Route::get('get_holidays','API\Settings\HolidayListController@get_holidays');
 Route::delete('holiday_lists/{id}','API\Settings\HolidayListController@destroy');
 
 // Attendance Permissions Routes
@@ -72,6 +73,8 @@ Route::apiResources(['attendance_permissions' => 'API\Employee\Attendance_permis
 
 // Shift Management Route
 Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
+Route::get('get_shifts','API\Employee\ShiftController@get_shifts');
+Route::delete('shift_management/{id}','API\Employee\ShiftController@destroy');
 
 
 // ################################################## Washing Tickets ###########################################

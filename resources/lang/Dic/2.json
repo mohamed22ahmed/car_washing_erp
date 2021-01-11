@@ -763,6 +763,21 @@
             "dic_id": 252,
             "name": "Car Ticket",
             "name_ar":"تذكرة السيــارة"
+        },
+        {
+            "dic_id": 253,
+            "name": "Salary",
+            "name_ar":"الراتــب"
+        },
+        {
+            "dic_id": 254,
+            "name": "Receipt Time",
+            "name_ar":"وقت الدخــول"
+        },
+        {
+            "dic_id": 255,
+            "name": "Exit Time",
+            "name_ar":"وقت الخــروج"
         }
     ]
 }

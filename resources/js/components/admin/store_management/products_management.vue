@@ -2,6 +2,9 @@
 button{
     color:white;
 }
+.modal-lg{
+    max-width:900px;
+}
 </style>
 
 <template>
@@ -130,9 +133,9 @@ button{
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input  type="text"    class="form-control"   name="name"  v-model="form2.name"></td>
-                                                            <td><input  type="number"  class="form-control"   name="units" v-model="form2.units"></td>
-                                                            <td><input  type="number"  class="form-control"   name="cost"  v-model="form2.cost"></td>
+                                                            <td><input  type="text"    class="form-control"   name="name"  v-model="form2.name" style="min-width:110px;"></td>
+                                                            <td><input  type="number"  class="form-control"   name="units" v-model="form2.units" style="min-width:40px;"></td>
+                                                            <td><input  type="number"  class="form-control"   name="cost"  v-model="form2.cost" style="min-width:40px;"></td>
                                                             <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                         </tr>
                                                     </tbody>

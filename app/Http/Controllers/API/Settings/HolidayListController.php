@@ -13,8 +13,12 @@ class HolidayListController extends Controller
         return Holiday_list::all();
     }
 
-    public function get_leaves(){
-        return Holiday_list::all();
+    public function get_holidays(){
+       return Holiday_list::all();
+        // $arr=[];
+        // foreach($holidays as $holiday)
+        //     array_push($arr,['name'=>$holiday->name,'id'=>$holiday->id]);
+        // return $arr;
     }
 
     public function store(Request $request){

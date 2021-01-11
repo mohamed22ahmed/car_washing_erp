@@ -57,6 +57,8 @@ input[disabled][type='number']{
                                             <th>{{ $t('205') }}</th>
                                             <th>{{ $t('210') }}</th>
                                             <th>{{ $t('243') }}</th>
+                                            <th>{{ $t('254') }}</th>
+                                            <th>{{ $t('255') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
@@ -73,6 +75,8 @@ input[disabled][type='number']{
                                             <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                             <td>{{ car.enterance_date }}</td>
                                             <td>{{ car.exit_expected_date }}</td>
+                                            <td>{{ car.receipt_time }}</td>
+                                            <td>{{ car.exit_time }}</td>
                                             <td>
                                                 <a href="#" @click="editTicket(car)">
                                                     <i class="fa fa-edit red"></i>
@@ -141,7 +145,7 @@ input[disabled][type='number']{
                             </div>
 
                             <div class="row">
-                                <div class="input-group col-md-2 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
+                                <div class="input-group col-md-3 mt-5 mr-3" style="border:1px groove gray;border-radius:15px;height:fit-content;">
                                         <input type="text" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar">
                                         <div class="verticalLine" style="height=5px"></div>
                                         <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar">
@@ -150,13 +154,15 @@ input[disabled][type='number']{
                                     <i class="fas fa-camera fa-2x"></i>
                                 </div>
 
+                                <div class="col-md-2"></div>
+
                                 <div class="row col-md-2 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
                                         <option value="-1" disabled>{{ $t('97') }}</option>
                                         <option v-for="colr in colors" :key="colr.sys_code" :value="colr.sys_code">{{ colr.name }}</option>
                                     </select>
                                 </div>
-                                <div class="col-md-1 mt-5" style="margin-left:-5px;">
+                                <div class="col-md-1 mt-5" style="margin-left:5px;">
                                     <button class="btn btn-sm btn-success default" type="button" @click="newCode_tableModal(1)">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -174,22 +180,21 @@ input[disabled][type='number']{
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
+                            </div>
 
-                                <div class="col-md-2 mt-5">
+                            <div class="row mt-3">
+                                <div class="col-md-3">
                                     <select class="form-control form-rounded" name="car_status" v-model="form.car_status">
                                         <option value="-1" disabled>{{ $t('96') }}</option>
                                         <option v-for="car_st in car_status_all" :key="car_st.sys_code" :value="car_st.sys_code">{{ car_st.name }}</option>
                                     </select>
                                 </div>
-                                <div class="col-md-1 mt-5" style="margin-left:-5px;">
+                                <div class="col-md-1" style="margin-left:-5px;">
                                     <button class="btn btn-sm btn-success default" type="button" @click="newCode_tableModal(3)">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
-                            </div>
-
-                            <div class="row mt-3">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <select class="form-control form-rounded" name="client" v-model="form.client">
                                         <option selected value="-1">{{$t('206')}}</option>
                                     </select>
@@ -200,30 +205,42 @@ input[disabled][type='number']{
                                     </button>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <input v-model="form.phone" type="text" name="phone" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
                                         <has-error :form="form" field="phone"></has-error>
                                     </div>
                                 </div>
+                            </div>
+
+                             <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
+                                    <has-error :form="form" field="receipt_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_time') }">
+                                    <has-error :form="form" field="exit_time"></has-error>
+                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
+                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
                                         <has-error :form="form" field="enterance_date"></has-error>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
+                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
                                         <has-error :form="form" field="exit_expected_date"></has-error>
                                     </div>
                                 </div>
-                            </div>
+                           </div>
 
                             <div class="row mt-3  d-flex justify-content-center">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <div class="card card-default">
                                         <div class="card-body">
                                             <div class="table-responsive p-0">
@@ -241,17 +258,17 @@ input[disabled][type='number']{
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services">
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:150px;">
                                                                         <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost">
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:150px;">
                                                                         <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
                                                                     </select>
                                                                 </td>
-                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost"></td>
-                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost"></td>
+                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost" style="min-width:80px;"></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
                                                         </tbody>
@@ -486,6 +503,8 @@ export default {
                 phone :'',
                 enterance_date :'',
                 exit_expected_date:'',
+                exit_time:'',
+                receipt_time:'',
             }),
             type_x:1,
             serviceForm:new Form({
@@ -768,6 +787,14 @@ export default {
 
         expected_exit_date() {
             return this.$t('211')
+        },
+
+        receipt_time() {
+            return this.$t('254')
+        },
+
+        exit_time() {
+            return this.$t('255')
         },
     }
 }

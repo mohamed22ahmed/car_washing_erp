@@ -2,6 +2,9 @@
     button{
         color:white;
     }
+    .btn{
+        color:white;
+    }
     label{
         font-weight: 500;
     }
@@ -67,24 +70,46 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="row mt-4">
+                                                <div class="row mt-4"  dir="rtl">
                                                     <div class="col-4">
-                                                        <div class="form-group">
-                                                            <label class="required" for="fist_name">{{ $t('10') }}<span style="color:red">*</span></label>
-                                                            <input class="form-control"  v-model="form.first_name" type="text" name="fist_name" id="fist_name" :class="{ 'is-invalid': form.errors.has('fist_name') }">
+                                                        <div class="form-group text-right">
+                                                            <label class="required" for="fist_name">الإســم الأول <span style="color:red">*</span></label>
+                                                            <input class="form-control"  v-model="form.first_name" type="text" name="fist_name" id="fist_name" :class="{ 'is-invalid': form.errors.has('fist_name') }" dir="rtl">
                                                             <has-error :form="form" field="fist_name"></has-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
+                                                        <div class="form-group text-right">
+                                                            <label for="sir_name">الإســم الثانى </label>
+                                                            <input class="form-control"  v-model="form.sir_name" type="text" name="sir_name" id="sir_name"  dir="rtl">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group text-right">
+                                                            <label for="last_name">الإســم الثالث <span style="color:red">*</span></label>
+                                                            <input class="form-control"  v-model="form.last_name" type="text" name="last_name" id="last_name"  dir="rtl">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-4">
+                                                    <div class="col-4">
                                                         <div class="form-group">
-                                                            <label for="sir_name">{{ $t('11') }}</label>
-                                                            <input class="form-control"  v-model="form.sir_name" type="text" name="sir_name" id="sir_name">
+                                                            <label class="required" for="fist_name_en">First Name<span style="color:red">*</span></label>
+                                                            <input class="form-control"  v-model="form.fist_name_en" type="text" name="fist_name_en" id="fist_name_en" :class="{ 'is-invalid': form.errors.has('fist_name_en') }">
+                                                            <has-error :form="form" field="fist_name_en"></has-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div class="form-group">
-                                                            <label for="last_name">{{ $t('12') }}</label>
-                                                            <input class="form-control"  v-model="form.last_name" type="text" name="last_name" id="last_name">
+                                                            <label for="sir_name_en">Second Name</label>
+                                                            <input class="form-control"  v-model="form.sir_name_en" type="text" name="sir_name_en" id="sir_name_en">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="last_name_en">Third Name<span style="color:red">*</span></label>
+                                                            <input class="form-control"  v-model="form.last_name_en" type="text" name="last_name_en" id="last_name_en">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,6 +161,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="row mt-4" v-show="form.allow_access">
                                                     <div class="col-6">
                                                         <div class="form-group">
@@ -331,6 +357,13 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
+                                                            <label for="salary">{{ $t('253') }}<span style="color:red">*</span></label>
+                                                            <input type="number" id="salary" name="salary" v-model="form.salary" class="form-control" :class="{ 'is-invalid': form.errors.has('salary') }">
+                                                            <has-error :form="form" field="salary"></has-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 mt-3">
+                                                        <div class="form-group">
                                                             <label for="branch" class="required">{{ $t('39') }}<span style="color:red">*</span></label>
                                                             <select name="branch" v-model="form.branch" id="branch" class="form-control">
                                                                 <option value="1">Main Branch</option>
@@ -371,7 +404,7 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3">
                                                         <div class="form-group">
-                                                            <label for="holiday_lists">{{ $t('42') }}</label>
+                                                            <label for="name">{{ $t('42') }}</label>
                                                             <select name="holiday_lists" v-model="form.holiday_lists" id="holiday_lists" class="form-control">
                                                                 <option value="-1">{{ $t('115') }}</option>
                                                                 <option v-for="hol in holidays" :key="hol.id" :value="hol.id">{{ hol.name }}</option>
@@ -392,6 +425,14 @@
                             </div>
                         </form>
                     </div>
+                    <!--<div class="card-footer">
+                     <pagination :records="4" v-model="currentPage" aria-controls="nav-tab"></pagination>
+
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item next"><a class="page-link" href="#" data-toggle="tab"><i class="fas fa-arrow-left"></i></a></li>&nbsp;
+                            <li class="page-item previous"><a class="page-link" href="#" data-toggle="tab"><i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -407,16 +448,17 @@ export default {
             designations:{},
             departments:{},
             employments:{},
-
             attendances:{},
             leaves:{},
             holidays:{},
-
             form: new Form({
                 id:'',
                 first_name:'',
                 sir_name:'',
                 last_name:'',
+                fist_name_en:'',
+                sir_name_en:'',
+                last_name_en:'',
                 emp_picture:'',
                 notes:'',
                 email:'',
@@ -440,6 +482,7 @@ export default {
                 emp_level:-1,
                 join_date:'',
                 branch:1,
+                salary:0,
                 attendance_shift:-1,
                 leave_policy:-1,
                 holiday_lists:-1,
@@ -473,7 +516,7 @@ export default {
         },
 
         getHolidays() {
-            axios.get('api/holiday_lists').then((response) => {
+            axios.get('api/get_holidays').then((response) => {
                 this.holidays = response.data
             });
         },
@@ -485,7 +528,7 @@ export default {
         },
 
         getAttendances(){
-            axios.get('api/attendance_flags').then((response) => {
+            axios.get('api/get_shifts').then((response) => {
                 this.attendances = response.data
             });
         },
@@ -544,4 +587,5 @@ export default {
         this.getDesignations()
     },
 }
+
 </script>
