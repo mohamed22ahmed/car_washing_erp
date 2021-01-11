@@ -53,7 +53,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="card card-primary text-center">
-                                            <img class="card-img-top" src="storage/holiday.png" alt="">
+                                            <img class="card-img-top" src="images/holiday.png" alt="">
                                             <div class="card-body">
                                                 <router-link :to="{ path:'/holiday_lists'}" class="btn btn-outline-primary btn-icon-right">
                                                     <span>{{ $t('42') }}
@@ -66,7 +66,7 @@
 
                                     <div class="col-md-4">
                                         <div class="card card-primary text-center">
-                                            <img class="card-img-top" src="storage/machine.png" alt="">
+                                            <img class="card-img-top" src="images/machine.png" alt="">
                                             <div class="card-body">
                                                 <router-link :to="{ path:'/machines'}" class="btn btn-outline-primary btn-icon-right">
                                                     <span>{{ $t('77') }}
@@ -79,7 +79,7 @@
 
                                     <div class="col-md-4">
                                         <div class="card card-primary text-center">
-                                            <img class="card-img-top" src="storage/policy.png" alt="">
+                                            <img class="card-img-top" src="images/policy.png" alt="">
                                             <div class="card-body">
                                                 <router-link :to="{ path:'/leave_policies'}" class="btn btn-outline-primary btn-icon-right">
                                                     <span>{{ $t('41') }}
