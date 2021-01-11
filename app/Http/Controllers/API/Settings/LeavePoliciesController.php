@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 class LeavePoliciesController extends Controller
 {
     public function index(){
-        return Leave_policy::all();
+        $leaves=Leave_policy::all();
+        if(session('lang')=='ar')
+            foreach($leaves as $leave){
+                $leave->name=$leave->name_ar;
+            }
+        return $leaves;
     }
 
     public function get_leaves(){
-        return Leave_policy::all();
+        $leaves=Leave_policy::all();
+        if(session('lang')=='ar')
+            foreach($leaves as $leave){
+                $leave->name=$leave->name_ar;
+            }
+        return $leaves;
     }
 
     public function store(Request $request){

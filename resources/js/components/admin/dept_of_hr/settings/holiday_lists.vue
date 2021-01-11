@@ -19,8 +19,7 @@
                                 <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('229') }}</th>
                                             <th>{{ $t('179') }}</th>
                                             <th>{{ $t('181') }}</th>
                                             <th>{{ $t('110') }}</th>
@@ -30,7 +29,6 @@
                                     <tr v-for="holiday in holidays" :key="holiday.id">
                                         <td>{{ holiday.id }}</td>
                                         <td>{{ holiday.name }}</td>
-                                        <td>{{ holiday.name_ar }}</td>
                                         <td>{{ holiday.start_date }}</td>
                                         <td>{{ holiday.end_date }}</td>
                                         <td>

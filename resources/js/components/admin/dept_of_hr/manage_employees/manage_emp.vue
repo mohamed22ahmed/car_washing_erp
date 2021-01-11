@@ -22,7 +22,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>{{ $t('109') }}</th>
-                                    <th>{{ $t('50') }}</th>
+                                    <th>{{ $t('229') }}</th>
                                     <th>{{ $t('16') }}</th>
                                     <th>{{ $t('253') }}</th>
                                     <th>{{ $t('38') }}</th>
@@ -34,7 +34,7 @@
                             <tbody>
                                 <tr v-for="employee in employees.data" :key="employee.id">
                                     <td>{{ employee.id }}</td>
-                                    <td>{{ employee.name }}</td>
+                                    <td>{{ employee.name_en }}</td>
                                     <td>{{ employee.email }}</td>
                                     <td>{{ employee.salary }}</td>
                                     <td>{{ employee.join_date }}</td>

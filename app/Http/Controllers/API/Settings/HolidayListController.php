@@ -10,15 +10,21 @@ use Illuminate\Http\Request;
 class HolidayListController extends Controller
 {
     public function index(){
-        return Holiday_list::all();
+        $holidays=Holiday_list::all();
+        if(session('lang')=='ar')
+            foreach($holidays as $holi){
+                $holi->name=$holi->name_ar;
+            }
+        return $holidays;
     }
 
     public function get_holidays(){
-       return Holiday_list::all();
-        // $arr=[];
-        // foreach($holidays as $holiday)
-        //     array_push($arr,['name'=>$holiday->name,'id'=>$holiday->id]);
-        // return $arr;
+       $holidays=Holiday_list::all();
+        if(session('lang')=='ar')
+            foreach($holidays as $holi){
+                $holi->name=$holi->name_ar;
+            }
+        return $holidays;
     }
 
     public function store(Request $request){

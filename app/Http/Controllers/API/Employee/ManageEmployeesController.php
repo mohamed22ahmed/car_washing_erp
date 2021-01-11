@@ -16,6 +16,10 @@ class ManageEmployeesController extends Controller
         ->leftJoin('departments','departments.id','employees.department')
         ->select('employees.*','departments.name as dep_name')
         ->paginate(5);
+        if(session('lang')=='ar')
+            foreach($data as $emp){
+                $emp->name_en=$emp->name;
+            }
         return $data;
     }
 

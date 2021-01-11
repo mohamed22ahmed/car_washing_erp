@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlteRTL/dist/css/custom.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
-
     <?php } else { ?>
 
     <!-- Font Awesome Icons -->

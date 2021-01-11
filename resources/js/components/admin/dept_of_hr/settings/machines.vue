@@ -19,8 +19,7 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('229') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
@@ -28,7 +27,6 @@
                                         <tr v-for="machine in machines" :key="machine.id">
                                             <td>{{ machine.id }}</td>
                                             <td>{{ machine.name }}</td>
-                                            <td>{{ machine.name_ar }}</td>
                                             <td>
                                                 <a href="#" @click="editModal(machine)">
                                                     <i class="fa fa-edit red"></i>

@@ -24,8 +24,11 @@ button{
                                 <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('229') }}</th>
+                                            <th>{{ $t('67') }}</th>
+                                            <th>{{ $t('68') }}</th>
+                                            <th>{{ $t('69') }}</th>
+                                            <th>{{ $t('70') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                 </thead>
@@ -33,7 +36,10 @@ button{
                                     <tr v-for="shift in shifts" :key="shift.id">
                                         <td>{{ shift.id }}</td>
                                         <td>{{ shift.name }}</td>
-                                        <td>{{ shift.name_ar }}</td>
+                                        <td>{{ shift.on_duty_time1 }}</td>
+                                        <td>{{ shift.off_duty_time1 }}</td>
+                                        <td>{{ shift.begin1 }}</td>
+                                        <td>{{ shift.end1 }}</td>
                                         <td>
                                             <a href="#" @click="editShift(shift)">
                                                 <i class="fa fa-edit blue"></i>

@@ -10,7 +10,12 @@ use Illuminate\Http\Request;
 class MachineSettingController extends Controller
 {
     public function index(){
-        return Machine_setting::all();
+        $machines=Machine_setting::all();
+        if(session('lang')=='ar')
+            foreach($machines as $mac){
+                $mac->name=$mac->name_ar;
+            }
+        return $machines;
     }
 
     public function store(Request $request){

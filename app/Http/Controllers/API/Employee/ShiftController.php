@@ -16,6 +16,10 @@ class ShiftController extends Controller
             else
                 $shift->week_days=explode(',', $shift->week_days);
         }
+        if(session('lang')=='ar')
+            foreach($shifts as $sh){
+                $sh->name=$sh->name_ar;
+            }
         return $shifts;
     }
     public function store(Request $request){
@@ -63,6 +67,11 @@ class ShiftController extends Controller
     }
 
     public function get_shifts(){
-        return Shift::all();
+        $shifts=Shift::all();
+        if(session('lang')=='ar')
+            foreach($shifts as $sh){
+                $sh->name=$sh->name_ar;
+            }
+        return $shifts;
     }
 }

@@ -27,8 +27,7 @@ button{
                                 <thead class="thead-light">
                                     <tr>
                                         <th>{{ $t('109') }}</th>
-                                        <th>{{ $t('50') }}</th>
-                                        <th>{{ $t('56') }}</th>
+                                        <th>{{ $t('229') }}</th>
                                         <th>{{ $t('222') }}</th>
                                         <th>{{ $t('110') }}</th>
                                     </tr>
@@ -37,8 +36,7 @@ button{
                                     <tr v-for="product in products.data" :key="product.id">
                                         <td>{{ product.id }}</td>
                                         <td>{{ product.name }}</td>
-                                        <td>{{ product.name_ar }}</td>
-                                        <td>{{ product.classifications==1?'Car' : 'Carpets' }}</td>
+                                        <td>{{ product.classifications==1? $t('236') : $t('235')}}</td>
                                         <td>
                                             <a href="#" @click="editProduct(product)">
                                                 <i class="fa fa-edit red"></i>

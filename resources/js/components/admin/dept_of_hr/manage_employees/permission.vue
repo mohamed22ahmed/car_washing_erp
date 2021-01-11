@@ -23,8 +23,7 @@ button{
                                     <thead class="thead-light">
                                         <tr>
                                             <th>{{ $t('109') }}</th>
-                                            <th>{{ $t('50') }}</th>
-                                            <th>{{ $t('56') }}</th>
+                                            <th>{{ $t('229') }}</th>
                                             <th>{{ $t('110') }}</th>
                                         </tr>
                                     </thead>
@@ -32,7 +31,6 @@ button{
                                         <tr v-for="role in roles" :key="role.id">
                                             <td>{{ role.id }}</td>
                                             <td>{{ role.name }}</td>
-                                            <td>{{ role.name_ar }}</td>
                                             <td>
                                                 <a href="#" @click="editRole(role)">
                                                     <i class="fa fa-edit red"></i>

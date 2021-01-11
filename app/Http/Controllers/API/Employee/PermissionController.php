@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\DB;
 class PermissionController extends Controller
 {
     public function get_roles(){
-        return Role::all();
+        $roles=Role::all();
+        if(session('lang')=='ar')
+            foreach($roles as $role){
+                $role->name=$role->name_ar;
+            }
+        return $roles;
     }
 
     public function get_modules(){

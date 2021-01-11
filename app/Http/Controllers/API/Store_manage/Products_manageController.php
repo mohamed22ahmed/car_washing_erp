@@ -36,7 +36,12 @@ class Products_manageController extends Controller
             if($x==1)
                 $unit->delete();
         }
-        return Product_manage::paginate(5);
+        $prs=Product_manage::paginate(5);
+        if(session('lang')=='ar')
+            foreach($prs as $pr){
+                $pr->name=$pr->name_ar;
+            }
+        return $prs;
     }
 
     public function store(Request $request){

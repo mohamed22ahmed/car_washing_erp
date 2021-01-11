@@ -19,8 +19,7 @@
                                     <thead class="thead-light">
                                             <tr>
                                                 <th>{{ $t('109') }}</th>
-                                                <th>{{ $t('50') }}</th>
-                                                <th>{{ $t('56') }}</th>
+                                                <th>{{ $t('229') }}</th>
                                                 <th>{{ $t('174') }}</th>
                                                 <th>{{ $t('110') }}</th>
                                             </tr>
@@ -29,7 +28,6 @@
                                         <tr v-for="type in types" :key="type.id">
                                             <td>{{ type.id }}</td>
                                             <td :style="{color:type.colour}">{{ type.name }}</td>
-                                            <td :style="{color:type.colour}">{{ type.name_ar }}</td>
                                             <td :style="{color:type.colour}">{{ type.max_days }}</td>
                                             <td>
                                                 <a href="#" @click="editModal(type)">

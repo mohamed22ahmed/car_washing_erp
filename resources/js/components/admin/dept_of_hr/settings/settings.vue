@@ -37,6 +37,9 @@
     h2 {
         margin-top: 40px;
     }
+    .btn{
+        color: black;
+    }
 </style>
 
 <template>
