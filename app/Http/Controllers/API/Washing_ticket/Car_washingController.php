@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Washing_ticket;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\code_table;
 use App\Models\Store_manage\Custom_unit;
 use App\Models\Store_manage\Product_manage;
@@ -67,21 +68,35 @@ class Car_washingController extends Controller
     }
 
     public function store(Request $request){
+        $check_car=Car::where(['car_number'=>$request->car_number_num_ar,'car_letters'=>$request->car_number_letters_ar])->first();
+        $car_id=0;
+        if(!$check_car){
+            $car=new Car;
+            $car->car_number=$request->car_number_num_ar;
+            $car->car_letters=$request->car_number_letters_ar;
+            $car->brand=$request->brand;
+            $car->color=$request->color;
+            $car->status=$request->car_status;
+            $car->client_id=$request->client;
+            $car->save();
+            $car_id=$car->id;
+        }else{
+            Car::where(['car_number'=>$request->car_number_num_ar,'car_letters'=>$request->car_number_letters_ar])->update([
+                'brand'=>$request->brand,
+                'color'=>$request->color,
+                'status'=>$request->car_status,
+                'client_id'=>$request->client,
+            ]);
+            $car_id=$check_car->id;
+        }
+
         $car_wash=new Car_washing;
         $car_wash->serial_number=$request->serial_number;
         $car_wash->ticket_date=$request->ticket_date;
         $car_wash->wash=$request->wash;
         $car_wash->ticket_status=$request->ticket_status;
-        $car_wash->car_number_num_ar=$request->car_number_num_ar;
-        $car_wash->car_number_letters_ar=$request->car_number_letters_ar;
-        $car_wash->car_number_num_en=$request->car_number_num_en ;
-        $car_wash->car_number_letters_en=$request->car_number_letters_en;
-        $car_wash->color=$request->color;
-        $car_wash->brand=$request->brand;
-        $car_wash->car_status=$request->car_status;
-        $car_wash->client=$request->client;
-        $car_wash->client_status=$request->client_status;
-        $car_wash->phone=$request->phone;
+        $car_wash->car_id=$car_id;
+        $car_wash->client_id=$request->client;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
         $car_wash->num_of_materials=$request->total_services;
@@ -91,20 +106,33 @@ class Car_washingController extends Controller
     }
 
     public function update(Request $request,$id){
+        $check_car=Car::where(['car_number'=>$request->car_number_num_ar,'car_letters'=>$request->car_number_letters_ar])->first();
+        $car_id=0;
+        if(!$check_car){
+            $car=new Car;
+            $car->car_number=$request->car_number_num_ar;
+            $car->car_letters=$request->car_number_letters_ar;
+            $car->brand=$request->brand;
+            $car->color=$request->color;
+            $car->status=$request->car_status;
+            $car->client_id=$request->client;
+            $car->save();
+            $car_id=$car->id;
+        }else{
+            Car::where(['car_number'=>$request->car_number_num_ar,'car_letters'=>$request->car_number_letters_ar])->update([
+                'brand'=>$request->brand,
+                'color'=>$request->color,
+                'status'=>$request->car_status,
+                'client_id'=>$request->client,
+            ]);
+            $car_id=$check_car->id;
+        }
         $car_wash=Car_washing::find($id);
         $car_wash->ticket_date=$request->ticket_date;
         $car_wash->wash=$request->wash;
         $car_wash->ticket_status=$request->ticket_status;
-        $car_wash->car_number_num_ar=$request->car_number_num_ar;
-        $car_wash->car_number_letters_ar=$request->car_number_letters_ar;
-        $car_wash->car_number_num_en=$request->car_number_num_en ;
-        $car_wash->car_number_letters_en=$request->car_number_letters_en;
-        $car_wash->color=$request->color;
-        $car_wash->brand=$request->brand;
-        $car_wash->car_status=$request->car_status;
-        $car_wash->client=$request->client;
-        $car_wash->client_status=$request->client_status;
-        $car_wash->phone=$request->phone;
+        $car_wash->car_id=$car_id;
+        $car_wash->client_id=$request->client;
         $car_wash->enterance_date=$request->enterance_date;
         $car_wash->exit_expected_date=$request->exit_expected_date;
         $car_wash->num_of_materials=$request->total_services;

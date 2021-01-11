@@ -19,21 +19,12 @@ class CreateCarWashingsTable extends Migration
             $table->date('ticket_date');
             $table->integer('wash');
             $table->integer('ticket_status');
-            $table->string('car_number_num_en')->nullable();
-            $table->string('car_number_letters_en')->nullable();
-            $table->string('car_number_num_ar');
-            $table->string('car_number_letters_ar');
-
-            $table->integer('color');
-            $table->integer('brand');
-            $table->integer('car_status');
-            $table->integer('client');
-            $table->string('client_status');
-            $table->string('phone');
+            $table->integer('car_id');
+            $table->integer('client_id');
             $table->date('enterance_date');
             $table->date('exit_expected_date');
-            $table->integer('total_price')->nullable();
-            $table->integer('num_of_materials')->nullable();
+            $table->integer('total_price')->default(0);
+            $table->integer('num_of_materials')->default(0);
             $table->timestamps();
         });
     }
