@@ -4,6 +4,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import router from './routes'
+import moment from 'moment'
 import storeData from './store/store.js'
 import vSelect from 'vue-select'
 import FlashMessage from '@smartweb/vue-flash-message';

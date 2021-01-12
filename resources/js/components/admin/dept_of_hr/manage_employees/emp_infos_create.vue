@@ -421,17 +421,23 @@
                             </div>
                         </form>
                     </div>
+                    <!--
                     <div class="card-footer">
                         <ul class="pagination justify-content-end">
                             <li class="page-item previous">
-                            <a class="nav-item page-link" :id="tabs[previous--]" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
-                            <i class="fas fa-arrow-left"></i></a></li>&nbsp;
+                                <a class="nav-item page-link"  data-toggle="tab" @click="decrement_var" :href="'#'+tabs[next]" role="tab" :aria-controls="tabs[next]" aria-selected="true">
+                                    <i class="fas fa-arrow-left"></i>
+                                </a>
+                            </li>&nbsp;
 
                             <li class="page-item next">
-                            <a class="nav-item page-link active" :id="tabs[previous--]" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
-                            <i class="fas fa-arrow-right"></i></a></li>
+                                <a class="nav-item page-link" data-toggle="tab" @click="increment_var" :href="'#'+tabs[next]" role="tab" :aria-controls="tabs[next]" aria-selected="true">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
+                    -->
                 </div>
             </div>
         </div>
@@ -439,9 +445,6 @@
 </template>
 
 <script>
- $(".page-link").click(function() {
-    $('#nav-tab a:eq(1)').tab('show');
-  })
 export default {
     props: ['employee'],
     data: function(){
@@ -453,9 +456,7 @@ export default {
             attendances:{},
             leaves:{},
             holidays:{},
-            tabs:['nav-home','nav-personal_prof','nav-job_info','nav-att_info'],
-            next:1,
-            previous:2,
+
             form: new Form({
                 id:'',
                 first_name:'',

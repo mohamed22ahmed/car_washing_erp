@@ -37,7 +37,7 @@ class Carpets_washingController extends Controller
         return $unit->cost;
     }
 
-    public function index(){
+    public function index($filter,$one,$two){
         $cars=Carpet_washing::all();
         $services=Service::where('type',2)->get();
         foreach($services as $ser){
@@ -51,6 +51,24 @@ class Carpets_washingController extends Controller
             if($x==1)
                 $ser->delete();
         }
+
+        if($filter==1){
+            $cars=Carpet_washing::where('receipt_date','>=',$one);
+            if($two!='xx')
+                $cars->where('exit_expected_date','>=',$two);
+            return $cars->paginate(5);
+        }
+
+        if($filter==2){
+            $cars=Carpet_washing::where('receipt_time','>=',$one);
+            if($two!='xx')
+                $cars->where('exit_time','>=',$two);
+            return $cars->paginate(5);
+        }
+
+        if($filter==3)
+            return Carpet_washing::where('id',$one)->paginate(5);
+
         return Carpet_washing::paginate(5);
     }
 

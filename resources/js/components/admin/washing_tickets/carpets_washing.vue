@@ -38,6 +38,54 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="filters">{{ $t('134') }}</label>
+                                    <select name="filters" id="filters"  v-model="filter" class="form-control" @change="getResults">
+                                        <option value="-1">{{ $t('135') }}</option>
+                                        <option value="1">{{ $t('210') }} / {{$t('211')}}</option>
+                                        <option value="2">{{ $t('254') }} / {{$t('255')}}</option>
+                                        <option value="3">{{ $t('195') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==1">
+                                    <div class="form-group">
+                                        <label>{{ $t('210') }}</label>
+                                        <input v-model="enter_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control"  @change="getResults">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==1">
+                                    <div class="form-group">
+                                        <label>{{ $t('211') }}</label>
+                                        <input v-model="exit_date" type="text" name="exit_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit Date" class="form-control"  @change="getResults">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==2">
+                                    <div class="form-group">
+                                        <label>{{ $t('254') }}</label>
+                                        <input v-model="enter_time" type="text" name="enter_time"  placeholder="Enterance Time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" required  @change="getResults">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" v-if="filter==2">
+                                    <div class="form-group">
+                                        <label>{{ $t('255') }}</label>
+                                        <input v-model="exit_time_filter" type="text" name="exit_time_filter"  placeholder="Exit Time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control"  @change="getResults">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" v-if="filter==3">
+                                    <div class="form-group">
+                                        <label>{{ $t('195') }}</label>
+                                        <input v-model="ticket" type="number" name="ticket_number" class="form-control" required  @change="getResults">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="card-body" id="PrintCarpet">
                             <div class="card-body table-responsive p-0">
@@ -430,6 +478,7 @@
 </template>
 
 <script>
+import moment from 'moment';
     export default {
         data: function(){
             return{
@@ -441,6 +490,14 @@
                 units:{},
                 materials:{},
                 ticket:{},
+
+                filter:-1,
+                enter_date:new Date().toISOString().slice(0, 10),
+                exit_date:'',
+                enter_time:moment().format('HH:mm'),
+                exit_time_filter:'',
+                ticket:1,
+
                 form: new Form({
                     id:'',
                     serial_number :-1,
@@ -515,9 +572,26 @@
             },
 
             getResults(page = 1) {
-                axios.get('api/carpet_wash/?page=' + page).then((response) => {
-                    this.carpets = response.data;
+                this.cars={}
+                var one='xx'
+                var two='xx'
+                if(this.filter==1){
+                    one=this.enter_date
+                    if(this.exit_date!='')
+                        two=this.exit_date
+                }else if(this.filter==2){
+                    one=this.enter_time
+                    if(this.exit_time_filter!='')
+                        two=this.exit_time_filter
+                }else if(this.filter==3){
+                    one=this.ticket
+                }
+                axios.get('api/carpet_wash/'+ this.filter+"/"+one+"/"+two+'?page=' + page).then((res) => {
+                    this.carpets = res.data;
                 });
+            },
+
+            get_all_data(){
                 axios.get('api/car_washing/4').then((res) => {
                     this.sizes=res.data
                         if(res.data!=[])
@@ -730,6 +804,7 @@
         created(){
             this.get_product_manages();
             this.getResults();
+            this.get_all_data()
             Fire.$on('AfterCreate',() => {
                 this.getResults();
             });
