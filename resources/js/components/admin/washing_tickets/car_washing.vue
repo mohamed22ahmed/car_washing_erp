@@ -48,7 +48,7 @@ input[disabled][type='number']{
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="filters">{{ $t('134') }}</label>
-                                    <select name="filters" id="filters"  v-model="filter" class="form-control">
+                                    <select name="filters" id="filters"  v-model="filter" class="form-control" @change="getResults">
                                         <option value="-1">{{ $t('135') }}</option>
                                         <option value="1">{{ $t('210') }} / {{$t('211')}}</option>
                                         <option value="2">{{ $t('254') }} / {{$t('255')}}</option>
@@ -59,40 +59,35 @@ input[disabled][type='number']{
                                 <div class="col-md-2" v-if="filter==1">
                                     <div class="form-group">
                                         <label>{{ $t('210') }}</label>
-                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
-                                        <has-error :form="form" field="enterance_date"></has-error>
+                                        <input v-model="enter_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control"  @change="getResults">
                                     </div>
                                 </div>
 
                                 <div class="col-md-2" v-if="filter==1">
                                     <div class="form-group">
                                         <label>{{ $t('211') }}</label>
-                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control" :class="{ 'is-invalid': form.errors.has('exit_date') }">
-                                        <has-error :form="form" field="exit_expected_date"></has-error>
+                                        <input v-model="exit_date" type="text" name="exit_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit Date" class="form-control"  @change="getResults">
                                     </div>
                                 </div>
 
                                 <div class="col-md-2" v-if="filter==2">
                                     <div class="form-group">
                                         <label>{{ $t('254') }}</label>
-                                        <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
-                                        <has-error :form="form" field="receipt_time"></has-error>
+                                        <input v-model="enter_time" type="text" name="enter_time"  placeholder="Enterance Time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" required  @change="getResults">
                                     </div>
                                 </div>
 
                                 <div class="col-md-2" v-if="filter==2">
                                     <div class="form-group">
                                         <label>{{ $t('255') }}</label>
-                                        <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control" :class="{ 'is-invalid': form.errors.has('exit_time') }">
-                                        <has-error :form="form" field="exit_time"></has-error>
+                                        <input v-model="exit_time_filter" type="text" name="exit_time_filter"  placeholder="Exit Time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control"  @change="getResults">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3" v-if="filter==3">
                                     <div class="form-group">
                                         <label>{{ $t('195') }}</label>
-                                        <input v-model="form.ticket_number" type="number" name="ticket_number" class="form-control" :class="{ 'is-invalid': form.errors.has('ticket_number') }">
-                                        <has-error :form="form" field="ticket_number"></has-error>
+                                        <input v-model="ticket" type="number" name="ticket_number" class="form-control" required  @change="getResults">
                                     </div>
                                 </div>
                             </div>
@@ -197,8 +192,6 @@ input[disabled][type='number']{
                             </div>
 
                             <div class="row">
-                                <span v-if="letter_error!=''">{{ letter_error }}</span>
-                                <span v-if="num_error!=''">{{ num_error }}</span>
                                 <div class="input-group col-md-3 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
                                         <input type="number" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar" @change="get_car">
                                         <div class="verticalLine" style="height=5px"></div>
@@ -232,6 +225,10 @@ input[disabled][type='number']{
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <span v-if="letter_error!=''" style="color:red">{{ letter_error }}</span>
+                                <span v-if="num_error!=''" style="color:red">{{ num_error }}</span>
                             </div>
 
                             <div class="row mt-3">
@@ -338,6 +335,7 @@ input[disabled][type='number']{
                                                     <td>{{mat.units}}</td>
                                                     <td>{{mat.cost}}</td>
                                                     <td>{{mat.extra_cost}}</td>
+                                                    <td>{{mat.descr}}</td>
                                                     <td>
                                                         <a href="#" @click="deleteMaterial(mat.id)">
                                                             <i class="fa fa-trash" style="color:red;"></i>
@@ -538,6 +536,7 @@ input[disabled][type='number']{
 </template>
 
 <script>
+import moment from 'moment';
 export default {
     data: function() {
         return {
@@ -551,7 +550,14 @@ export default {
             cars:{},
             materials:{},
             ticket:{},
+
             filter:-1,
+            enter_date:new Date().toISOString().slice(0, 10),
+            exit_date:'',
+            enter_time:moment().format('HH:mm'),
+            exit_time_filter:'',
+            ticket:1,
+
             form: new Form({
                 id :'',
                 serial_number :'',
@@ -575,6 +581,7 @@ export default {
                 taxes_value:0,
                 price_before_taxes:0,
             }),
+
             type_x:1,
             serviceForm:new Form({
                 id:'',
@@ -667,9 +674,26 @@ export default {
         },
 
         getResults(page = 1) {
-            axios.get('api/car_washing/?page=' + page).then((res) => {
+            this.cars={}
+            var one='xx'
+            var two='xx'
+            if(this.filter==1){
+                one=this.enter_date
+                if(this.exit_date!='')
+                    two=this.exit_date
+            }else if(this.filter==2){
+                one=this.enter_time
+                if(this.exit_time_filter!='')
+                    two=this.exit_time_filter
+            }else if(this.filter==3){
+                one=this.ticket
+            }
+            axios.get('api/car_washing/'+ this.filter+"/"+one+"/"+two+'?page=' + page).then((res) => {
                 this.cars = res.data;
             });
+        },
+
+        get_all_data(){
             axios.get('api/get_clients').then((res) => {
                 this.clients = res.data;
             });
@@ -882,6 +906,7 @@ export default {
     created(){
         this.get_product_manages();
         this.getResults();
+        this.get_all_data()
         Fire.$on('AfterCreate',() => {
             this.getResults();
         });

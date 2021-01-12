@@ -93,6 +93,7 @@ Route::delete('carpet_material/{id}','API\Washing_ticket\Carpets_materialControl
 Route::get('carpet_material/{id}/{type}','API\Washing_ticket\Carpets_materialController@show');
 Route::get('carpet_washing_get_total_cost/{ticket_id}','API\Washing_ticket\Carpets_washingController@get_total_cost');
 Route::get('carpet_washing_get_total_services/{ticket_id}','API\Washing_ticket\Carpets_washingController@get_total_services');
+Route::get('carpet_wash/{filter}/{one}/{two}','API\Washing_ticket\Carpets_washingController@index');
 
 // Car washing Tickets Routes
 Route::apiResources(['car_washing' => 'API\Washing_ticket\Car_washingController']);
@@ -107,6 +108,7 @@ Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
 Route::get('car_washing_get_total_cost/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_cost');
 Route::get('car_washing_get_total_services/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_services');
 Route::get('car_washing_get_car/{number}/{letters}','API\Washing_ticket\Car_washingController@check_car_number');
+Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingController@index');
 
 
 // ################################################## Tickets Management ###########################################

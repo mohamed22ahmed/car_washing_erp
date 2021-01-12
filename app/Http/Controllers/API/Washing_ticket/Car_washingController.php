@@ -14,8 +14,42 @@ use Illuminate\Http\Request;
 
 class Car_washingController extends Controller
 {
-    public function check_car_number($number,$letters){
+    public function index($filter,$one,$two){
+        $cars=Car_washing::all();
+        $services=Service::where('type',1)->get();
+        foreach($services as $ser){
+            $x=1;
+            foreach($cars as $car){
+                if($ser->ticket_id==$car->id){
+                    $x=2;
+                    break;
+                }
+            }
+            if($x==1)
+                $ser->delete();
+        }
 
+        if($filter==1){
+            $cars=Car_washing::where('enterance_date','>=',$one);
+            if($two!='xx')
+                $cars->where('exit_expected_date','>=',$two);
+            return $cars->paginate(5);
+        }
+
+        if($filter==2){
+            $cars=Car_washing::where('receipt_time','>=',$one);
+            if($two!='xx')
+                $cars->where('exit_time','>=',$two);
+            return $cars->paginate(5);
+        }
+
+        if($filter==3)
+            return Car_washing::where('id',$one)->paginate(5);
+
+        return Car_washing::paginate(5);
+    }
+
+    public function check_car_number($number,$letters){
         if(strlen($number)!=3)
             return 'num_error';
         if(strlen($letters)>4){
@@ -48,23 +82,6 @@ class Car_washingController extends Controller
     public function get_cost($unit_id){
         $unit=Custom_unit::where('id',$unit_id)->first();
         return $unit->cost;
-    }
-
-    public function index(){
-        $cars=Car_washing::all();
-        $services=Service::where('type',1)->get();
-        foreach($services as $ser){
-            $x=1;
-            foreach($cars as $car){
-                if($ser->ticket_id==$car->id){
-                    $x=2;
-                    break;
-                }
-            }
-            if($x==1)
-                $ser->delete();
-        }
-        return Car_washing::paginate(5);
     }
 
     public function store(Request $request){
