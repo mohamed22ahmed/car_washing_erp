@@ -45,8 +45,11 @@
                                         <router-link :to="{ path: '/emp_infos_create?employee='+employee.id}">
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>&nbsp;&nbsp;/
+                                        <router-link :to="{ path: '/show_employee?employee='+employee.id}">
+                                            <i class="fa fa-eye" style="color:green;"></i>
+                                        </router-link>&nbsp;&nbsp;/
                                         <a href="#" @click="deleteEmployee(employee.id)">
-                                            <i class="fa fa-trash red"></i>
+                                            <i class="fa fa-trash" style="color:red;"></i>
                                         </a>
                                     </td>
                                 </tr>

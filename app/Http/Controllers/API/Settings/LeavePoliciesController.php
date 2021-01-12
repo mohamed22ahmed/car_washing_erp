@@ -26,6 +26,10 @@ class LeavePoliciesController extends Controller
         return $leaves;
     }
 
+    public function leave_show($id){
+        return Leave_policy::find($id);
+    }
+
     public function store(Request $request){
 
         $data=new Leave_policy;

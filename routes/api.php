@@ -21,6 +21,7 @@ Route::get('get_full_path','API\Finance\AccountChartController@get_full_path');
 //manage_emp
 Route::apiResources(['manage_emp' => 'API\Employee\ManageEmployeesController']);
 Route::get('get_all_employees','API\Employee\ManageEmployeesController@get_all_employees');
+Route::get('show_employee/{id}','API\Employee\ManageEmployeesController@employee_show');
 Route::get('manage_emp_delete/{id}','API\Employee\ManageEmployeesController@destroy');
 //roles
 Route::apiResources(['roles' => 'API\Employee\RoleController']);
@@ -32,6 +33,7 @@ Route::get('permissions_pages/{role}/{module}','API\Employee\PermissionControlle
 // organizational structure Routes
 Route::apiResources(['organizational_structure' => 'API\Employee\Organization_structureController']);
 Route::get('get_employees','API\Employee\Organization_structureController@getEmployees');
+Route::get('data_show/{id}/{type}','API\Employee\Organization_structureController@data_show');
 Route::get('get_month_days/{month}','API\Employee\Organization_structureController@get_month_days');
 Route::get('organizational_structure_designations','API\Employee\Organization_structureController@getDesignations');
 Route::get('organizational_structure_departments','API\Employee\Organization_structureController@getDepartments');
@@ -57,6 +59,7 @@ Route::delete('machine_settings/{id}','API\Settings\MachineSettingController@des
 // Leave Policies
 Route::apiResources(['leave_policies' => 'API\Settings\LeavePoliciesController']);
 Route::get('get_leaves','API\Settings\LeavePoliciesController@get_leaves');
+Route::get('leave_show/{id}','API\Settings\LeavePoliciesController@leave_show');
 Route::delete('leave_policies/{id}','API\Settings\LeavePoliciesController@destroy');
 
 // Leave Types
@@ -66,6 +69,7 @@ Route::delete('leave_setups/{id}','API\Settings\LeaveSetupController@destroy');
 // Leave Types
 Route::apiResources(['holiday_lists' => 'API\Settings\HolidayListController']);
 Route::get('get_holidays','API\Settings\HolidayListController@get_holidays');
+Route::get('holiday_show/{id}','API\Settings\HolidayListController@holiday_show');
 Route::delete('holiday_lists/{id}','API\Settings\HolidayListController@destroy');
 
 // Attendance Permissions Routes
@@ -74,6 +78,7 @@ Route::apiResources(['attendance_permissions' => 'API\Employee\Attendance_permis
 // Shift Management Route
 Route::apiResources(['shift_management' => 'API\Employee\ShiftController']);
 Route::get('get_shifts','API\Employee\ShiftController@get_shifts');
+Route::get('shift_show/{id}','API\Employee\ShiftController@shift_show');
 Route::delete('shift_management/{id}','API\Employee\ShiftController@destroy');
 
 

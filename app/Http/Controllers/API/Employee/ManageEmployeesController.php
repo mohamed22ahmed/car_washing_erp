@@ -27,6 +27,16 @@ class ManageEmployeesController extends Controller
         return Employee::all();
     }
 
+    public function employee_show($id){
+        $employee=DB::table('employees')
+        ->leftJoin('departments','departments.id','employees.department')
+        ->leftJoin('designations','designations.id','employees.designation')
+        ->select('employees.*','departments.name as dep_name','designations.name as des_name')
+        ->where('employees.id','=',$id)
+        ->get();
+        return $employee;
+    }
+
     public function store(EmployeeRequest $request){
         $fileNewName='';
         if($request->emp_picture){

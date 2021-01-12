@@ -8,6 +8,7 @@ import chart_of_account from './components/admin/finance/chart_of_account.vue'
 // Department of Human Resource
 import manage_emp from './components/admin/dept_of_hr/manage_employees/manage_emp.vue'
 import emp_infos_create from './components/admin/dept_of_hr/manage_employees/emp_infos_create.vue'
+import show_employee from './components/admin/dept_of_hr/manage_employees/show_employee.vue'
 import permission from './components/admin/dept_of_hr/manage_employees/permission.vue'
 import organizational_structure from './components/admin/dept_of_hr/organizational_structure.vue'
 import attendance_logs from './components/admin/dept_of_hr/attendance_logs.vue'
@@ -48,6 +49,7 @@ const routes = [
     { name: 'attendance_session_create', path: '/attendance_session_create', component: attendance_session_create },
     { name: 'manage_emp', path: '/manage_emp', component: manage_emp },
     { name: 'emp_infos_create', path: '/emp_infos_create', component: emp_infos_create },
+    { name: 'show_employee', path: '/show_employee', component: show_employee },
     { name: 'shift_management', path: '/shift_management', component: shift_management },
     { name: 'settings', path: '/settings', component: settings },
     { name: 'holiday_lists', path: '/holiday_lists', component: holiday_lists },

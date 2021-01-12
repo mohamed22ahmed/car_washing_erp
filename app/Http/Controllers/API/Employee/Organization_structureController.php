@@ -48,6 +48,13 @@ class Organization_structureController extends Controller
         return $emps;
     }
 
+    public function data_show($id,$type){
+        if($type==2)
+            return Department::find($id);
+        else
+            return Designation::find($id);
+    }
+
     public function get_month_days($month){
         $year=date("Y");
         if($month==2&&$year%4==0&&$year%100!=0)

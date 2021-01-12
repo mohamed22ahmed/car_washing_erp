@@ -22,6 +22,11 @@ class ShiftController extends Controller
             }
         return $shifts;
     }
+
+    public function shift_show($id){
+        return Shift::find($id); 
+    }
+
     public function store(Request $request){
         $days=implode(',',$request->week_days);
         $shift=new Shift;

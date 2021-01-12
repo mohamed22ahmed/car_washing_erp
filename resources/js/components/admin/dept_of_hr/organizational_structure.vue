@@ -56,10 +56,12 @@ button{
                                                 <td>
                                                     <a href="#" @click="editData(1,design)">
                                                         <i class="fa fa-edit blue"></i>
-                                                    </a>
-                                                    /
+                                                    </a>/
+                                                    <a href="#" @click="showData(1,design.id,1)">
+                                                        <i class="fa fa-eye" style="color:green;"></i>
+                                                    </a>/
                                                     <a href="#" @click="deleteData(1,design.id)">
-                                                        <i class="fa fa-trash red"></i>
+                                                        <i class="fa fa-trash" style="color:red;"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -90,10 +92,12 @@ button{
                                                 <td>
                                                     <a href="#" @click="editData(2,dept)">
                                                         <i class="fa fa-edit blue"></i>
-                                                    </a>
-                                                    /
+                                                    </a>/
+                                                    <a href="#" @click="showData(2,dept.id,2)">
+                                                        <i class="fa fa-eye" style="color:green;"></i>
+                                                    </a>/
                                                     <a href="#" @click="deleteData(2,dept.id)">
-                                                        <i class="fa fa-trash red"></i>
+                                                        <i class="fa fa-trash" style="color:red;"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -124,10 +128,12 @@ button{
                                                 <td>
                                                     <a href="#" @click="editData(3,emp)">
                                                         <i class="fa fa-edit blue"></i>
-                                                    </a>
-                                                    /
+                                                    </a>/
+                                                    <a href="#" @click="showData(3,emp.id,3)">
+                                                        <i class="fa fa-eye" style="color:green;"></i>
+                                                    </a>/
                                                     <a href="#" @click="deleteData(3,emp.id)">
-                                                        <i class="fa fa-trash red"></i>
+                                                        <i class="fa fa-trash" style="color:red;"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -226,6 +232,70 @@ button{
                 </div>
             </div>
         </div>
+
+        <!-- show Data Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="addNewLabel">{{form.addNewValue==2 ? $t('36') :(form.addNewValue==1?$t('35'):$t('37')) }}</h5>
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PrintTicket">
+                        <table class="table table-bordered table-striped" id="shiftTable" v-if="des">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('109') }}</th>
+                                    <td>{{ organizes.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('229') }}</th>
+                                    <td>
+                                        {{ organizes.name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('18') }}</th>
+                                    <td>
+                                        <span v-if="organizes.status==0" class="badge badge-danger">Stopped</span>
+                                        <span v-if="organizes.status==1" class="badge badge-success">Active</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('113') }}</th>
+                                    <td>
+                                        {{ organizes.description }}
+                                    </td>
+                                </tr>
+                                <tr v-if="form.addNewValue==2">
+                                    <th>{{ $t('59') }}</th>
+                                    <td>
+                                        {{ organizes.employee_id }}
+                                    </td>
+                                </tr>
+                                <tr v-if="form.addNewValue==2">
+                                    <th>{{ $t('138') }}</th>
+                                    <td>
+                                        {{ organizes.month }}
+                                    </td>
+                                </tr>
+                                <tr v-if="form.addNewValue==2">
+                                    <th>{{ $t('139') }}</th>
+                                    <td>
+                                        {{ organizes.day }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -245,6 +315,7 @@ export default {
             employees:{},
             months:['January','February','March','April','May','June','July','August','September','October','November','December'],
             days:[],
+            organizes:{},
             form: new Form({
                 id:'',
                 name: '',
@@ -316,6 +387,15 @@ export default {
                 for(var i=1;i<=parseInt(res.data);i++)
                     this.days.push(i);
             })
+        },
+
+        showData(type,id,val){
+
+            this.form.get('api/data_show/'+id+"/"+type).then((response) => {
+                this.organizes = response.data;
+            });
+            this.form.addNewValue=val
+            $('#showTicket').modal('show');
         },
 
         addNew() {

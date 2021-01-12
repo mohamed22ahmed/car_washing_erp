@@ -2,6 +2,9 @@
 button{
     color:white;
 }
+#shiftTable th{
+    width: 300px;
+}
 </style>
 <template>
     <div class="container">
@@ -45,8 +48,12 @@ button{
                                                 <i class="fa fa-edit blue"></i>
                                             </a>
                                             /
+                                            <a href="#" @click="showShift(shift.id)">
+                                                <i class="fa fa-eye" style="color:green;"></i>
+                                            </a>
+                                            /
                                             <a href="#" @click="deleteShift(shift.id)">
-                                                <i class="fa fa-trash red"></i>
+                                                <i class="fa fa-trash" style="color:red;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -193,6 +200,95 @@ button{
                 </div>
             </div>
         </div>
+
+        <!-- show Shift Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('260') }}</h5>
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PrintTicket">
+                        <table class="table table-bordered table-striped" id="shiftTable">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('229') }}</th>
+                                    <td>
+                                        {{ shift.name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('67') }}</th>
+                                    <td>
+                                        {{ shift.on_duty_time1 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('68') }}</th>
+                                    <td>
+                                        {{ shift.off_duty_time1 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('69') }}</th>
+                                    <td>
+                                        {{ shift.begin1 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('70') }}</th>
+                                    <td>
+                                        {{ shift.end1 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('67') }} * ({{ $t('71') }} 2)</th>
+                                    <td>
+                                        {{ shift.on_duty_time2 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('68') }} * ({{ $t('71') }} 2)</th>
+                                    <td>
+                                        {{ shift.off_duty_time2 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('69') }} * ({{ $t('71') }} 2)</th>
+                                    <td>
+                                        {{ shift.begin2 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('70') }} * ({{ $t('71') }} 2)</th>
+                                    <td>
+                                        {{ shift.end2 }}
+                                    </td>
+                                </tr>
+                                <!--<tr>
+                                    <th>{{ $t('72') }}</th>
+                                    <td>
+                                        {{ shift.week_days }}
+                                    </td>
+                                </tr>-->
+                                <tr v-if="shift.start_late==1">
+                                    <th>{{ $t('74') }}</th>
+                                    <td>
+                                        {{ shift.late_minutes }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -202,6 +298,7 @@ button{
         return{
             week_days_all:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
             shifts:{},
+            shift:{},
             editmode: false,
             form: new Form({
                 id:'',
@@ -280,6 +377,13 @@ button{
             })
             .catch(() => {
                 this.$Progress.fail();
+            });
+        },
+
+        showShift(id){
+            $('#showTicket').modal('show');
+            this.form.get('api/shift_show/'+id).then((response) => {
+                this.shift = response.data;
             });
         },
 

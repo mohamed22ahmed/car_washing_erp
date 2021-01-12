@@ -35,8 +35,12 @@
                                             <a href="#" @click="editModal(holiday)">
                                                 <i class="fa fa-edit red"></i>
                                             </a>&nbsp;/
+                                            <a href="#" @click="showHoliday(holiday.id)">
+                                                <i class="fa fa-eye" style="color:green;"></i>
+                                            </a>
+                                            /
                                             <a href="#" @click="deleteHoliday(holiday.id)">
-                                                <i class="fa fa-trash red"></i>
+                                                <i class="fa fa-trash" style="color:red;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -107,6 +111,51 @@
         </div>
     </div>
 
+    <!-- show Holiday Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('261') }}</h5>
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PrintTicket">
+                        <table class="table table-bordered table-striped" id="shiftTable">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('109') }}</th>
+                                    <td>{{ holiday.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('229') }}</th>
+                                    <td>
+                                        {{ holiday.name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('67') }}</th>
+                                    <td>
+                                        {{ holiday.start_date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('68') }}</th>
+                                    <td>
+                                        {{ holiday.end_date }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </div>
 </template>
 
@@ -115,6 +164,7 @@
         data: function(){
         return{
             holidays:{},
+            holiday:{},
             editmode: false,
             form: new Form({
                 id:'',
@@ -179,6 +229,13 @@
                 .catch(() => {
                     this.$Progress.fail();
                 });
+        },
+
+        showHoliday(id){
+            $('#showTicket').modal('show');
+            this.form.get('api/holiday_show/'+id).then((response) => {
+                this.holiday = response.data;
+            });
         },
 
         deleteHoliday(id){

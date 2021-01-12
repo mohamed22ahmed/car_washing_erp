@@ -33,8 +33,12 @@
                                                 <a href="#" @click="editModal(type)">
                                                     <i class="fa fa-edit red"></i>
                                                 </a>&nbsp;/
+                                                <a href="#" @click="showLeave(type.id)">
+                                                    <i class="fa fa-eye" style="color:green;"></i>
+                                                </a>
+                                                /
                                                 <a href="#" @click="deleteLeave(type.id)">
-                                                    <i class="fa fa-trash red"></i>
+                                                    <i class="fa fa-trash" style="color:red;"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -128,6 +132,53 @@
                 </div>
             </div>
         </div>
+
+        <!-- show Leave Modal -->
+        <div class="modal fade" id="showTicket" tabindex="-1" role="dialog" aria-labelledby="showTicketLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('262') }}</h5>
+                        <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PrintTicket">
+                        <table class="table table-bordered table-striped" id="shiftTable">
+                            <tbody>
+                                <tr>
+                                    <th>{{ $t('109') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('229') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('113') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.description }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('174') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.max_days }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('263') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.max_applicable_days }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ $t('173') }}</th>
+                                    <td :style="{color:type.colour}">{{ type.applicable_after }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -136,6 +187,7 @@
         data: function(){
         return{
             types:{},
+            type:{},
             editmode: false,
             form: new Form({
                  id:'',
@@ -203,6 +255,13 @@
                 .catch(() => {
                     this.$Progress.fail();
                 });
+        },
+
+        showLeave(id){
+            $('#showTicket').modal('show');
+            this.form.get('api/leave_show/'+id).then((response) => {
+                this.type = response.data;
+            });
         },
 
         deleteLeave(id){

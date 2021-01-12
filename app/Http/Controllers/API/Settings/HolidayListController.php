@@ -18,6 +18,10 @@ class HolidayListController extends Controller
         return $holidays;
     }
 
+    public function holiday_show($id){
+        return Holiday_list::find($id);
+    }
+
     public function get_holidays(){
        $holidays=Holiday_list::all();
         if(session('lang')=='ar')

@@ -793,6 +793,31 @@
             "dic_id": 258,
             "name": "Search",
             "name_ar":"بحـــث"
+        },
+        {
+            "dic_id": 259,
+            "name": "Employee Information",
+            "name_ar":"بيانات المــوظف"
+        },
+        {
+            "dic_id": 260,
+            "name": "Shift Details",
+            "name_ar":"تفاصيل الورديــة"
+        },
+        {
+            "dic_id": 261,
+            "name": "Holiday Details",
+            "name_ar":"تفاصيل العطلــة"
+        },
+        {
+            "dic_id": 262,
+            "name": "Leave Details",
+            "name_ar":"تفاصيل المغادرة"
+        },
+        {
+            "dic_id": 263,
+            "name": "The maximum applicable days",
+            "name_ar":"إقصى عدد الايام التى يمكن تطبيقها"
         }
     ]
 }
