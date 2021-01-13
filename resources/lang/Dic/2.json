@@ -571,7 +571,7 @@
         },
         {
             "dic_id": 214,
-            "name": "add rate",
+            "name": "Add rate",
             "name_ar": "إضافة تقييــم"
         },
         {
@@ -823,6 +823,46 @@
             "dic_id": 264,
             "name": "Total discount",
             "name_ar":"إجمالى الخصــم"
+        },
+        {
+            "dic_id": 265,
+            "name": "Create & New",
+            "name_ar":"إنشاء و إضافة جديـد"
+        },
+        {
+            "dic_id": 266,
+            "name": "Rate",
+            "name_ar":"تقــييم"
+        },
+        {
+            "dic_id": 267,
+            "name": "Good Client",
+            "name_ar":"عميل جيــد"
+        },
+        {
+            "dic_id": 268,
+            "name": "Bad Client",
+            "name_ar":"عميل ســىء"
+        },
+        {
+            "dic_id": 269,
+            "name": "Add Inform",
+            "name_ar":"إضافة إبــلاغ"
+        },
+        {
+            "dic_id": 270,
+            "name": "Topic",
+            "name_ar":"عنوان الموضــوع"
+        },
+        {
+            "dic_id": 271,
+            "name": "Message",
+            "name_ar":"الموضــوع"
+        },
+        {
+            "dic_id": 272,
+            "name": "Send",
+            "name_ar":"إرســال"
         }
     ]
 }

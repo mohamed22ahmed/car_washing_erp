@@ -20,6 +20,10 @@
         /*color: rgb(0,0,0);*/
         background-color:lightblue;
     }
+    .disabled{
+        pointer-events: none;
+        opacity: 0.6;
+    }
 </style>
 
 <template>
@@ -111,9 +115,9 @@
                                         <td>{{ carpet.id }}</td>
                                         <td>{{ carpet.num_of_materials }}</td>
                                         <td>{{ carpet.total_price }}</td>
-                                        <td v-if="carpet.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
-                                        <td v-else-if="carpet.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
-                                        <td v-else-if="carpet.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                        <td v-if="carpet.ticket_status==1"><span class="badge badge-warning">{{$t('238')}}</span></td>
+                                        <td v-else-if="carpet.ticket_status==2"><span class="badge badge-danger">{{$t('239')}}</span></td>
+                                        <td v-else-if="carpet.ticket_status==3"><span class="badge badge-primary">{{$t('240')}}</span></td>
                                         <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                         <td>{{ carpet.ticket_date }}</td>
                                         <td>{{ carpet.receipt_time }}</td>
@@ -127,6 +131,9 @@
                                             </a>&nbsp;/
                                             <a href="#" @click="deleteCarpet(carpet.id)">
                                                 <i class="fa fa-trash" style="color:red;"></i>
+                                            </a>&nbsp;/
+                                            <a href="#" @click="UpdateCarpet(carpet)">
+                                                <i class="fa fa-cogs" style="color:navy;"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -337,12 +344,9 @@
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('265') }}</button>
                             <button v-show="editmode" type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
                             <button v-show="editmode" type="button" class="btn btn-success default mx-3" @click="printForTicket">{{ $t('212') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('213') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
-                            <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
                             <button type="button" class="btn btn-danger default ml-3"  data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
                     </form>
@@ -350,7 +354,211 @@
             </div>
         </div>
 
-        <!-- Codetable_Modal -->
+        <!-- Disabled Modal -->
+        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-center">
+                        <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
+                        <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form @submit.prevent="editmode ? updateUser() : createUser()">
+                        <div class="modal-body bg-light disabled" id="update">
+                           <div class="row">
+                                <div class="col-md-2">
+                                   <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.ticket_date" type="text" name="ticket_date" :placeholder="ticket_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('ticket_date') }">
+                                    <has-error :form="form" field="ticket_date"></has-error>
+                                </div>
+
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-3">
+                                   <select class="form-control form-rounded" name="wash" v-model="form.wash">
+                                        <option selected value="-1">{{$t('204')}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
+                                        <option selected value="-1">{{$t('205')}}</option>
+                                        <option selected value="1">{{$t('238')}}</option>
+                                        <option selected value="2">{{$t('239')}}</option>
+                                        <option selected value="3">{{$t('240')}}</option>
+                                        <option selected value="4">{{$t('241')}}</option>
+                                    </select>
+                                </div>
+                           </div>
+
+                           <div class="row mt-3">
+                                <div class="col-md-2">
+                                   <select class="form-control form-rounded" name="client" v-model="form.client">
+                                        <option selected value="-1">{{$t('206')}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mt-1" style="margin-left:-7px; width">
+                                    <button class="btn btn-sm btn-success default">
+                                    <i class="fas fa-plus"></i></button>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input v-model="form.phone_number" type="text" name="phone_number" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone_number') }">
+                                        <has-error :form="form" field="phone_number"></has-error>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                   <select class="form-control form-rounded" name="carpet_size" v-model="form.carpet_size">
+                                        <option selected value="-1">{{$t('208')}}</option>
+                                        <option v-for="size in sizes" :key="size.sys_code" :value="size.sys_code">{{ size.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mt-1" style="margin-left:-7px; width">
+                                    <button type="button" class="btn btn-sm btn-success default" @click="newCode_tableModal(4)">
+                                    <i class="fas fa-plus"></i></button>
+                                </div>
+
+                                <div class="col-md-2">
+                                   <select class="form-control form-rounded" name="wash_type" v-model="form.wash_type">
+                                        <option selected value="-1">{{ $t('209') }}</option>
+                                        <option v-for="type in types" :key="type.sys_code" :value="type.sys_code">{{ type.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 mt-1" style="margin-left:-7px; width">
+                                    <button type="button" class="btn btn-sm btn-success default" @click="newCode_tableModal(5)">
+                                    <i class="fas fa-plus"></i></button>
+                                </div>
+                           </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
+                                    <has-error :form="form" field="receipt_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.exit_time" type="text" name="exit_time"  :placeholder="exit_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_time') }">
+                                    <has-error :form="form" field="exit_time"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.receipt_date" type="text" name="Time of receipt" :placeholder="entrance_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_date') }">
+                                    <has-error :form="form" field="receipt_date"></has-error>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input v-model="form.expected_exit_date" type="text" name="expected_exit_date" :placeholder="expected_exit_date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('expected_exit_date') }">
+                                    <has-error :form="form" field="expected_exit_date"></has-error>
+                                </div>
+                           </div>
+
+                            <div class="row mt-3  d-flex justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            <div class="table-responsive p-0">
+                                                <form @submit.prevent="createMaterial()">
+                                                    <table class="table text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ $t('229') }}</th>
+                                                                <th>{{ $t('227') }}</th>
+                                                                <th>{{ $t('228') }}</th>
+                                                                <th>{{ $t('244') }}</th>
+                                                                <th>{{ $t('113') }}</th>
+                                                                <th>{{ $t('230') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-control" name="product_id" v-model="serviceForm.product_id" @change="get_services" style="min-width:120px;">
+                                                                        <option v-for="pro in products" :key="pro.id" :value="pro.id">{{ pro.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control" name="unit_id" v-model="serviceForm.unit_id" @change="get_cost" style="min-width:120px;">
+                                                                        <option v-for="unt in units" :key="unt.id" :value="unt.id">{{ unt.name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost" style="min-width:80px;"></td>
+                                                                <td><textarea class="form-control" name="description" v-model="serviceForm.description" style="min-width:80px;"></textarea></td>
+                                                                <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <table class="table text-center">
+                                            <tbody v-for="mat in materials.data" :key="mat.id">
+                                                <tr>
+                                                    <td>{{mat.name}}</td>
+                                                    <td>{{mat.units}}</td>
+                                                    <td>{{mat.cost}}</td>
+                                                    <td>
+                                                        <a href="#" @click="deleteMaterial(mat.id)">
+                                                            <i class="fa fa-trash" style="color:red;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <div class="d-flex justify-content-center">
+                                                <pagination :data="materials" @pagination-change-page="getMaterials"></pagination>
+                                            </div>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row d-flex justify-content-center">
+                                <div class="col-sm-2">
+                                    <label for="total_services">{{$t('242')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="total_discount">{{$t('264')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_discount" :value="form.total_discount">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="price_before_taxes">{{$t('257')}}</label>
+                                    <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="taxes_value">{{$t('256')}}</label>
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="total_cost">{{$t('245')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button v-show="updatemode" type="button" class="btn btn-success default mx-3" @click="AddTicketStatus">{{ $t('213') }}</button>
+                            <button v-show="updatemode" type="button" class="btn btn-success default mx-3" @click="AddRate">{{ $t('214') }}</button>
+                            <button v-show="updatemode" type="button" class="btn btn-success default mx-3" @click="AddInform">{{ $t('215') }}</button>
+                            <button type="button" class="btn btn-danger default ml-3"  data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Codetable Modal -->
         <div class="modal fade" id="codeTableModal" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -376,6 +584,100 @@
                         <div class="modal-footer">
                             <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
                             <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rate Modal -->
+        <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" id="rateModal">{{ $t('214') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createRate">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>{{ $t('266') }}</label>
+                                    <select class="form-control form-rounded" name="status" v-model="RateForm.status">
+                                        <option selected value="-1">{{$t('267')}}</option>
+                                        <option selected value="1">{{$t('268')}}</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ticket Status Modal -->
+        <div class="modal fade" id="TicketStatusModal" tabindex="-1" role="dialog" aria-labelledby="TicketStatusModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" id="TicketStatusModal">{{ $t('205') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createRate">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>{{ $t('205') }}</label>
+                                    <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
+                                        <option selected value="-1">{{$t('205')}}</option>
+                                        <option selected value="1">{{$t('238')}}</option>
+                                        <option selected value="2">{{$t('239')}}</option>
+                                        <option selected value="3">{{$t('240')}}</option>
+                                        <option selected value="4">{{$t('241')}}</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inform Modal -->
+        <div class="modal fade" id="InformModal" tabindex="-1" role="dialog" aria-labelledby="InformModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" id="InformModal">{{ $t('269') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createRate">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>{{ $t('270') }}</label>
+                                <input  type="text" class="form-control" name="topic" v-model="InformForm.topic">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ $t('271') }}</label>
+                                <textarea class="form-control" name="message" v-model="InformForm.message"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">{{ $t('272') }}</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
                     </form>
@@ -483,11 +785,13 @@
 </template>
 
 <script>
+$("#update").addClass("disabled");
 import moment from 'moment';
     export default {
         data: function(){
             return{
                 editmode: false,
+                updatemode: false,
                 carpets :{},
                 sizes:{},
                 types:{},
@@ -543,6 +847,17 @@ import moment from 'moment';
                     sys_code:'',
                     name:'',
                     name_ar:'',
+                }),
+
+                RateForm:new Form({
+                    id:'',
+                    status:-1,
+                }),
+
+                InformForm:new Form({
+                    id:'',
+                    topic:'',
+                    message:'',
                 })
             }
         },
@@ -693,6 +1008,24 @@ import moment from 'moment';
                 this.getId()
             },
 
+            /*  show Rate Model */
+            AddRate(){
+                this.RateForm.reset();
+                $('#rateModal').modal('show');
+            },
+
+            /*  show Ticket Status Model */
+            AddTicketStatus(){
+                this.form.reset();
+                $('#TicketStatusModal').modal('show');
+            },
+
+            /*  show Inform Status Model */
+            AddInform(){
+                this.InformForm.reset();
+                $('#InformModal').modal('show');
+            },
+
             newStatus(){
                 this.editmode = false;
                 this.form.reset();
@@ -719,6 +1052,16 @@ import moment from 'moment';
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
+                this.form.fill(user);
+                this.serviceForm.ticket_id=user.id
+                this.getMaterials();
+                this.get_total_cost()
+            },
+
+            UpdateCarpet(user){
+                this.updatemode = true;
+                this.form.reset();
+                $('#update').modal('show');
                 this.form.fill(user);
                 this.serviceForm.ticket_id=user.id
                 this.getMaterials();
