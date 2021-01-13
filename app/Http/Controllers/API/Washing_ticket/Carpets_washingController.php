@@ -89,6 +89,7 @@ class Carpets_washingController extends Controller
         $data->exit_time=$request->exit_time;
         $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
+        $data->total_discount=$request->total_discount;
         $data->save();
         return response(['success','your data created successfully'],200);
     }
@@ -108,6 +109,7 @@ class Carpets_washingController extends Controller
         $data->exit_time=$request->exit_time;
         $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
+        $data->total_discount=$request->total_discount;
         $data->save();
         return response(['success','your data Updated successfully'],200);
     }
