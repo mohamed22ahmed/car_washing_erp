@@ -197,9 +197,10 @@ input[disabled][type='number']{
                                         <div class="verticalLine" style="height=5px"></div>
                                         <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar" @change="get_car" required>
                                 </div>
-                                <div class="col-md-1 mt-5">
+                                <div class="col-md-1"></div>
+                                <!--<div class="col-md-1 mt-5">
                                     <i class="fas fa-camera fa-2x"></i>
-                                </div>
+                                </div>-->
 
                                 <div class="row col-md-3 mt-5">
                                     <select class="form-control form-rounded" name="color" v-model="form.color">
@@ -263,7 +264,9 @@ input[disabled][type='number']{
                                 <div class="col-md-1"></div>
                             </div>
 
-                             <div class="row mt-3">
+                             <div class="row mt-4">
+                                <div class="col-md-3"></div>
+
                                 <div class="col-md-3">
                                     <input v-model="form.receipt_time" type="text" name="receipt_time"  :placeholder="receipt_time" onblur="(this.type='text')" onfocus="(this.type='time')" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('receipt_time') }">
                                     <has-error :form="form" field="receipt_time"></has-error>
@@ -274,19 +277,7 @@ input[disabled][type='number']{
                                     <has-error :form="form" field="exit_time"></has-error>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input v-model="form.enterance_date" type="text" name="enterance_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Enterance Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('enter_d`ate') }">
-                                        <has-error :form="form" field="enterance_date"></has-error>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input v-model="form.exit_expected_date" type="text" name="exit_expected_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Exit expected Date" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('exit_date') }">
-                                        <has-error :form="form" field="exit_expected_date"></has-error>
-                                    </div>
-                                </div>
+                                <div class="col-md-3"></div>
                            </div>
 
                             <div class="row mt-3  d-flex justify-content-center">
@@ -352,9 +343,14 @@ input[disabled][type='number']{
                             </div>
 
                             <div class="form-group row d-flex justify-content-center">
-                                <div class="col-sm-3">
-                                    <label for="taxes_value">{{$t('256')}}</label>
-                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
+                                <div class="col-sm-2">
+                                    <label for="total_services">{{$t('242')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="total_discount">{{$t('264')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_discount" :value="form.total_discount">
                                 </div>
 
                                 <div class="col-sm-3">
@@ -362,12 +358,12 @@ input[disabled][type='number']{
                                     <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
                                 </div>
 
-                                <div class="col-sm-3">
-                                    <label for="total_services">{{$t('242')}}</label>
-                                    <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
+                                <div class="col-sm-2">
+                                    <label for="taxes_value">{{$t('256')}}</label>
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
                                 </div>
 
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <label for="total_cost">{{$t('245')}}</label>
                                     <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
                                 </div>
@@ -383,8 +379,6 @@ input[disabled][type='number']{
                             <button type="button" class="btn btn-success default mx-3">{{ $t('214') }}</button>
                             <button type="button" class="btn btn-success default mx-3">{{ $t('215') }}</button>
                             <button type="button" class="btn btn-danger default ml-3"  data-dismiss="modal">{{ $t('114') }}</button>
-                            <!--<button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
-                                <button v-show="!editmode" type="submit" class="btn btn-primary">{{ $t('104') }}</button>-->
                         </div>
                     </form>
                 </div>
@@ -580,6 +574,7 @@ export default {
                 total_services:0,
                 taxes_value:0,
                 price_before_taxes:0,
+                total_discount:0,
             }),
 
             type_x:1,

@@ -114,8 +114,7 @@ class Car_washingController extends Controller
         $car_wash->ticket_status=$request->ticket_status;
         $car_wash->car_id=$car_id;
         $car_wash->client_id=$request->client;
-        $car_wash->enterance_date=$request->enterance_date;
-        $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->total_discount=$request->total_discount;
         $car_wash->receipt_time=$request->receipt_time;
         $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;
@@ -152,8 +151,7 @@ class Car_washingController extends Controller
         $car_wash->ticket_status=$request->ticket_status;
         $car_wash->car_id=$car_id;
         $car_wash->client_id=$request->client;
-        $car_wash->enterance_date=$request->enterance_date;
-        $car_wash->exit_expected_date=$request->exit_expected_date;
+        $car_wash->total_discount=$request->total_discount;
         $car_wash->receipt_time=$request->receipt_time;
         $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;

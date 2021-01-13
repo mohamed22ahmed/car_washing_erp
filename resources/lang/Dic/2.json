@@ -516,8 +516,8 @@
         },
         {
             "dic_id": 203,
-            "name": "Ticket Date",
-            "name_ar": "تاريخ التذكــرة "
+            "name": "Created at",
+            "name_ar": "تاريخ التذكــرة"
         },
         {
             "dic_id": 204,
@@ -818,6 +818,11 @@
             "dic_id": 263,
             "name": "The maximum applicable days",
             "name_ar":"إقصى عدد الايام التى يمكن تطبيقها"
+        },
+        {
+            "dic_id": 264,
+            "name": "Total discount",
+            "name_ar":"إجمالى الخصــم"
         }
     ]
 }

@@ -309,22 +309,27 @@
                             </div>
 
                             <div class="form-group row d-flex justify-content-center">
-                                <div class="col-sm-3">
-                                    <label for="taxes_value">Taxes Value</label>
-                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <label for="price_before_taxes">Price Before Taxes</label>
-                                    <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
-                                </div>
-
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <label for="total_services">{{$t('242')}}</label>
                                     <input type="number" class="form-control" disabled name="total_services" :value="form.total_services">
                                 </div>
 
+                                <div class="col-sm-2">
+                                    <label for="total_discount">{{$t('264')}}</label>
+                                    <input type="number" class="form-control" disabled name="total_discount" :value="form.total_discount">
+                                </div>
+
                                 <div class="col-sm-3">
+                                    <label for="price_before_taxes">{{$t('257')}}</label>
+                                    <input type="number" class="form-control" disabled name="price_before_taxes" :value="form.price_before_taxes">
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="taxes_value">{{$t('256')}}</label>
+                                    <input type="number" class="form-control" disabled name="taxes_value" :value="form.taxes_value">
+                                </div>
+
+                                <div class="col-sm-2">
                                     <label for="total_cost">{{$t('245')}}</label>
                                     <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
                                 </div>
@@ -517,6 +522,7 @@ import moment from 'moment';
                     total_services:0,
                     taxes_value:0,
                     price_before_taxes:0,
+                    total_discount:0,
                 }),
                 type_x:2,
                 serviceForm:new Form({
