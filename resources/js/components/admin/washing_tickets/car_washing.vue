@@ -402,7 +402,7 @@ input[disabled][type='number']{
                     </div>
 
                     <form @submit.prevent="editmode ? updateTicket() : createTicket()">
-                        <div class="modal-body bg-light disabled" id="update">
+                        <div class="modal-body bg-light disabled" id="update"  style="overflow-y: scroll;">
                             <div class="row">
                                 <div class="col-md-2">
                                     <h5><span class="badge badge-pill badge-secondary">{{ form.serial_number }}</span></h5>
