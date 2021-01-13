@@ -19,7 +19,7 @@ class CreateCarpetWashingsTable extends Migration
             $table->string('serial_number');
             $table->integer('wash')->default(-1);
             $table->integer('ticket_status')->default(-1);
-            $table->integer('client_id');
+            $table->integer('client_id')->default(1);
             $table->integer('carpet_size')->default(-1);
             $table->integer('wash_type')->default(-1);
             $table->dateTime('receipt_date');
