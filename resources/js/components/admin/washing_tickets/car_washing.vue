@@ -1,35 +1,3 @@
-<style scoped>
-button {
-    color: white;
-}
-
-.form-rounded {
-    border-radius: 1rem;
-}
-
-.default {
-    border-radius: 30px;
-}
-
-.form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.verticalLine {
-    border-left: thin solid black;
-}
-input[disabled][type='number']{
-    /*color: rgb(0,0,0);*/
-    background-color:lightblue;
-}
-.disabled{
-    pointer-events: none;
-    opacity: 0.6;
-}
-</style>
-
 <template>
     <div class="container">
         <div class="container">
@@ -161,7 +129,7 @@ input[disabled][type='number']{
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCar">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
+                        <span class="badge badge-pill badge-success" :class="client_status==2?'badge-danger':'badge-success'">{{ client_status==2?'Bad Client':'Good Client' }}</span>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -184,6 +152,8 @@ input[disabled][type='number']{
                                 <div class="col-md-3">
                                     <select class="form-control form-rounded" name="wash" v-model="form.wash">
                                         <option selected value="-1">{{$t('204')}}</option>
+                                        <option selected value="1">{{$t('99')}} 1</option>
+                                        <option selected value="2">{{$t('99')}} 2</option>
                                     </select>
                                 </div>
 
@@ -252,12 +222,13 @@ input[disabled][type='number']{
                                     </button>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="form-control form-rounded" name="client" v-model="form.client">
+                                    <select class="form-control form-rounded" name="client" v-model="form.client" @change="get_client_phone">
                                         <option selected value="-1">{{$t('206')}}</option>
+                                        <option v-for="client in clients" :key="client.id" :value="client.id">{{ client.name }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-1" style="margin-left:-7px; width">
-                                    <button class="btn btn-sm btn-success default" type="button">
+                                    <button class="btn btn-sm btn-success default" type="button" @click="openClientModal">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -468,6 +439,7 @@ input[disabled][type='number']{
                                     </button>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <span v-if="letter_error!=''" style="color:red">{{ letter_error }}</span>
                                 <span v-if="num_error!=''" style="color:red">{{ num_error }}</span>
@@ -609,7 +581,6 @@ input[disabled][type='number']{
                                     <input type="number" class="form-control" disabled name="total_cost" :value="form.total_cost">
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
@@ -656,6 +627,44 @@ input[disabled][type='number']{
             </div>
         </div>
 
+        <!-- client Modal -->
+        <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="clientLabel">{{ $t('102') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="clientLabel">{{ $t('105') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createNewClient">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>{{ $t('229') }}</label>
+                                <input v-model="clientForm.name" type="text" name="name" placeholder="Enter Client Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ $t('207') }}</label>
+                                <input v-model="clientForm.phone" type="text" name="phone" placeholder="Enter Client Phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ $t('18') }}</label>
+                                <select class="form-control form-rounded" name="client_status" v-model="clientForm.status">
+                                    <option value="1">{{$t('401')}}</option>
+                                    <option value="2">{{$t('402')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Rate Modal -->
         <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -666,19 +675,19 @@ input[disabled][type='number']{
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="updateRate">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('266') }}</label>
-                                    <select class="form-control form-rounded" name="status" v-model="RateForm.status">
-                                        <option selected value="-1">{{$t('267')}}</option>
-                                        <option selected value="1">{{$t('268')}}</option>
-                                    </select>
+                                <label>{{ $t('18') }}</label>
+                                <select class="form-control form-rounded" name="client_status" v-model="clientForm.status">
+                                    <option value="1">{{$t('401')}}</option>
+                                    <option value="2">{{$t('402')}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
                     </form>
@@ -862,461 +871,487 @@ input[disabled][type='number']{
 </template>
 
 <script>
-$("#update").addClass("disabled");
-import moment from 'moment';
-export default {
-    data: function() {
-        return {
-            editmode: false,
-            updatemode: false,
-            colors:{},
-            brands:{},
-            car_status_all:{},
-            clients:{},
-            products:{},
-            units:{},
-            cars:{},
-            materials:{},
-            ticket:{},
+    $("#update").addClass("disabled");
+    import moment from 'moment';
+    export default {
+        data: function() {
+            return {
+                editmode: false,
+                updatemode: false,
+                colors:{},
+                brands:{},
+                car_status_all:{},
+                clients:{},
+                products:{},
+                units:{},
+                cars:{},
+                materials:{},
+                ticket:{},
+                client_status:'',
+                client_id_x:'',
 
-            filter:-1,
-            enter_date:new Date().toISOString().slice(0, 10),
-            exit_date:'',
-            enter_time:moment().format('HH:mm'),
-            exit_time_filter:'',
-            ticket:1,
+                filter:-1,
+                enter_date:new Date().toISOString().slice(0, 10),
+                exit_date:'',
+                enter_time:moment().format('HH:mm'),
+                exit_time_filter:'',
+                ticket:1,
 
-            form: new Form({
-                id :'',
-                serial_number :'',
-                ticket_date :new Date().toISOString().slice(0, 10),
-                wash :-1,
-                ticket_status :1,
-                car_number_num_ar :'',
-                car_number_letters_ar :'',
-                color :-1,
-                brand :-1,
-                car_status :-1,
-                client :-1,
-                client_status :'good client',
-                phone :'',
-                enterance_date :'',
-                exit_expected_date:'',
-                exit_time:'',
-                receipt_time:'',
-                total_cost:0,
-                total_services:0,
-                taxes_value:0,
-                price_before_taxes:0,
-                total_discount:0,
-            }),
+                form: new Form({
+                    id :'',
+                    serial_number :'',
+                    ticket_date :new Date().toISOString().slice(0, 10),
+                    wash :1,
+                    ticket_status :1,
+                    car_number_num_ar :'',
+                    car_number_letters_ar :'',
+                    color :-1,
+                    brand :-1,
+                    car_status :-1,
+                    client :-1,
+                    client_status :'good client',
+                    phone :'',
+                    enterance_date :'',
+                    exit_expected_date:'',
+                    exit_time:'',
+                    receipt_time:'',
+                    total_cost:0,
+                    total_services:0,
+                    taxes_value:0,
+                    price_before_taxes:0,
+                    total_discount:0,
+                }),
 
-            type_x:1,
-            serviceForm:new Form({
-                id:'',
-                ticket_id:'',
-                product_id:'',
-                type:'',
-                unit_id:'',
-                cost:0,
-                extra_cost:0,
-                description:'',
-            }),
+                type_x:1,
+                serviceForm:new Form({
+                    id:'',
+                    ticket_id:'',
+                    product_id:'',
+                    type:'',
+                    unit_id:'',
+                    cost:0,
+                    extra_cost:0,
+                    description:'',
+                }),
 
-            letter_error:'',
-            num_error:'',
+                letter_error:'',
+                num_error:'',
 
-            code_tableForm:new Form({
-                sys_code_type:'',
-                sys_code:'',
-                name:'',
-                name_ar:'',
-            }),
+                code_tableForm:new Form({
+                    sys_code_type:'',
+                    sys_code:'',
+                    name:'',
+                    name_ar:'',
+                }),
 
-            RateForm:new Form({
-                id:'',
-                status:-1,
-            }),
+                clientForm:new Form({
+                    id:'',
+                    name:'',
+                    phone:'',
+                    status:1
+                }),
 
-            InformForm:new Form({
-                id:'',
-                topic:'',
-                message:'',
-            })
-        }
-    },
+                InformForm:new Form({
+                    id:'',
+                    topic:'',
+                    message:'',
+                })
+            }
+        },
 
-    methods: {
-        get_car(){
-            if(this.form.car_number_num_ar!=''&&this.form.car_number_letters_ar!=''){
-                axios.get('api/car_washing_get_car/'+this.form.car_number_num_ar+"/"+this.form.car_number_letters_ar).then((res) => {
-                    this.num_error=''
-                    this.letter_error=''
-                    if(res.data=='num_error'){
-                        this.num_error='Car Number should be containing 3 digits'
-                    }else if(res.data=='letter_error'){
-                        this.letter_error='Car Letters should be greater or equal one letter and less than or equal 4 letters'
-                    }else if(res.data!=''){
-                        this.form.color=res.data.color;
-                        this.form.brand=res.data.brand;
-                        this.form.car_status=res.data.status;
-                        this.form.client_id=res.data.client;
-                        // this.get_client_phone(res.data.client)
-                    }else{
-                        this.form.color=-1
-                        this.form.brand=-1
-                        this.form.car_status=-1
-                        this.form.client_id=-1
+        methods: {
+            get_car(){
+                if(this.form.car_number_num_ar!=''&&this.form.car_number_letters_ar!=''){
+                    axios.get('api/car_washing_get_car/'+this.form.car_number_num_ar+"/"+this.form.car_number_letters_ar).then((res) => {
+                        this.num_error=''
+                        this.letter_error=''
+                        if(res.data=='num_error'){
+                            this.num_error='Car Number should be greater or equal one digit and less than or equal 4 digits'
+                        }else if(res.data=='letter_error'){
+                            this.letter_error='Car Letters should be containing 3 Letters'
+                        }else if(res.data!=''){
+                            this.form.color=res.data.color;
+                            this.form.brand=res.data.brand;
+                            this.form.car_status=res.data.status;
+                            this.form.client_id=res.data.client;
+                            // this.get_client_phone(res.data.client)
+                        }else{
+                            this.form.color=-1
+                            this.form.brand=-1
+                            this.form.car_status=-1
+                            this.form.client_id=-1
+                        }
+                    })
+                }
+            },
+
+            get_client_phone(){
+                axios.get('api/get_client/'+this.form.client).then((res) => {
+                    this.client_status=res.data['status']
+                    this.form.phone=res.data['phone']
+                    this.client_id_x=res.data['id']
+                })
+            },
+
+            get_total_cost(){
+                axios.get('api/car_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
+                    var r=(res.data/100*15).toFixed(2)
+                    var x=res.data
+                    this.form.taxes_value=r
+                    this.form.price_before_taxes = x
+                    this.form.total_cost=(parseFloat(r)+parseFloat(x)).toFixed(2)
+                });
+
+                axios.get('api/car_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
+                    this.form.total_services=res.data
+                })
+
+                axios.get('api/car_washing_get_total_discount/'+this.serviceForm.ticket_id).then((res) => {
+                    this.form.total_discount=res.data
+                })
+            },
+
+            print(){
+                this.$htmlToPaper('forPrint');
+            },
+
+            printForCar(){
+                this.form.get('api/car_wash_show/'+this.form.id).then((response) => {
+                    this.ticket = response.data;
+                });
+                $('#showTicket').modal('show');
+            },
+
+            PrintTicket(){
+                this.$htmlToPaper('PrintTicket');
+            },
+
+            get_serial(){
+                axios.get('api/get_serial').then((res) => {
+                    this.form.serial_number = res.data;
+                });
+            },
+
+            getResults(page = 1) {
+                this.cars={}
+                var one='xx'
+                var two='xx'
+                if(this.filter==1){
+                    one=this.enter_date
+                    if(this.exit_date!='')
+                        two=this.exit_date
+                }else if(this.filter==2){
+                    one=this.enter_time
+                    if(this.exit_time_filter!='')
+                        two=this.exit_time_filter
+                }else if(this.filter==3){
+                    one=this.ticket
+                }
+                axios.get('api/car_washing/'+ this.filter+"/"+one+"/"+two+'?page=' + page).then((res) => {
+                    this.cars = res.data;
+                });
+            },
+
+            get_all_data(){
+                axios.get('api/get_clients').then((res) => {
+                    this.clients = res.data;
+                });
+                axios.get('api/car_washing/1').then((res) => {
+                    this.colors=res.data
+                });
+                axios.get('api/car_washing/2').then((res) => {
+                    this.brands=res.data
+                });
+                axios.get('api/car_washing/3').then((res) => {
+                    this.car_status_all=res.data
+                });
+                this.get_services();
+            },
+
+            getMaterials(page = 1) {
+                if(this.form.id!='')
+                axios.get('api/carpet_material/'+this.form.id+'/1?page=' + page).then((res) => {
+                    this.materials = res.data;
+                });
+            },
+
+            getId(){
+                axios.get('api/car_washing_get_id').then((res) => {
+                    this.form.id = res.data
+                });
+            },
+
+            get_product_manages(){
+                axios.get('api/car_washing_get_product_manages').then((res) => {
+                    this.products = res.data
+                });
+            },
+
+            get_services(){
+                if(this.serviceForm.product_id!='')
+                axios.get('api/car_washing_get_units/'+this.serviceForm.product_id).then((res) => {
+                    this.units = res.data
+                });
+            },
+
+            get_cost(){
+                axios.get('api/car_washing_get_cost/'+this.serviceForm.unit_id).then((res) => {
+                    this.serviceForm.cost = res.data
+                });
+            },
+
+            getCodeTable() {
+                axios.get('api/car_washing/' + this.code_tableForm.sys_code_type).then((res) => {
+                    if(this.code_tableForm.sys_code_type==1){
+                        this.colors=res.data
+                        if(res.data!=[])
+                        this.form.color=res.data[0]['sys_code']
+                    }
+                    else if(this.code_tableForm.sys_code_type==2){
+                        this.brands=res.data
+                        if(res.data!=[])
+                        this.form.brand=res.data[0]['sys_code']
+                    }
+                    else if(this.code_tableForm.sys_code_type==3){
+                        this.car_status_all=res.data
+                        if(res.data!=[])
+                        this.form.car_status=res.data[0]['sys_code']
+                    }
+                });
+            },
+
+            newModal() {
+                this.editmode = false;
+                this.form.reset();
+                this.get_serial()
+                $('#addNew').modal('show');
+                this.getId()
+            },
+
+            openModal(){
+                $('#addNew').modal('show');
+            },
+
+            newCode_tableModal(x){
+                this.code_tableForm.reset();
+                this.code_tableForm.sys_code_type=x
+                $('#codeTableModal').modal('show');
+            },
+
+            createNew(){
+                this.code_tableForm.post('api/car_washing_add_code_table').then(()=>{
+                    Fire.$emit('AfterCreateCode_table');
+                    $('#codeTableModal').modal('hide')
+                    swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Item Created successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.$Progress.finish();
+                })
+            },
+
+            createTicket(){
+                this.$Progress.start();
+                this.form.post('api/car_washing').then(()=>{
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+                    swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Data Created successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.$Progress.finish();
+                })
+            },
+
+            editTicket(user) {
+                this.editmode = true;
+                this.form.reset();
+                $('#addNew').modal('show');
+                this.form.fill(user);
+                this.serviceForm.ticket_id=user.id
+                this.getMaterials();
+                this.get_total_cost()
+            },
+
+            updateTicket(){
+                this.$Progress.start();
+                this.form.put('api/car_washing/'+this.form.id).then(() => {
+                    $('#addNew').modal('hide');
+                    swal.fire(
+                        'Updated!',
+                        'Information has been updated.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
+
+            deleteTicket(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.form.delete('api/car_washing/'+id).then(()=>{
+                            swal.fire(
+                                'Deleted!',
+                                'Data has been deleted.',
+                                'success'
+                            )
+                            Fire.$emit('AfterCreate');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "This Data assigned to an employee.", "warning");
+                        });
                     }
                 })
-            }
-        },
+            },
 
-        get_client_phone(id){
-            axios.get('api/car_washing_get_client/'+id).then((res) => {
-                this.form.phone=res.data
-            })
-        },
+            showTicket(id){
+                $('#showTicket').modal('show');
+                this.form.get('api/car_wash_show/'+id).then((response) => {
+                    this.ticket = response.data;
+                });
+            },
 
-        get_total_cost(){
-            axios.get('api/car_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
-                var r=(res.data/100*15).toFixed(2)
-                var x=res.data
-                this.form.taxes_value=r
-                this.form.price_before_taxes = x
-                this.form.total_cost=(parseFloat(r)+parseFloat(x)).toFixed(2)
-            });
-
-            axios.get('api/car_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
-                this.form.total_services=res.data
-            })
-
-            axios.get('api/car_washing_get_total_discount/'+this.serviceForm.ticket_id).then((res) => {
-                this.form.total_discount=res.data
-            })
-        },
-
-        print(){
-            this.$htmlToPaper('forPrint');
-        },
-
-        printForCar(){
-            this.form.get('api/car_wash_show/'+this.form.id).then((response) => {
-                this.ticket = response.data;
-            });
-            $('#showTicket').modal('show');
-        },
-
-        PrintTicket(){
-            this.$htmlToPaper('PrintTicket');
-        },
-
-        get_serial(){
-            axios.get('api/get_serial').then((res) => {
-                this.form.serial_number = res.data;
-            });
-        },
-
-        getResults(page = 1) {
-            this.cars={}
-            var one='xx'
-            var two='xx'
-            if(this.filter==1){
-                one=this.enter_date
-                if(this.exit_date!='')
-                    two=this.exit_date
-            }else if(this.filter==2){
-                one=this.enter_time
-                if(this.exit_time_filter!='')
-                    two=this.exit_time_filter
-            }else if(this.filter==3){
-                one=this.ticket
-            }
-            axios.get('api/car_washing/'+ this.filter+"/"+one+"/"+two+'?page=' + page).then((res) => {
-                this.cars = res.data;
-            });
-        },
-
-        get_all_data(){
-            axios.get('api/get_clients').then((res) => {
-                this.clients = res.data;
-            });
-            axios.get('api/car_washing/1').then((res) => {
-                this.colors=res.data
-            });
-            axios.get('api/car_washing/2').then((res) => {
-                this.brands=res.data
-            });
-            axios.get('api/car_washing/3').then((res) => {
-                this.car_status_all=res.data
-            });
-            this.get_services();
-        },
-
-        getMaterials(page = 1) {
-            if(this.form.id!='')
-            axios.get('api/carpet_material/'+this.form.id+'/1?page=' + page).then((res) => {
-                this.materials = res.data;
-            });
-        },
-
-        getId(){
-            axios.get('api/car_washing_get_id').then((res) => {
-                this.form.id = res.data
-            });
-        },
-
-        get_product_manages(){
-            axios.get('api/car_washing_get_product_manages').then((res) => {
-                this.products = res.data
-            });
-        },
-
-        get_services(){
-            if(this.serviceForm.product_id!='')
-            axios.get('api/car_washing_get_units/'+this.serviceForm.product_id).then((res) => {
-                this.units = res.data
-            });
-        },
-
-        get_cost(){
-            axios.get('api/car_washing_get_cost/'+this.serviceForm.unit_id).then((res) => {
-                this.serviceForm.cost = res.data
-            });
-        },
-
-        getCodeTable() {
-            axios.get('api/car_washing/' + this.code_tableForm.sys_code_type).then((res) => {
-                if(this.code_tableForm.sys_code_type==1){
-                    this.colors=res.data
-                    if(res.data!=[])
-                    this.form.color=res.data[0]['sys_code']
-                }
-                else if(this.code_tableForm.sys_code_type==2){
-                    this.brands=res.data
-                    if(res.data!=[])
-                    this.form.brand=res.data[0]['sys_code']
-                }
-                else if(this.code_tableForm.sys_code_type==3){
-                    this.car_status_all=res.data
-                    if(res.data!=[])
-                    this.form.car_status=res.data[0]['sys_code']
-                }
-            });
-        },
-
-        newModal() {
-            this.editmode = false;
-            this.form.reset();
-            this.get_serial()
-            $('#addNew').modal('show');
-            this.getId()
-        },
-
-        openModal(){
-            $('#addNew').modal('show');
-        },
-
-        newCode_tableModal(x){
-            this.code_tableForm.reset();
-            this.code_tableForm.sys_code_type=x
-            $('#codeTableModal').modal('show');
-        },
-
-        createNew(){
-            this.code_tableForm.post('api/car_washing_add_code_table').then(()=>{
-                Fire.$emit('AfterCreateCode_table');
-                $('#codeTableModal').modal('hide')
-                swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Item Created successfully',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                this.$Progress.finish();
-            })
-        },
-
-        createTicket(){
-            this.$Progress.start();
-            this.form.post('api/car_washing').then(()=>{
-                Fire.$emit('AfterCreate');
-                $('#addNew').modal('hide')
-                swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Data Created successfully',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                this.$Progress.finish();
-            })
-        },
-
-        editTicket(user) {
-            this.editmode = true;
-            this.form.reset();
-            $('#addNew').modal('show');
-            this.form.fill(user);
-            this.serviceForm.ticket_id=user.id
-            this.getMaterials();
-            this.get_total_cost()
-        },
-
-        updateTicket(){
-            this.$Progress.start();
-            this.form.put('api/car_washing/'+this.form.id).then(() => {
-                $('#addNew').modal('hide');
-                swal.fire(
-                    'Updated!',
-                    'Information has been updated.',
-                    'success'
-                )
-                this.$Progress.finish();
-                Fire.$emit('AfterCreate');
-            })
-            .catch(() => {
-                this.$Progress.fail();
-            });
-        },
-
-        deleteTicket(id){
-            swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    this.form.delete('api/car_washing/'+id).then(()=>{
-                        swal.fire(
-                            'Deleted!',
-                            'Data has been deleted.',
-                            'success'
-                        )
-                        Fire.$emit('AfterCreate');
-                    }).catch(()=> {
-                        swal.fire("Failed!", "This Data assigned to an employee.", "warning");
-                    });
-                }
-            })
-        },
-
-        showTicket(id){
-            $('#showTicket').modal('show');
-            this.form.get('api/car_wash_show/'+id).then((response) => {
-                this.ticket = response.data;
-            });
-        },
-
-        createMaterial(){
-            this.serviceForm.type=this.type_x
-            this.serviceForm.ticket_id=this.form.id
-            this.$Progress.start();
-            this.serviceForm.post('api/carpet_material').then(()=>{
-                Fire.$emit('AfterCreateInside');
-                this.serviceForm.reset()
+            createMaterial(){
+                this.serviceForm.type=this.type_x
                 this.serviceForm.ticket_id=this.form.id
-            })
-            this.get_total_cost()
+                this.$Progress.start();
+                this.serviceForm.post('api/carpet_material').then(()=>{
+                    Fire.$emit('AfterCreateInside');
+                    this.serviceForm.reset()
+                    this.serviceForm.ticket_id=this.form.id
+                })
+                this.get_total_cost()
+            },
+
+            deleteMaterial(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.serviceForm.delete('api/carpet_material/'+id).then(()=>{
+                            Fire.$emit('AfterCreateInside');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "This data assigned to an employee.", "warning");
+                        });
+                    }
+                })
+            },
+
+            UpdateCar(user){
+                this.updatemode = true;
+                this.form.reset();
+                $('#update').modal('show');
+                this.form.fill(user);
+                this.serviceForm.ticket_id=user.id
+                this.getMaterials();
+                this.get_total_cost()
+            },
+
+            /* client Modal */
+            openClientModal(){
+                this.clientForm.reset();
+                $('#clientModal').modal('show');
+            },
+
+            createNewClient(){
+                this.clientForm.post('api/create_client').then(()=>{
+                    $('#clientModal').modal('hide');
+                    this.get_all_data()
+                    this.clientForm.reset()
+                })
+            },
+
+            /*  show Rate Model */
+            AddRate(){
+                $('#rateModal').modal('show');
+            },
+
+            updateRate(){
+                axios.get('api/update_rate/'+this.client_id_x+"/"+this.form.ticket_status).then(()=>{
+                    $('#rateModal').modal('hide');
+                    this.get_all_data()
+                })
+            },
+
+            /*  show Ticket Status Model */
+            AddTicketStatus(){
+                this.form.reset();
+                $('#TicketStatusModal').modal('show');
+            },
+
+            /*  show Inform Status Model */
+            AddInform(){
+                this.InformForm.reset();
+                $('#InformModal').modal('show');
+            },
         },
 
-        deleteMaterial(id){
-            swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    this.serviceForm.delete('api/carpet_material/'+id).then(()=>{
-                        Fire.$emit('AfterCreateInside');
-                    }).catch(()=> {
-                        swal.fire("Failed!", "This data assigned to an employee.", "warning");
-                    });
-                }
-            })
-        },
-
-        UpdateCar(user){
-            this.updatemode = true;
-            this.form.reset();
-            $('#update').modal('show');
-            this.form.fill(user);
-            this.serviceForm.ticket_id=user.id
-            this.getMaterials();
-            this.get_total_cost()
-        },
-
-        /*  show Rate Model */
-        AddRate(){
-            this.RateForm.reset();
-            $('#rateModal').modal('show');
-        },
-
-        /*  show Ticket Status Model */
-        AddTicketStatus(){
-            this.form.reset();
-            $('#TicketStatusModal').modal('show');
-        },
-
-        /*  show Inform Status Model */
-        AddInform(){
-            this.InformForm.reset();
-            $('#InformModal').modal('show');
-        },
-    },
-
-    created(){
-        this.get_product_manages();
-        this.getResults();
-        this.get_all_data()
-        Fire.$on('AfterCreate',() => {
+        created(){
+            this.get_product_manages();
             this.getResults();
-        });
+            this.get_all_data()
+            Fire.$on('AfterCreate',() => {
+                this.getResults();
+            });
 
-        Fire.$on('AfterCreateCode_table',() => {
-            this.getCodeTable();
-        });
+            Fire.$on('AfterCreateCode_table',() => {
+                this.getCodeTable();
+            });
 
 
-        Fire.$on('AfterCreateInside',() => {
-            this.getMaterials();
-            this.get_total_cost()
-        });
-    },
-
-    computed: {
-        ticket_date() {
-            return this.$t('203')
+            Fire.$on('AfterCreateInside',() => {
+                this.getMaterials();
+                this.get_total_cost()
+            });
         },
 
-        phone_number() {
-            return this.$t('207')
-        },
+        computed: {
+            ticket_date() {
+                return this.$t('203')
+            },
 
-        entrance_date() {
-            return this.$t('210')
-        },
+            phone_number() {
+                return this.$t('207')
+            },
 
-        expected_exit_date() {
-            return this.$t('211')
-        },
+            entrance_date() {
+                return this.$t('210')
+            },
 
-        receipt_time() {
-            return this.$t('254')
-        },
+            expected_exit_date() {
+                return this.$t('211')
+            },
 
-        exit_time() {
-            return this.$t('255')
-        },
+            receipt_time() {
+                return this.$t('254')
+            },
+
+            exit_time() {
+                return this.$t('255')
+            },
+        }
     }
-}
 </script>

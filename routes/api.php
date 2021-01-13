@@ -116,8 +116,11 @@ Route::get('car_washing_get_total_discount/{ticket_id}','API\Washing_ticket\Car_
 Route::get('car_washing_get_total_services/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_services');
 Route::get('car_washing_get_car/{number}/{letters}','API\Washing_ticket\Car_washingController@check_car_number');
 Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingController@index');
-
-
+// client
+Route::post('create_client','API\Washing_ticket\Car_washingController@create_client');
+Route::get('get_client/{id}','API\Washing_ticket\Car_washingController@get_client');
+// update Rate
+Route::get('update_rate/{id}/{rate}','API\Washing_ticket\Car_washingController@update_rate');
 // ################################################## Tickets Management ###########################################
 
 

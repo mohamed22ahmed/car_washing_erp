@@ -93,7 +93,7 @@ button{
                                         <option selected value="2">{{$t('232')}}</option>
                                     </select><br>
 
-                                    <div class="row" v-if="form.type==2">
+                                    <div class="row" v-if="form.type==1">
                                         <div class="col-sm-4 col-12">
                                             <select class="form-control" name="part_unit" v-model="form.part_unit">
                                                 <option selected value="-1">part_unit</option>

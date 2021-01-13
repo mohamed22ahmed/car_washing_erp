@@ -30,9 +30,9 @@ class Car_washingController extends Controller
         }
 
         if($filter==1){
-            $cars=Car_washing::where('enterance_date','>=',$one);
+            $cars=Car_washing::where('ticket_date','>=',$one);
             if($two!='xx')
-                $cars->where('exit_expected_date','>=',$two);
+                $cars->where('ticket_date','<=',$two);
             return $cars->paginate(5);
         }
 
@@ -50,10 +50,10 @@ class Car_washingController extends Controller
     }
 
     public function check_car_number($number,$letters){
-        if(strlen($number)!=3)
-            return 'num_error';
-        if(strlen($letters)>4){
+        if(strlen($letters)!=3)
             return 'letter_error';
+        if(strlen($number)>4){
+            return 'num_error';
         }
         $car=Car::where(['car_number'=>$number,'car_letters'=>$letters])->first();
         return $car??'';
@@ -189,7 +189,6 @@ class Car_washingController extends Controller
     }
 
     public function get_clients(){
-        return 0;
         return Client::all();
     }
 
@@ -206,5 +205,19 @@ class Car_washingController extends Controller
             $ser=' '.$serial;
         $serial=date('Y').' 0110'.$ser;
         return $serial;
+    }
+
+    public function create_client(Request $request){
+        Client::create($request->all());
+    }
+
+    public function get_client($id){
+        return Client::find($id);
+    }
+
+    public function update_rate($id,$rate){
+        $client=Client::find($id);
+        $client->status=$rate;
+        $client->save();
     }
 }
