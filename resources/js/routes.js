@@ -23,7 +23,7 @@ import leave_policies from './components/admin/dept_of_hr/settings/leave_policie
 import car_washing from './components/admin/washing_tickets/car_washing.vue'
 import carpets_washing from './components/admin/washing_tickets/carpets_washing.vue'
 import daily_report from './components/admin/washing_tickets/daily_report.vue'
-import car_reports from './components/admin/washing_tickets/car_reports.vue'
+import sales_reports from './components/admin/washing_tickets/sales_reports.vue'
 
 // Tickets Management
 import washing_machines from './components/admin/tickets_manage/washing_machines.vue'
@@ -60,7 +60,7 @@ const routes = [
     { name: 'car_washing', path: '/car_washing', component: car_washing },
     { name: 'carpets_washing', path: '/carpets_washing', component: carpets_washing },
     { name: 'daily_report', path: '/daily_report', component: daily_report },
-    { name: 'car_reports', path: '/car_reports', component: car_reports },
+    { name: 'sales_reports', path: '/sales_reports', component: sales_reports },
 
     // Ticket Managements
     { name: 'washing_machines', path: '/washing_machines', component: washing_machines },

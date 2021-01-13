@@ -117,6 +117,11 @@ Route::get('car_washing_get_total_services/{ticket_id}','API\Washing_ticket\Car_
 Route::get('car_washing_get_car/{number}/{letters}','API\Washing_ticket\Car_washingController@check_car_number');
 Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingController@index');
 
+//Sales Report
+Route::get('sales_reports/{filter}','API\Washing_ticket\SalesReportController@index');
+Route::get('get_user','API\Washing_ticket\SalesReportController@get_user');
+Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_cost');
+
 
 // ################################################## Tickets Management ###########################################
 

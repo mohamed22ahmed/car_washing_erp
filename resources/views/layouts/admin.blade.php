@@ -221,13 +221,13 @@
                                         <i class="fas fa-angle-right nav-icon"></i>
                                         <p>{{ t('86') }}</p>
                                     </router-link>
-                                </li>
-                                <li class="nav-item {{  url()->current()==url('/car_reports')?'current':'' }}">
-                                    <router-link to='/car_reports' class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>{{ t('87') }}</p>
-                                    </router-link>
                                 </li> --}}
+                                <li class="nav-item {{  url()->current()==url('/sales_reports')?'current':'' }}">
+                                    <router-link to='/sales_reports' class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>{{ t('86') }}</p>
+                                    </router-link>
+                                </li>
                             </ul>
                         </li>
 
