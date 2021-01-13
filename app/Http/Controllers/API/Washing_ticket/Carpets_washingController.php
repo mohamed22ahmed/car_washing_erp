@@ -82,8 +82,7 @@ class Carpets_washingController extends Controller
         $data->ticket_date=$request->ticket_date;
         $data->wash=$request->wash;
         $data->ticket_status=$request->ticket_status;
-        // $data->client=$request->client;
-        // $data->phone_number=$request->phone_number;
+        $data->client_id=$request->client_id;
         $data->carpet_size=$request->carpet_size;
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;
@@ -102,8 +101,7 @@ class Carpets_washingController extends Controller
         $data->ticket_date=$request->ticket_date;
         $data->wash=$request->wash;
         $data->ticket_status=$request->ticket_status;
-        // $data->client=$request->client;
-        // $data->phone_number=$request->phone_number;
+        $data->client_id=$request->client_id;
         $data->carpet_size=$request->carpet_size;
         $data->wash_type=$request->wash_type;
         $data->receipt_date=$request->receipt_date;

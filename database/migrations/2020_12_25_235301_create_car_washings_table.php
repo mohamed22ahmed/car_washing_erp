@@ -20,7 +20,7 @@ class CreateCarWashingsTable extends Migration
             $table->integer('wash');
             $table->integer('ticket_status');
             $table->integer('car_id');
-            $table->integer('client_id');
+            $table->integer('client_id')->default(1);
             $table->time('receipt_time');
             $table->time('exit_time');
             $table->integer('total_price')->default(0);

@@ -123,6 +123,11 @@ Route::get('get_user','API\Washing_ticket\SalesReportController@get_user');
 Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_cost');
 
 
+// client
+Route::post('create_client','API\Washing_ticket\Car_washingController@create_client');
+Route::get('get_client/{id}','API\Washing_ticket\Car_washingController@get_client');
+// update Rate
+Route::get('update_rate/{id}/{rate}','API\Washing_ticket\Car_washingController@update_rate');
 // ################################################## Tickets Management ###########################################
 
 

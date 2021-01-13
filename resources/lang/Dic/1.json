@@ -488,6 +488,33 @@
             "dic_id": 98,
             "name": "Select Brand",
             "name_ar": "اختار الماركة"
+        },
+        {
+            "dic_id": 99,
+            "name": "Wash",
+            "name_ar": "مغسلة"
+        },
+
+
+
+
+
+
+
+        {
+            "dic_id": 400,
+            "name": "Client Status",
+            "name_ar": "حالة العميل"
+        },
+        {
+            "dic_id": 401,
+            "name": "Good Client",
+            "name_ar": "عميل جيد"
+        },
+        {
+            "dic_id": 402,
+            "name": "Bad Client",
+            "name_ar": "عميل سئ"
         }
     ]
 }
