@@ -67,6 +67,10 @@ class Car_washingController extends Controller
         return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('cost')+Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('extra_cost');
     }
 
+    public function get_total_discount($ticket_id){
+        return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->where('extra_cost','<','0')->sum('extra_cost')*-1;
+    }
+
     public function get_id(){
         return Car_washing::max('id')+1;
     }

@@ -278,7 +278,7 @@
                                                                     </select>
                                                                 </td>
                                                                 <td><input  type="number" class="form-control" name="cost" disabled :value="serviceForm.cost" style="min-width:80px;"></td>
-                                                                <td><input  type="number" class="form-control" name="extra_cost" :value="serviceForm.extra_cost" style="min-width:80px;"></td>
+                                                                <td><input  type="number" class="form-control" name="extra_cost" v-model="serviceForm.extra_cost" style="min-width:80px;"></td>
                                                                 <td><textarea class="form-control" name="description" v-model="serviceForm.description" style="min-width:80px;"></textarea></td>
                                                                 <td><button type="submit" class="btn btn-sm btn-info">{{$t('133')}}</button></td>
                                                             </tr>
@@ -293,6 +293,8 @@
                                                     <td>{{mat.name}}</td>
                                                     <td>{{mat.units}}</td>
                                                     <td>{{mat.cost}}</td>
+                                                    <td>{{mat.extra_cost}}</td>
+                                                    <td>{{mat.descr}}</td>
                                                     <td>
                                                         <a href="#" @click="deleteMaterial(mat.id)">
                                                             <i class="fa fa-trash" style="color:red;"></i>
@@ -559,6 +561,10 @@ import moment from 'moment';
 
                 axios.get('api/carpet_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
                     this.form.total_services=res.data
+                })
+
+                axios.get('api/carpet_washing_get_total_discount/'+this.serviceForm.ticket_id).then((res) => {
+                    this.form.total_discount=res.data
                 })
             },
 
