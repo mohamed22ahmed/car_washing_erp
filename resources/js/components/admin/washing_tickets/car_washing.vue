@@ -157,7 +157,7 @@ input[disabled][type='number']{
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true" style="overflow-y:scroll;">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCar">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -391,7 +391,7 @@ input[disabled][type='number']{
         </div>
 
         <!-- Disabled Modal -->
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true" style="overflow-y:scroll;">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="PrintCar">
                 <div class="modal-content">
                     <div class="modal-header">
