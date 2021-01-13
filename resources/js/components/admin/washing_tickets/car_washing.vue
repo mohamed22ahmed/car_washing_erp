@@ -379,6 +379,7 @@ input[disabled][type='number']{
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
+                            <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('104') }}</button>
                             <button v-show="!editmode" type="submit" class="btn btn-success default mr-3">{{ $t('265') }}</button>
                             <button v-show="editmode"  type="submit" class="btn btn-success default mr-3">{{ $t('105') }}</button>
                             <button v-show="editmode" type="button" class="btn btn-success default mr-3" @click="printForCar">{{ $t('212') }}</button>
