@@ -645,6 +645,10 @@ export default {
             axios.get('api/car_washing_get_total_services/'+this.serviceForm.ticket_id).then((res) => {
                 this.form.total_services=res.data
             })
+
+            axios.get('api/car_washing_get_total_discount/'+this.serviceForm.ticket_id).then((res) => {
+                this.form.total_discount=res.data
+            })
         },
 
         print(){

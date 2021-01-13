@@ -36,7 +36,7 @@ button{
                                     <tr v-for="product in products.data" :key="product.id">
                                         <td>{{ product.id }}</td>
                                         <td>{{ product.name }}</td>
-                                        <td>{{ product.classifications==1? $t('236') : $t('235')}}</td>
+                                        <td>{{ product.classifications==1? $t('235') : $t('236')}}</td>
                                         <td>
                                             <a href="#" @click="editProduct(product)">
                                                 <i class="fa fa-edit red"></i>
