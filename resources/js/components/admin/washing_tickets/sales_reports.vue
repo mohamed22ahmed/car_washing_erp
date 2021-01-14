@@ -61,14 +61,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="sale in sales.data" :key="sale.id">
+                                <tr v-for="(sale,indx) in sales.data" :key="indx">
                                     <td>{{ sale.id }}</td>
                                     <td>{{ sale.ticket_date }}</td>
                                     <td>{{user}}</td>
                                     <td>{{ sale.totalServices }}</td>
                                     <td>{{ sale.totalSum }}</td>
-                                    <td>0</td>
-                                    <td>{{ endCost }}</td>
+                                    <td>{{ tot_taxes(sale.totalSum) }}</td>
+                                    <td>{{ end_cost(tot_taxes(sale.totalSum),sale.totalSum) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -92,7 +92,9 @@
                 carpet_ticket:'',
                 ticket_id:'',
                 total_tickets:0,
+                total_taxes:0,
                 servs:0,
+                tot_cost:0,
                 fin_cost:0,
             }
         },
@@ -101,6 +103,13 @@
                 this.$htmlToPaper('print');
             },
 
+            tot_taxes(x){
+                return parseFloat(x/100*15)
+            },
+
+            end_cost(x,y){
+                return parseFloat(x)+parseFloat(y)
+            },
             get_total_tickets(){
                 axios.get('api/get_total_tickets/'+ this.filter).then((res) => {
                     this.total_tickets=res.data

@@ -130,6 +130,7 @@ Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@g
 Route::get('get_total_tickets/{filter}','API\Washing_ticket\SalesReportController@get_total_tickets');
 Route::get('get_total_servs/{filter}','API\Washing_ticket\SalesReportController@get_total_servs');
 Route::get('get_total_fin_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_fin_cost');
+Route::get('total_taxes/{filter}','API\Washing_ticket\SalesReportController@get_total_taxes');
 
 
 // client

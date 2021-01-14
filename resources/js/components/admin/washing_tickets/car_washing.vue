@@ -116,8 +116,8 @@
                                             <td v-else-if="car.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                             <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                             <td>{{ car.ticket_date }}</td>
-                                            <td>{{ car.receipt_time }}</td>
-                                            <td>{{ car.exit_time }}</td>
+                                            <td>{{ car.pended==1?car.receipt_time:'Pending' }}</td>
+                                            <td>{{ car.completed==1?car.exit_time:'Under Washing' }}</td>
                                             <td>
                                                 <a href="#" @click="editTicket(car)">
                                                     <i class="fa fa-edit red"></i>

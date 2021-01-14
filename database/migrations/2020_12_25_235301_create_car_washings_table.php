@@ -26,6 +26,8 @@ class CreateCarWashingsTable extends Migration
             $table->integer('total_price')->default(0);
             $table->integer('num_of_materials')->default(0);
             $table->integer('total_discount')->default(0);
+            $table->boolean('pended')->default(false);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

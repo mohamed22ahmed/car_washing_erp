@@ -138,6 +138,12 @@ class Car_washingController extends Controller
         $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;
         $car_wash->total_price=$request->total_cost;
+        if($request->ticket_status==2)
+            $car_wash->pended=1;
+        if($request->ticket_status==3){
+            $car_wash->pended=1;
+            $car_wash->completed=1;
+        }
         $car_wash->save();
         return response(['success','your data created successfully'],200);
     }
@@ -175,6 +181,12 @@ class Car_washingController extends Controller
         $car_wash->exit_time=$request->exit_time;
         $car_wash->num_of_materials=$request->total_services;
         $car_wash->total_price=$request->total_cost;
+        if($request->ticket_status==2)
+            $car_wash->pended=1;
+        if($request->ticket_status==3){
+            $car_wash->pended=1;
+            $car_wash->completed=1;
+        }
         $car_wash->save();
         return response(['success','your data Updated successfully'],200);
     }
@@ -238,6 +250,13 @@ class Car_washingController extends Controller
 
     public function update_ticket_status(Request $request){
         $car=Car_washing::find($request->ticket_id);
+        if($request->status==2){
+            $car->pended=1;
+            $car->receipt_time=date("h:i:s");
+        }else if($request->status==3){
+            $car->completed=1;
+            $car->exit_time=date("h:i:s");
+        }
         $car->ticket_status=$request->status;
         $car->save();
     }

@@ -18,7 +18,6 @@ class SalesReportController extends Controller
             foreach ($ids as $id) {
                 array_push($arr,$id->id);
             }
-        
             $data=DB::table('carpet_washings')
                 ->join('services','services.ticket_id','carpet_washings.id')
                 ->select('carpet_washings.id','carpet_washings.ticket_date',
@@ -69,22 +68,32 @@ class SalesReportController extends Controller
             return $data->totalServs;
 
         }
-        // if($filter==2){
-        //     $data=DB::table('services')->leftJoin('carpet_washings','services.ticket_id','carpet_washings.id')
-        //     ->select(DB::raw('count(services.unit_id) as totalServs'))
-        //     ->groupBy('services.unit_id')
-        //     ->where(['type'=>2,'ticket_status'=>3])->first();
-        //     // dd($data);
-        //     return $data->totalServs??0;
-        // }
+        if($filter==2){
+            $data=DB::table('services')->leftJoin('carpet_washings','services.ticket_id','carpet_washings.id')
+            ->select(DB::raw('count(services.unit_id) as totalServs'))
+            ->groupBy('services.unit_id')
+            ->where(['type'=>2,'ticket_status'=>3])->first();
+            // dd($data);
+            return $data->totalServs??0;
+        }
     }
 
     public function get_total_fin_cost($filter){
         if($filter==1){
-            return Car_washing::where('ticket_status','=',3)->sum('total_price');
+            $cars= Car_washing::where('ticket_status','=',3)->get();
+            $sum=0;
+            foreach($cars as $car){
+                $sum=$car->total_price+($car->total_price*15/100);
+            }
+            return $sum;
         }
         if($filter==2){
-            return Carpet_washing::where('ticket_status','=',3)->sum('total_price');
+            $cars= Carpet_washing::where('ticket_status','=',3)->get();
+            $sum=0;
+            foreach($cars as $car){
+                $sum+=$car->total_price+($car->total_price*15/100);
+            }
+            return $sum;
         }
     }
 
@@ -96,6 +105,4 @@ class SalesReportController extends Controller
             return Carpet_washing::where('ticket_status','=',3)->count('id');
         }
     }
-
-
 }
