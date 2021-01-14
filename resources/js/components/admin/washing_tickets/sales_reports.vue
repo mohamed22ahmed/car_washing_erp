@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" id="print">
                     <div class="card-header">
                         <h3 class="card-title">{{$t('86')}}</h3>
                         <div class="card-tools">
                             <button class="btn btn-info" @click="print">
-                                <i class="fas fa-print fa-fw"></i>&nbsp; Print
+                                <i class="fas fa-print fa-fw"></i>&nbsp; {{$t('212')}}
                             </button>
                         </div>
                     </div>
@@ -22,21 +22,42 @@
                                     <option value="2">{{ $t('246') }}</option>
                                 </select>
                             </div>
+
+                            <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>{{$t('273')}}</label>
+                                        <input type="text" name="total_tickets" class="form-control" :value="total_tickets" disabled>
+                                    </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>{{$t('274')}}</label>
+                                    <input type="text" name="total_servs" class="form-control" :value="servs" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>{{$t('275')}}</label>
+                                    <input type="text" name="total_cost" class="form-control" :value="fin_cost" disabled>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card-body" id="print">
+                    <div class="card-body">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-bordered table-hover text-center">
                             <thead class="thead-light">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Creation Date</th>
-                                    <th>Employee Name</th>
-                                    <th>Total Services</th>
-                                    <th>Total Cost</th>
-                                    <th>Total Taxes</th>
-                                    <th>End Cost</th>
+                                    <th>{{$t('199')}}</th>
+                                    <th>{{$t('276')}}</th>
+                                    <th>{{$t('242')}}</th>
+                                    <th>{{$t('197')}}</th>
+                                    <th>{{$t('277')}}</th>
+                                    <th>{{$t('278')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,11 +91,32 @@
                 car_ticket:'',
                 carpet_ticket:'',
                 ticket_id:'',
+                total_tickets:0,
+                servs:0,
+                fin_cost:0,
             }
         },
         methods:{
             print(){
                 this.$htmlToPaper('print');
+            },
+
+            get_total_tickets(){
+                axios.get('api/get_total_tickets/'+ this.filter).then((res) => {
+                    this.total_tickets=res.data
+                })
+            },
+
+            get_total_servs(){
+                axios.get('api/get_total_servs/'+ this.filter).then((res) => {
+                    this.servs=res.data
+                })
+            },
+
+            get_total_tickcost(){
+                axios.get('api/get_total_fin_cost/'+ this.filter).then((res) => {
+                    this.fin_cost=res.data
+                })
             },
 
             getResults(page = 1) {
@@ -84,12 +126,17 @@
                 });
                 this.get_user();
                 this.get_total_cost();
+                this.get_total_tickets();
+                this.get_total_servs();
+                this.get_total_tickcost();
             },
+
             get_user(){
                 axios.get('api/get_user').then((res) => {
                     this.user = res.data;
                 });
             },
+
             get_total_cost(){
                 axios.get('api/get_total_cost/'+this.filter).then((res) => {
                     this.endCost = res.data;

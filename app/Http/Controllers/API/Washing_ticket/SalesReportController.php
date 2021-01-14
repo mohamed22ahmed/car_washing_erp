@@ -13,29 +13,32 @@ class SalesReportController extends Controller
 {
     public function index($filter){
         if($filter==2){
-        $data=DB::table('services')
-            ->leftJoin('carpet_washings','services.ticket_id','carpet_washings.id')
-            ->select('carpet_washings.id','carpet_washings.ticket_date',
-                    DB::raw("SUM(carpet_washings.total_price) as totalSum"),
-                    DB::raw("SUM(services.unit_id) as totalServices"),
-                    DB::raw("SUM('carpet_washings.total_price + services.cost') as endCost"))
-            ->groupBy('services.cost','carpet_washings.id','carpet_washings.ticket_date','services.unit_id',
-            'carpet_washings.total_price','services.cost')
-            ->where(['type'=>'2','ticket_status'=>3])
-            ->paginate(5);
+            $ids=Carpet_washing::all();
+            $arr=[];
+            foreach ($ids as $id) {
+                array_push($arr,$id->id);
+            }
+        
+            $data=DB::table('carpet_washings')
+                ->join('services','services.ticket_id','carpet_washings.id')
+                ->select('carpet_washings.id','carpet_washings.ticket_date',
+                        DB::raw("SUM(carpet_washings.total_price) as totalSum"),
+                        DB::raw("count(services.unit_id) as totalServices"))
+                ->groupBy('carpet_washings.id','services.cost','carpet_washings.ticket_date','services.unit_id')
+                ->where(['services.type'=>'2','carpet_washings.ticket_status'=>3])
+                ->whereIn('services.ticket_id',$arr)
+                ->paginate(5);
             return $data;
         }
         if($filter==1){
-            $data=DB::table('services')
-            ->leftJoin('car_washings','services.ticket_id','car_washings.id')
+            $data=DB::table('car_washings')
+            ->leftJoin('services','services.ticket_id','car_washings.id')
             ->select('car_washings.id','car_washings.ticket_date',
-                    DB::raw("SUM(car_washings.total_price) as totalSum"),
-                    DB::raw("SUM(services.unit_id) as totalServices"),
-                    DB::raw("SUM('car_washings.total_price + services.cost') as endCost"))
-            ->groupBy('services.cost','car_washings.id','car_washings.ticket_date','services.unit_id',
-            'car_washings.total_price','services.cost')
+                    DB::raw('SUM(car_washings.total_price) as totalSum'),
+                    DB::raw('count(services.unit_id) as totalServices'))
+            ->groupBy('car_washings.id','services.cost','car_washings.ticket_date','services.unit_id')
             ->where(['type'=>'1','ticket_status'=>3])
-            ->paginate(5);
+            ->paginate(10);
             return $data;
         }
     }
@@ -56,5 +59,43 @@ class SalesReportController extends Controller
             return $a+$b;
         }
     }
+
+    public function get_total_servs($filter){
+        if($filter==1){
+            $data=DB::table('services')->join('car_washings','services.ticket_id','car_washings.id')
+            ->select(DB::raw('count(services.unit_id) as totalServs'))
+            ->groupBy('services.unit_id')
+            ->where(['type'=>1,'ticket_status'=>3])->first();
+            return $data->totalServs;
+
+        }
+        // if($filter==2){
+        //     $data=DB::table('services')->leftJoin('carpet_washings','services.ticket_id','carpet_washings.id')
+        //     ->select(DB::raw('count(services.unit_id) as totalServs'))
+        //     ->groupBy('services.unit_id')
+        //     ->where(['type'=>2,'ticket_status'=>3])->first();
+        //     // dd($data);
+        //     return $data->totalServs??0;
+        // }
+    }
+
+    public function get_total_fin_cost($filter){
+        if($filter==1){
+            return Car_washing::where('ticket_status','=',3)->sum('total_price');
+        }
+        if($filter==2){
+            return Carpet_washing::where('ticket_status','=',3)->sum('total_price');
+        }
+    }
+
+    public function get_total_tickets($filter){
+        if($filter==1){
+            return Car_washing::where('ticket_status','=',3)->count('id');
+        }
+        if($filter==2){
+            return Carpet_washing::where('ticket_status','=',3)->count('id');
+        }
+    }
+
 
 }

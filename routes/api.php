@@ -99,6 +99,9 @@ Route::get('carpet_material/{id}/{type}','API\Washing_ticket\Carpets_materialCon
 Route::get('carpet_washing_get_total_cost/{ticket_id}','API\Washing_ticket\Carpets_washingController@get_total_cost');
 Route::get('carpet_washing_get_total_discount/{ticket_id}','API\Washing_ticket\Carpets_washingController@get_total_discount');
 Route::get('carpet_washing_get_total_services/{ticket_id}','API\Washing_ticket\Carpets_washingController@get_total_services');
+Route::get('get_total_tickets','API\Washing_ticket\Carpets_washingController@get_total_tickets');
+Route::get('carpet_washing_get_total_servs','API\Washing_ticket\Carpets_washingController@carpet_washing_get_total_servs');
+Route::get('carpet_washing_get_total_cost','API\Washing_ticket\Carpets_washingController@carpet_washing_get_total_cost');
 Route::get('carpet_wash/{filter}/{one}/{two}','API\Washing_ticket\Carpets_washingController@index');
 
 // Car washing Tickets Routes
@@ -112,8 +115,11 @@ Route::get('car_washing_get_cost/{unit_id}','API\Washing_ticket\Car_washingContr
 Route::get('get_clients','API\Washing_ticket\Car_washingController@get_clients');
 Route::get('get_serial','API\Washing_ticket\Car_washingController@get_serial');
 Route::get('car_washing_get_total_cost/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_cost');
+Route::get('get_total_tickets','API\Washing_ticket\Car_washingController@get_total_tickets');
 Route::get('car_washing_get_total_discount/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_discount');
 Route::get('car_washing_get_total_services/{ticket_id}','API\Washing_ticket\Car_washingController@get_total_services');
+Route::get('car_washing_get_total_servs','API\Washing_ticket\Car_washingController@car_washing_get_total_servs');
+Route::get('car_washing_get_total_cost','API\Washing_ticket\Car_washingController@car_washing_get_total_cost');
 Route::get('car_washing_get_car/{number}/{letters}','API\Washing_ticket\Car_washingController@check_car_number');
 Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingController@index');
 
@@ -121,6 +127,9 @@ Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingCon
 Route::get('sales_reports/{filter}','API\Washing_ticket\SalesReportController@index');
 Route::get('get_user','API\Washing_ticket\SalesReportController@get_user');
 Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_cost');
+Route::get('get_total_tickets/{filter}','API\Washing_ticket\SalesReportController@get_total_tickets');
+Route::get('get_total_servs/{filter}','API\Washing_ticket\SalesReportController@get_total_servs');
+Route::get('get_total_fin_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_fin_cost');
 
 
 // client

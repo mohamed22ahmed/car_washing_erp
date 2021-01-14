@@ -23,6 +23,19 @@ class Carpets_washingController extends Controller
         return Service::where(['ticket_id'=>$ticket_id,'type'=>2])->where('extra_cost','<','0')->sum('extra_cost')*-1;
     }
 
+    public function carpet_washing_get_total_servs(){
+        return Service::where(['type'=>1])->count();
+    }
+
+    public function carpet_washing_get_total_cost(){
+        return Carpet_washing::sum('total_price');
+    }
+
+    public function get_total_tickets(){
+        $tickets=Carpet_washing::count('id');
+        return $tickets;
+    }
+
 
     public function get_id(){
         return Carpet_washing::max('id')+1;

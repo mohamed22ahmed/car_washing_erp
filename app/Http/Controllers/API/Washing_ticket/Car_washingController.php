@@ -65,6 +65,19 @@ class Car_washingController extends Controller
         return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->count();
     }
 
+    public function car_washing_get_total_servs(){
+        return Service::where(['type'=>1])->count();
+    }
+
+    public function car_washing_get_total_cost(){
+        return Car_washing::sum('total_price');
+    }
+
+    public function get_total_tickets(){
+        $tickets=Car_washing::count('id');
+        return $tickets;
+    }
+
     public function get_total_cost($ticket_id){
         return Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('cost')+Service::where(['ticket_id'=>$ticket_id,'type'=>1])->sum('extra_cost');
     }
