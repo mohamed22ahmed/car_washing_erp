@@ -8,6 +8,7 @@ use App\Models\Store_manage\Product_manage;
 use App\Models\Store_manage\Service;
 use Illuminate\Http\Request;
 use App\Models\Washing_tickets\Carpet_washing;
+use DB;
 
 class Carpets_washingController extends Controller
 {
@@ -24,7 +25,7 @@ class Carpets_washingController extends Controller
     }
 
     public function carpet_washing_get_total_servs(){
-        return Service::where(['type'=>1])->count();
+        return Carpet_washing::sum('num_of_materials');
     }
 
     public function carpet_washing_get_total_cost(){
@@ -35,7 +36,6 @@ class Carpets_washingController extends Controller
         $tickets=Carpet_washing::count('id');
         return $tickets;
     }
-
 
     public function get_id(){
         return Carpet_washing::max('id')+1;
@@ -55,7 +55,10 @@ class Carpets_washingController extends Controller
     }
 
     public function index($filter,$one,$two){
-        $cars=Carpet_washing::all();
+        $cars=DB::table('carpet_washings')
+        ->leftJoin('clients','clients.id','carpet_washings.client_id')
+        ->select('carpet_washings.*','carpet_washings.id as id' ,'clients.*','clients.name as client')
+        ->paginate(5);
         $services=Service::where('type',2)->get();
         foreach($services as $ser){
             $x=1;
@@ -86,7 +89,7 @@ class Carpets_washingController extends Controller
         if($filter==3)
             return Carpet_washing::where('id',$one)->paginate(5);
 
-        return Carpet_washing::paginate(5);
+        return $cars;
     }
 
     public function store(Request $request){
@@ -134,7 +137,12 @@ class Carpets_washingController extends Controller
     }
 
     public function show_ticket($id){
-        return Carpet_washing::find($id);
+        $carpets=DB::table('carpet_washings')
+        ->leftJoin('clients','clients.id','carpet_washings.client_id')
+        ->select('carpet_washings.*','carpet_washings.id as id' ,'clients.*','clients.name as client')
+        ->where('carpet_washings.id',$id)
+        ->get();
+        return $carpets;
     }
 
     public function get_serial(){

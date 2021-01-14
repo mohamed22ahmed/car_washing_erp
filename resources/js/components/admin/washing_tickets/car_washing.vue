@@ -786,7 +786,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('252') }}</h5>
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" id="showTicketLabel">{{ $t('252') }}</h5>
                         <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -797,86 +797,86 @@
                                 <tr>
                                     <th>{{ $t('247') }}</th>
                                     <td>
-                                        {{ ticket.serial_number }}
+                                        {{ ticket_show.serial_number }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('194') }}</th>
                                     <td>
-                                        {{ ticket.client }}
+                                        {{ ticket_show.client }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('207') }}</th>
                                     <td>
-                                        {{ ticket.phone }}
+                                        {{ ticket_show.phone }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('195') }}</th>
                                     <td>
-                                        {{ ticket.id }}
+                                        {{ ticket_show.id }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('249') }}</th>
                                     <td>
-                                        {{ ticket.car_number_letters_ar }}&nbsp; {{ticket.car_number_num_ar}}
+                                        {{ ticket_show.car_number_letters_ar }}&nbsp; {{ticket_show.car_number_num_ar}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('217') }}</th>
                                     <td>
-                                        {{ ticket.brand }}
+                                        {{ ticket_show.brand }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('149') }}</th>
                                     <td>
-                                        {{ ticket.color }}
+                                        {{ ticket_show.color }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('250') }}</th>
                                     <td>
-                                        {{ ticket.car_status }}
+                                        {{ ticket_show.car_status }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('242') }}</th>
                                     <td>
-                                        {{ ticket.num_of_materials }}
+                                        {{ ticket_show.num_of_materials }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('197') }}</th>
                                     <td>
-                                        {{ ticket.total_price }}
+                                        {{ ticket_show.total_price }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('205') }}</th>
-                                    <td v-if="ticket.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
-                                    <td v-else-if="ticket.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
-                                    <td v-else-if="ticket.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                    <td v-if="ticket_show.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
+                                    <td v-else-if="ticket_show.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
+                                    <td v-else-if="ticket_show.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                     <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('203') }}</th>
                                     <td>
-                                        {{ ticket.ticket_date }}
+                                        {{ ticket_show.ticket_date }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('210') }}</th>
                                     <td>
-                                        {{ ticket.enterance_date }}
+                                        {{ ticket_show.enterance_date }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('243') }}</th>
                                     <td>
-                                        {{ ticket.exit_expected_date }}
+                                        {{ ticket_show.exit_expected_date }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -908,7 +908,7 @@
                 units:{},
                 cars:{},
                 materials:{},
-                ticket:{},
+                ticket_show:{},
                 client_status:'',
                 client_id_x:'',
                 total_tickets:0,
@@ -1025,10 +1025,12 @@
                         }else if(res.data=='letter_error'){
                             this.letter_error='Car Letters should be containing 3 Letters'
                         }else if(res.data!=''){
+                            this.form.car_number_num_ar=res.data.car_number;
+                            this.form.car_number_letters_ar=res.data.car_letters;
                             this.form.color=res.data.color;
                             this.form.brand=res.data.brand;
                             this.form.car_status=res.data.status;
-                            this.form.client=res.data.client;
+                            this.form.client=res.data.client_id
                             // this.get_client_phone(res.data.client)
                         }else{
                             this.form.color=-1
@@ -1229,8 +1231,11 @@
                 $('#addNew').modal('show');
                 this.form.fill(user);
                 this.serviceForm.ticket_id=user.id
+                this.form.car_number_num_ar=user.car_number
+                this.form.car_number_letters_ar=user.car_letters
                 this.getMaterials();
-                this.get_total_cost()
+                this.get_total_cost();
+                this.get_car()
             },
 
             updateTicket(){
@@ -1391,6 +1396,7 @@
             this.get_product_manages();
             this.getResults();
             this.get_all_data()
+            this.get_car()
             this.get_total_tickets();
             this.get_total_servs();
             this.get_total_tickcost();
@@ -1409,6 +1415,7 @@
             Fire.$on('AfterCreateInside',() => {
                 this.getMaterials();
                 this.get_total_cost()
+                this.get_car();
             });
         },
 
