@@ -1,30 +1,3 @@
-<style scoped>
-    button{
-        color:white;
-    }
-    .form-rounded {
-        border-radius: 1rem;
-    }
-    .default{
-        border-radius: 20px;
-    }
-    .form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    }
-    .verticalLine {
-    border-left: thin solid black;
-    }
-    input[disabled][type='number']{
-        /*color: rgb(0,0,0);*/
-        background-color:lightblue;
-    }
-    .disabled{
-        pointer-events: none;
-        opacity: 0.6;
-    }
-</style>
 <template>
     <div class="container">
         <div class="container">
