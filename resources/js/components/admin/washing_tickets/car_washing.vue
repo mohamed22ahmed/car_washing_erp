@@ -194,7 +194,7 @@
                                 <div class="input-group col-md-3 mt-5" style="border:1px groove gray;border-radius:15px;height:fit-content;">
                                         <input type="number" class="form-control" style="border:none" name="car_number_num_ar" v-model="form.car_number_num_ar" @change="get_car">
                                         <div class="verticalLine" style="height=5px"></div>
-                                        <input type="text" class="form-control" style="border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar" @change="get_car" required>
+                                        <input  type="text" class="form-control" style="letter-spacing: 5px;border:none" name="car_number_letters_ar" v-model="form.car_number_letters_ar" @change="get_car" required>
                                 </div>
                                 <div class="col-md-1"></div>
                                 <!--<div class="col-md-1 mt-5">

@@ -52,6 +52,7 @@ class Car_washingController extends Controller
     }
 
     public function check_car_number($number,$letters){
+        dd(strlen($letters));
         if(strlen($letters)!=3)
             return 'letter_error';
         if(strlen($number)>4){
