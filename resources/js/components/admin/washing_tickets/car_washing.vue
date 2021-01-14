@@ -1,3 +1,30 @@
+<style scoped>
+    button{
+        color:white;
+    }
+    .form-rounded {
+        border-radius: 1rem;
+    }
+    .default{
+        border-radius: 20px;
+    }
+    .form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    }
+    .verticalLine {
+    border-left: thin solid black;
+    }
+    input[disabled][type='number']{
+        /*color: rgb(0,0,0);*/
+        background-color:lightblue;
+    }
+    .disabled{
+        pointer-events: none;
+        opacity: 0.6;
+    }
+</style>
 <template>
     <div class="container">
         <div class="container">
@@ -56,12 +83,34 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3" v-if="filter==3">
+                                <div class="col-md-2" v-if="filter==3">
                                     <div class="form-group">
                                         <label>{{ $t('195') }}</label>
                                         <input v-model="ticket" type="number" name="ticket_number" class="form-control" required  @change="getResults">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{$t('273')}}</label>
+                                            <input type="text" name="total_tickets" class="form-control" :value="total_tickets" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{$t('274')}}</label>
+                                            <input type="text" name="total_servs" class="form-control" :value="servs" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>{{$t('275')}}</label>
+                                            <input type="text" name="total_cost" class="form-control" :value="fin_cost" disabled>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -889,6 +938,9 @@
                 ticket:{},
                 client_status:'',
                 client_id_x:'',
+                total_tickets:0,
+                servs:0,
+                fin_cost:0,
 
                 filter:-1,
                 enter_date:new Date().toISOString().slice(0, 10),
@@ -960,6 +1012,24 @@
         },
 
         methods: {
+            get_total_tickets(){
+                axios.get('api/get_total_tickets').then((res) => {
+                    this.total_tickets=res.data
+                })
+            },
+
+            get_total_servs(){
+                axios.get('api/car_washing_get_total_servs').then((res) => {
+                    this.servs=res.data
+                })
+            },
+
+            get_total_tickcost(){
+                axios.get('api/car_washing_get_total_cost').then((res) => {
+                    this.fin_cost=res.data
+                })
+            },
+
             get_car(){
                 if(this.form.car_number_num_ar!=''&&this.form.car_number_letters_ar!=''){
                     axios.get('api/car_washing_get_car/'+this.form.car_number_num_ar+"/"+this.form.car_number_letters_ar).then((res) => {
@@ -1313,8 +1383,14 @@
             this.get_product_manages();
             this.getResults();
             this.get_all_data()
+            this.get_total_tickets();
+            this.get_total_servs();
+            this.get_total_tickcost();
             Fire.$on('AfterCreate',() => {
                 this.getResults();
+                this.get_total_tickets();
+                this.get_total_servs();
+                this.get_total_tickcost();
             });
 
             Fire.$on('AfterCreateCode_table',() => {

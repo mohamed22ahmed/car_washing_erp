@@ -863,6 +863,36 @@
             "dic_id": 272,
             "name": "Send",
             "name_ar":"إرســال"
+        },
+        {
+            "dic_id": 273,
+            "name": "Total Tickets",
+            "name_ar":"عدد التذاكــر"
+        },
+        {
+            "dic_id": 274,
+            "name": "Total Services",
+            "name_ar":"عدد الخدمــات"
+        },
+        {
+            "dic_id": 275,
+            "name": "Total Cost",
+            "name_ar":"إجمالى التكلفـة"
+        },
+        {
+            "dic_id": 276,
+            "name": "Employee Name",
+            "name_ar":"إسم الموظــف"
+        },
+        {
+            "dic_id": 277,
+            "name": "Total Taxes",
+            "name_ar":"إجمالى الضرائـب"
+        },
+        {
+            "dic_id": 278,
+            "name": "End Cost",
+            "name_ar":"التكلفة النهائـية"
         }
     ]
 }
