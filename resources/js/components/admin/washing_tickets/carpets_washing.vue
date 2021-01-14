@@ -1,31 +1,3 @@
-<style scoped>
-    button{
-        color:white;
-    }
-    .form-rounded {
-        border-radius: 1rem;
-    }
-    .default{
-        border-radius: 20px;
-    }
-    .form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    }
-    .verticalLine {
-    border-left: thin solid black;
-    }
-    input[disabled][type='number']{
-        /*color: rgb(0,0,0);*/
-        background-color:lightblue;
-    }
-    .disabled{
-        pointer-events: none;
-        opacity: 0.6;
-    }
-</style>
-
 <template>
     <div class="container">
         <div class="container">
@@ -155,7 +127,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-center">
-                        <span class="badge badge-pill badge-success">{{ form.client_status }}</span>
+                        <span class="badge badge-pill badge-success" :class="client_status==2?'badge-danger':'badge-success'">{{ client_status==2?'Bad Client':'Good Client' }}</span>
                         <button type="button" class="close" style="color:black;" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -177,7 +149,9 @@
 
                                 <div class="col-md-3">
                                    <select class="form-control form-rounded" name="wash" v-model="form.wash">
-                                        <option selected value="-1">{{$t('204')}}</option>
+                                        <option disabled value="-1">{{$t('204')}}</option>
+                                        <option value="1">{{$t('99')}} 1</option>
+                                        <option value="2">{{$t('99')}} 2</option>
                                     </select>
                                 </div>
 
@@ -194,19 +168,21 @@
 
                            <div class="row mt-3">
                                 <div class="col-md-2">
-                                   <select class="form-control form-rounded" name="client" v-model="form.client">
+                                    <select class="form-control form-rounded" name="client" v-model="form.client" @change="get_client_phone">
                                         <option selected value="-1">{{$t('206')}}</option>
+                                        <option v-for="client in clients" :key="client.id" :value="client.id">{{ client.name }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-1 mt-1" style="margin-left:-7px; width">
-                                    <button class="btn btn-sm btn-success default">
-                                    <i class="fas fa-plus"></i></button>
+                                    <button class="btn btn-sm btn-success default" type="button" @click="openClientModal">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input v-model="form.phone_number" type="text" name="phone_number" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone_number') }">
-                                        <has-error :form="form" field="phone_number"></has-error>
+                                        <input v-model="form.phone" type="text" name="phone" :placeholder="phone_number" class="form-control form-rounded" :class="{ 'is-invalid': form.errors.has('phone') }">
+                                        <has-error :form="form" field="phone"></has-error>
                                     </div>
                                 </div>
 
@@ -594,6 +570,44 @@
             </div>
         </div>
 
+        <!-- client Modal -->
+        <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="!editmode" id="clientLabel">{{ $t('102') }}</h5>
+                        <h5 class="modal-title w-100 font-weight-bold py-2" v-show="editmode" id="clientLabel">{{ $t('105') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="createNewClient">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>{{ $t('229') }}</label>
+                                <input v-model="clientForm.name" type="text" name="name" placeholder="Enter Client Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ $t('207') }}</label>
+                                <input v-model="clientForm.phone" type="text" name="phone" placeholder="Enter Client Phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ $t('18') }}</label>
+                                <select class="form-control form-rounded" name="client_status" v-model="clientForm.status">
+                                    <option value="1">{{$t('401')}}</option>
+                                    <option value="2">{{$t('402')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Rate Modal -->
         <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -604,19 +618,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="updateRate">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('266') }}</label>
-                                    <select class="form-control form-rounded" name="status" v-model="RateForm.status">
-                                        <option selected value="-1">{{$t('267')}}</option>
-                                        <option selected value="1">{{$t('268')}}</option>
-                                    </select>
+                                <label>{{ $t('18') }}</label>
+                                <select class="form-control form-rounded" name="status" v-model="rateForm.status">
+                                    <option value="1">{{$t('401')}}</option>
+                                    <option value="2">{{$t('402')}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button v-show="!editmode" type="submit" class="btn btn-success">{{ $t('121') }}</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">{{ $t('105') }}</button>
+                            <button type="submit" class="btn btn-success">{{ $t('121') }}</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">{{ $t('114') }}</button>
                         </div>
                     </form>
@@ -634,17 +648,17 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="updateTicketStatus">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('205') }}</label>
-                                    <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
-                                        <option selected value="-1">{{$t('205')}}</option>
-                                        <option selected value="1">{{$t('238')}}</option>
-                                        <option selected value="2">{{$t('239')}}</option>
-                                        <option selected value="3">{{$t('240')}}</option>
-                                        <option selected value="4">{{$t('241')}}</option>
-                                    </select>
+                                <select class="form-control form-rounded" name="status" v-model="ticketStatusForm.status">
+                                    <option selected value="-1">{{$t('205')}}</option>
+                                    <option selected value="1">{{$t('238')}}</option>
+                                    <option selected value="2">{{$t('239')}}</option>
+                                    <option selected value="3">{{$t('240')}}</option>
+                                    <option selected value="4">{{$t('241')}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -667,7 +681,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="informAdmin">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('270') }}</label>
@@ -788,8 +802,8 @@
 </template>
 
 <script>
-$("#update").addClass("disabled");
-import moment from 'moment';
+    $("#update").addClass("disabled");
+    import moment from 'moment';
     export default {
         data: function(){
             return{
@@ -799,9 +813,11 @@ import moment from 'moment';
                 sizes:{},
                 types:{},
                 products:{},
+                clients:{},
                 units:{},
                 materials:{},
                 ticket:{},
+                client_status:'',
 
                 filter:-1,
                 enter_date:new Date().toISOString().slice(0, 10),
@@ -814,15 +830,15 @@ import moment from 'moment';
                     id:'',
                     serial_number :-1,
                     ticket_date:new Date().toISOString().slice(0, 10),
-                    wash:-1,
+                    wash:1,
                     ticket_status:1,
                     client:-1,
-                    phone_number:'',
+                    client_status:1,
+                    phone:'',
                     carpet_size:-1,
                     wash_type:-1,
                     receipt_date:'',
                     expected_exit_date:'',
-                    client_status:'good client',
                     exit_time:'',
                     receipt_time:'',
                     total_cost:0,
@@ -852,13 +868,27 @@ import moment from 'moment';
                     name_ar:'',
                 }),
 
-                RateForm:new Form({
+                clientForm:new Form({
                     id:'',
-                    status:-1,
+                    name:'',
+                    phone:'',
+                    status:1
+                }),
+
+                rateForm:new Form({
+                    client_id:'',
+                    status:1,
+                }),
+
+                ticketStatusForm:new Form({
+                    ticket_id:'',
+                    status:'',
                 }),
 
                 InformForm:new Form({
                     id:'',
+                    ticket_id:'',
+                    ticket_type:2,
                     topic:'',
                     message:'',
                 })
@@ -866,6 +896,14 @@ import moment from 'moment';
         },
 
         methods: {
+            get_client_phone(){
+                axios.get('api/get_client/'+this.form.client).then((res) => {
+                    this.client_status=res.data['status']
+                    this.form.phone=res.data['phone']
+                    this.form.client=res.data['id']
+                })
+            },
+
             get_total_cost(){
                 axios.get('api/carpet_washing_get_total_cost/'+this.serviceForm.ticket_id).then((res) => {
                     var r=(res.data/100*15).toFixed(2)
@@ -920,6 +958,9 @@ import moment from 'moment';
             },
 
             get_all_data(){
+                axios.get('api/get_clients').then((res) => {
+                    this.clients = res.data;
+                });
                 axios.get('api/car_washing/4').then((res) => {
                     this.sizes=res.data
                         if(res.data!=[])
@@ -1013,24 +1054,6 @@ import moment from 'moment';
                 this.get_serial()
                 $('#addNew').modal('show');
                 this.getId()
-            },
-
-            /*  show Rate Model */
-            AddRate(){
-                this.RateForm.reset();
-                $('#rateModal').modal('show');
-            },
-
-            /*  show Ticket Status Model */
-            AddTicketStatus(){
-                this.form.reset();
-                $('#TicketStatusModal').modal('show');
-            },
-
-            /*  show Inform Status Model */
-            AddInform(){
-                this.InformForm.reset();
-                $('#InformModal').modal('show');
             },
 
             newStatus(){
@@ -1153,6 +1176,79 @@ import moment from 'moment';
                             swal.fire("Failed!", "This data assigned to an employee.", "warning");
                         });
                     }
+                })
+            },
+
+            UpdateCarpet(user){
+                console.log(user)
+                this.rateForm.client_id=user.client_id
+                this.rateForm.status=user.client_status
+
+                this.ticketStatusForm.ticket_id=user.id
+                this.ticketStatusForm.status=user.ticket_status
+
+                this.InformForm.ticket_id=user.id
+                this.InformForm.ticket_type=2
+
+                this.updatemode = true;
+                this.form.reset();
+                $('#update').modal('show');
+                this.form.fill(user);
+                this.serviceForm.ticket_id=user.id
+                this.getMaterials();
+                this.get_total_cost()
+            },
+
+            /* client Modal */
+            openClientModal(){
+                this.clientForm.reset();
+                $('#clientModal').modal('show');
+            },
+
+            createNewClient(){
+                this.clientForm.post('api/create_client').then(()=>{
+                    $('#clientModal').modal('hide');
+                    this.get_all_data()
+                    this.clientForm.reset()
+                })
+            },
+
+            /*  show Rate Model */
+            AddRate(){
+                $('#rateModal').modal('show');
+            },
+
+            updateRate(){
+                this.client_status=this.rateForm.status
+                this.rateForm.post('api/update_rate').then(()=>{
+                    $('#rateModal').modal('hide');
+                    this.get_all_data()
+                })
+            },
+
+            /*  show Ticket Status Model */
+            AddTicketStatus(){
+                $('#TicketStatusModal').modal('show');
+            },
+
+            updateTicketStatus(){
+                this.form.ticket_status=this.ticketStatusForm.status
+                this.ticketStatusForm.post('api/update_ticket_status_carpet').then(()=>{
+                    $('#TicketStatusModal').modal('hide');
+                    this.get_all_data()
+                    this.getResults();
+                })
+            },
+
+            /*  show Inform Status Model */
+            AddInform(){
+                $('#InformModal').modal('show');
+            },
+
+            informAdmin(){
+                this.InformForm.post('api/informAdmin').then(()=>{
+                    $('#InformModal').modal('hide');
+                    this.get_all_data()
                 })
             },
         },

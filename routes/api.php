@@ -127,7 +127,14 @@ Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@g
 Route::post('create_client','API\Washing_ticket\Car_washingController@create_client');
 Route::get('get_client/{id}','API\Washing_ticket\Car_washingController@get_client');
 // update Rate
-Route::get('update_rate/{id}/{rate}','API\Washing_ticket\Car_washingController@update_rate');
+Route::post('update_rate','API\Washing_ticket\Car_washingController@update_rate');
+// update ticket status
+Route::post('update_ticket_status','API\Washing_ticket\Car_washingController@update_ticket_status');
+Route::post('update_ticket_status_carpet','API\Washing_ticket\Carpets_washingController@update_ticket_status_carpet');
+
+// inform Admin
+Route::post('informAdmin','API\Washing_ticket\Car_washingController@inform');
+
 // ################################################## Tickets Management ###########################################
 
 

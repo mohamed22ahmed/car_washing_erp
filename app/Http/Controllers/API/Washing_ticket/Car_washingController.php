@@ -10,7 +10,9 @@ use App\Models\Store_manage\Product_manage;
 use App\Models\Store_manage\Service;
 use App\Models\Washing_tickets\Car;
 use App\Models\Washing_tickets\Car_washing;
+use App\Models\Washing_tickets\Inform;
 use Illuminate\Http\Request;
+use Symfony\Polyfill\Intl\Idn\Info;
 
 class Car_washingController extends Controller
 {
@@ -215,9 +217,24 @@ class Car_washingController extends Controller
         return Client::find($id);
     }
 
-    public function update_rate($id,$rate){
-        $client=Client::find($id);
-        $client->status=$rate;
+    public function update_rate(Request $request){
+        $client=Client::find($request->client_id);
+        $client->status=$request->status;
         $client->save();
+    }
+
+    public function update_ticket_status(Request $request){
+        $car=Car_washing::find($request->ticket_id);
+        $car->ticket_status=$request->status;
+        $car->save();
+    }
+
+    public function inform(Request $request){
+        $inform=new Inform;
+        $inform->ticket_id=$request->ticket_id;
+        $inform->ticket_type=$request->ticket_type;
+        $inform->topic=$request->topic;
+        $inform->message=$request->message;
+        $inform->save();
     }
 }

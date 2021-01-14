@@ -680,7 +680,7 @@
                             <div class="form-group">
                                 <label>{{ $t('266') }}</label>
                                 <label>{{ $t('18') }}</label>
-                                <select class="form-control form-rounded" name="client_status" v-model="clientForm.status">
+                                <select class="form-control form-rounded" name="status" v-model="rateForm.status">
                                     <option value="1">{{$t('401')}}</option>
                                     <option value="2">{{$t('402')}}</option>
                                 </select>
@@ -705,17 +705,17 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="updateTicketStatus">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('205') }}</label>
-                                    <select class="form-control form-rounded" name="ticket_status" v-model="form.ticket_status">
-                                        <option selected value="-1">{{$t('205')}}</option>
-                                        <option selected value="1">{{$t('238')}}</option>
-                                        <option selected value="2">{{$t('239')}}</option>
-                                        <option selected value="3">{{$t('240')}}</option>
-                                        <option selected value="4">{{$t('241')}}</option>
-                                    </select>
+                                <select class="form-control form-rounded" name="status" v-model="ticketStatusForm.status">
+                                    <option selected value="-1">{{$t('205')}}</option>
+                                    <option selected value="1">{{$t('238')}}</option>
+                                    <option selected value="2">{{$t('239')}}</option>
+                                    <option selected value="3">{{$t('240')}}</option>
+                                    <option selected value="4">{{$t('241')}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -738,7 +738,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createRate">
+                    <form @submit.prevent="informAdmin">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>{{ $t('270') }}</label>
@@ -888,7 +888,6 @@
                 materials:{},
                 ticket:{},
                 client_status:'',
-                client_id_x:'',
 
                 filter:-1,
                 enter_date:new Date().toISOString().slice(0, 10),
@@ -909,7 +908,7 @@
                     brand :-1,
                     car_status :-1,
                     client :-1,
-                    client_status :'good client',
+                    client_status :1,
                     phone :'',
                     enterance_date :'',
                     exit_expected_date:'',
@@ -951,8 +950,20 @@
                     status:1
                 }),
 
+                rateForm:new Form({
+                    client_id:'',
+                    status:1,
+                }),
+
+                ticketStatusForm:new Form({
+                    ticket_id:'',
+                    status:'',
+                }),
+
                 InformForm:new Form({
                     id:'',
+                    ticket_id:'',
+                    ticket_type:1,
                     topic:'',
                     message:'',
                 })
@@ -973,13 +984,13 @@
                             this.form.color=res.data.color;
                             this.form.brand=res.data.brand;
                             this.form.car_status=res.data.status;
-                            this.form.client_id=res.data.client;
+                            this.form.client=res.data.client;
                             // this.get_client_phone(res.data.client)
                         }else{
                             this.form.color=-1
                             this.form.brand=-1
                             this.form.car_status=-1
-                            this.form.client_id=-1
+                            this.form.client=-1
                         }
                     })
                 }
@@ -989,7 +1000,6 @@
                 axios.get('api/get_client/'+this.form.client).then((res) => {
                     this.client_status=res.data['status']
                     this.form.phone=res.data['phone']
-                    this.client_id_x=res.data['id']
                 })
             },
 
@@ -1261,6 +1271,15 @@
             },
 
             UpdateCar(user){
+                this.rateForm.client_id=user.client_id
+                this.rateForm.status=user.client_status
+
+                this.ticketStatusForm.ticket_id=user.id
+                this.ticketStatusForm.status=user.ticket_status
+
+                this.InformForm.ticket_id=user.id
+                this.InformForm.ticket_type=1
+
                 this.updatemode = true;
                 this.form.reset();
                 $('#update').modal('show');
@@ -1290,7 +1309,8 @@
             },
 
             updateRate(){
-                axios.get('api/update_rate/'+this.client_id_x+"/"+this.form.ticket_status).then(()=>{
+                this.client_status=this.rateForm.status
+                this.rateForm.post('api/update_rate').then(()=>{
                     $('#rateModal').modal('hide');
                     this.get_all_data()
                 })
@@ -1298,14 +1318,28 @@
 
             /*  show Ticket Status Model */
             AddTicketStatus(){
-                this.form.reset();
                 $('#TicketStatusModal').modal('show');
+            },
+
+            updateTicketStatus(){
+                this.form.ticket_status=this.ticketStatusForm.status
+                this.ticketStatusForm.post('api/update_ticket_status').then(()=>{
+                    $('#TicketStatusModal').modal('hide');
+                    this.get_all_data()
+                    this.getResults();
+                })
             },
 
             /*  show Inform Status Model */
             AddInform(){
-                this.InformForm.reset();
                 $('#InformModal').modal('show');
+            },
+
+            informAdmin(){
+                this.InformForm.post('api/informAdmin').then(()=>{
+                    $('#InformModal').modal('hide');
+                    this.get_all_data()
+                })
             },
         },
 
@@ -1355,3 +1389,31 @@
         }
     }
 </script>
+
+<style scoped>
+    button{
+        color:white;
+    }
+    .form-rounded {
+        border-radius: 1rem;
+    }
+    .default{
+        border-radius: 20px;
+    }
+    .form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    }
+    .verticalLine {
+    border-left: thin solid black;
+    }
+    input[disabled][type='number']{
+        /*color: rgb(0,0,0);*/
+        background-color:lightblue;
+    }
+    .disabled{
+        pointer-events: none;
+        opacity: 0.6;
+    }
+</style>
