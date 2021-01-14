@@ -730,7 +730,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" v-show="!editmode" id="showTicketLabel">{{ $t('246') }}</h5>
+                        <h5 class="modal-title text-center w-100 font-weight-bold py-2" id="showTicketLabel">{{ $t('246') }}</h5>
                         <button type="button" style="color:black;" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -753,7 +753,7 @@
                                 <tr>
                                     <th>{{ $t('207') }}</th>
                                     <td>
-                                        {{ ticket.phone_number }}
+                                        {{ ticket.phone }}
                                     </td>
                                 </tr>
                                 <tr>

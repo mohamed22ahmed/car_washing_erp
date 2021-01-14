@@ -13,11 +13,17 @@ use App\Models\Washing_tickets\Car_washing;
 use App\Models\Washing_tickets\Inform;
 use Illuminate\Http\Request;
 use Symfony\Polyfill\Intl\Idn\Info;
+use DB;
 
 class Car_washingController extends Controller
 {
     public function index($filter,$one,$two){
-        $cars=Car_washing::all();
+        $cars=DB::table('car_washings')
+        ->leftJoin('clients','clients.id','car_washings.client_id')
+        ->leftJoin('cars','cars.id','car_washings.car_id')
+        ->select('car_washings.*','car_washings.id as id' ,'clients.*','clients.name as client',
+                'cars.car_number','cars.car_letters')
+        ->paginate(5);
         $services=Service::where('type',1)->get();
         foreach($services as $ser){
             $x=1;
@@ -48,7 +54,7 @@ class Car_washingController extends Controller
         if($filter==3)
             return Car_washing::where('id',$one)->paginate(5);
 
-        return Car_washing::paginate(5);
+        return $cars;
     }
 
     public function check_car_number($number,$letters){
@@ -67,7 +73,7 @@ class Car_washingController extends Controller
     }
 
     public function car_washing_get_total_servs(){
-        return Service::where(['type'=>1])->count();
+        return Car_washing::sum('num_of_materials');
     }
 
     public function car_washing_get_total_cost(){
