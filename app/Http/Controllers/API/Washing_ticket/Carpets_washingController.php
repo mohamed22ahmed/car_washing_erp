@@ -108,6 +108,12 @@ class Carpets_washingController extends Controller
         $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
         $data->total_discount=$request->total_discount;
+        if($request->ticket_status==2)
+            $data->pended=1;
+        if($request->ticket_status==3){
+            $data->pended=1;
+            $data->completed=1;
+        }
         $data->save();
         return response(['success','your data created successfully'],200);
     }
@@ -127,6 +133,12 @@ class Carpets_washingController extends Controller
         $data->num_of_materials=$request->total_services;
         $data->total_price=$request->total_cost;
         $data->total_discount=$request->total_discount;
+        if($request->ticket_status==2)
+            $data->pended=1;
+        if($request->ticket_status==3){
+            $data->pended=1;
+            $data->completed=1;
+        }
         $data->save();
         return response(['success','your data Updated successfully'],200);
     }
@@ -162,6 +174,13 @@ class Carpets_washingController extends Controller
 
     public function update_ticket_status_carpet(Request $request){
         $car=Carpet_washing::find($request->ticket_id);
+        if($request->status==2){
+            $car->pended=1;
+            $car->receipt_time=date("h:i:s");
+        }else if($request->status==3){
+            $car->completed=1;
+            $car->exit_time=date("h:i:s");
+        }
         $car->ticket_status=$request->status;
         $car->save();
     }

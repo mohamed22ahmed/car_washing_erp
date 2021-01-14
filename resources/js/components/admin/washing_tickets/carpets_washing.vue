@@ -115,8 +115,8 @@
                                         <td v-else-if="carpet.ticket_status==3"><span class="badge badge-primary">{{$t('240')}}</span></td>
                                         <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                         <td>{{ carpet.ticket_date }}</td>
-                                        <td>{{ carpet.receipt_time }}</td>
-                                        <td>{{ carpet.exit_time }}</td>
+                                        <td>{{ carpet.pended==1?carpet.receipt_time:'Pending' }}</td>
+                                        <td>{{ carpet.completed==1?carpet.exit_time:'Under Washing' }}</td>
                                         <td>
                                             <a href="#" @click="editCarpet(carpet)">
                                                 <i class="fa fa-edit"></i>
