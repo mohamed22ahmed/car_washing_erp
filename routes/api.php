@@ -125,6 +125,7 @@ Route::get('car_washing/{filter}/{one}/{two}','API\Washing_ticket\Car_washingCon
 
 //Sales Report
 Route::get('sales_reports/{filter}','API\Washing_ticket\SalesReportController@index');
+Route::post('sales_reports','API\Washing_ticket\SalesReportController@store');
 Route::get('get_user','API\Washing_ticket\SalesReportController@get_user');
 Route::get('get_total_cost/{filter}','API\Washing_ticket\SalesReportController@get_total_cost');
 Route::get('get_total_tickets/{filter}','API\Washing_ticket\SalesReportController@get_total_tickets');

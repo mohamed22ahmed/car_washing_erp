@@ -11,6 +11,10 @@ use DB;
 
 class SalesReportController extends Controller
 {
+    public function store(Request $request){
+        session()->put('printer',$request->printer);
+    }
+
     public function index($filter){
         if($filter==2){
             $ids=Carpet_washing::all();
@@ -19,7 +23,7 @@ class SalesReportController extends Controller
                 array_push($arr,$id->id);
             }
             $data=DB::table('carpet_washings')
-                ->join('services','services.ticket_id','carpet_washings.id')
+                ->leftJoin('services','services.ticket_id','carpet_washings.id')
                 ->select('carpet_washings.id','carpet_washings.ticket_date',
                         DB::raw("SUM(carpet_washings.total_price) as totalSum"),
                         DB::raw("count(services.unit_id) as totalServices"))
@@ -99,10 +103,10 @@ class SalesReportController extends Controller
 
     public function get_total_tickets($filter){
         if($filter==1){
-            return Car_washing::where('ticket_status','=',3)->count('id');
+            return Car_washing::where('ticket_status',3)->count();
         }
         if($filter==2){
-            return Carpet_washing::where('ticket_status','=',3)->count('id');
+            return Carpet_washing::where('ticket_status',3)->count();
         }
     }
 }

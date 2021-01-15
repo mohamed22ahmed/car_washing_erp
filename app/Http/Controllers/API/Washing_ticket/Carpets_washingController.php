@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Store_manage\Custom_unit;
 use App\Models\Store_manage\Product_manage;
 use App\Models\Store_manage\Service;
+use App\Models\Washing_tickets\Car_washing;
 use Illuminate\Http\Request;
 use App\Models\Washing_tickets\Carpet_washing;
 use DB;
@@ -33,8 +34,7 @@ class Carpets_washingController extends Controller
     }
 
     public function get_total_tickets(){
-        $tickets=Carpet_washing::count('id');
-        return $tickets;
+        return Carpet_washing::count('id');
     }
 
     public function get_id(){
@@ -57,7 +57,8 @@ class Carpets_washingController extends Controller
     public function index($filter,$one,$two){
         $cars=DB::table('carpet_washings')
         ->leftJoin('clients','clients.id','carpet_washings.client_id')
-        ->select('carpet_washings.*','carpet_washings.id as id' ,'clients.*','clients.name as client')
+        ->select('carpet_washings.*','carpet_washings.id as id' ,'clients.name as client',
+        'carpet_washings.serial_number as serial_number')
         ->paginate(5);
         $services=Service::where('type',2)->get();
         foreach($services as $ser){
@@ -144,14 +145,20 @@ class Carpets_washingController extends Controller
     }
 
     public function destroy($id){
-        $data=Carpet_washing::find($id)->delete();
+        Carpet_washing::find($id)->delete();
         return response(['success','your data deleted successfully'],200);
     }
 
     public function show_ticket($id){
+        // dd($id);
         $carpets=DB::table('carpet_washings')
         ->leftJoin('clients','clients.id','carpet_washings.client_id')
-        ->select('carpet_washings.*','carpet_washings.id as id' ,'clients.*','clients.name as client')
+        ->leftJoin('code_tables as codes', function ($join) {
+            $join->on('carpet_washings.carpet_size', '=', 'codes.sys_code');
+            $join->on('codes.sys_code_type', '=', DB::raw('4'));
+        })
+        ->select('carpet_washings.*','carpet_washings.id as id','clients.name as client',
+        'codes.name as carpet_size','carpet_washings.serial_number as serial_number','clients.phone as phone',)
         ->where('carpet_washings.id',$id)
         ->get();
         return $carpets;

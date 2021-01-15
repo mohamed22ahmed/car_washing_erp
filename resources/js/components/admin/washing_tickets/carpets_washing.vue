@@ -741,74 +741,74 @@
                                 <tr>
                                     <th>{{ $t('247') }}</th>
                                     <td>
-                                        {{ ticket.serial_number }}
+                                        {{ ticket_show.serial_number }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('194') }}</th>
                                     <td>
-                                        {{ ticket.client }}
+                                        {{ ticket_show.client }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('207') }}</th>
                                     <td>
-                                        {{ ticket.phone }}
+                                        {{ ticket_show.phone }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('195') }}</th>
                                     <td>
-                                        {{ ticket.id }}
+                                        {{ ticket_show.id }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('248') }}</th>
                                     <td>
-                                        {{ ticket.wash_type }}
+                                        {{ ticket_show.wash_type==1?($t('99')+' 1'):($t('99')+' 2')}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('251') }}</th>
                                     <td>
-                                        {{ ticket.carpet_size }}
+                                        {{ ticket_show.carpet_size }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('196') }}</th>
                                     <td>
-                                        {{ ticket.num_of_materials }}
+                                        {{ ticket_show.num_of_materials }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('197') }}</th>
                                     <td>
-                                        {{ ticket.total_price }}
+                                        {{ ticket_show.total_price }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('205') }}</th>
-                                    <td v-if="ticket.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
-                                    <td v-else-if="ticket.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
-                                    <td v-else-if="ticket.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
+                                    <td v-if="ticket_show.ticket_status==1"><span class="badge badge-danger">{{$t('238')}}</span></td>
+                                    <td v-else-if="ticket_show.ticket_status==2"><span class="badge badge-warning">{{$t('239')}}</span></td>
+                                    <td v-else-if="ticket_show.ticket_status==3"><span class="badge badge-info">{{$t('240')}}</span></td>
                                     <td v-else><span class="badge badge-success">{{$t('241')}}</span></td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('203') }}</th>
                                     <td>
-                                        {{ ticket.ticket_date }}
+                                        {{ ticket_show.ticket_date }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('210') }}</th>
                                     <td>
-                                        {{ ticket.receipt_date }}
+                                        {{ ticket_show.receipt_date }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{ $t('243') }}</th>
                                     <td>
-                                        {{ ticket.expected_exit_date }}
+                                        {{ ticket_show.expected_exit_date }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -839,7 +839,7 @@
                 clients:{},
                 units:{},
                 materials:{},
-                ticket:{},
+                ticket_show:{},
                 client_status:'',
                 total_tickets:0,
                 servs:0,
@@ -1128,6 +1128,7 @@
                 $('#addNew').modal('show');
                 this.form.fill(user);
                 this.serviceForm.ticket_id=user.id
+                this.form.client=user.client_id
                 this.getMaterials();
                 this.get_total_cost()
             },
@@ -1187,7 +1188,7 @@
             showCarpet(id){
                 $('#showTicket').modal('show');
                 this.form.get('api/carpet_wash_show/'+id).then((response) => {
-                    this.ticket = response.data;
+                    this.ticket_show = response.data[0];
                 });
             },
 

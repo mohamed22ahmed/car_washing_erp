@@ -821,7 +821,7 @@
                                 <tr>
                                     <th>{{ $t('249') }}</th>
                                     <td>
-                                        {{ ticket_show.car_number_letters_ar }}&nbsp; {{ticket_show.car_number_num_ar}}
+                                        {{ ticket_show.car_number }}&nbsp; {{ticket_show.car_letters}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -839,7 +839,7 @@
                                 <tr>
                                     <th>{{ $t('250') }}</th>
                                     <td>
-                                        {{ ticket_show.car_status }}
+                                        {{ ticket_show.status }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -868,15 +868,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ $t('210') }}</th>
+                                    <th>{{ $t('254') }}</th>
                                     <td>
-                                        {{ ticket_show.enterance_date }}
+                                        {{ ticket_show.receipt_time }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ $t('243') }}</th>
+                                    <th>{{ $t('255') }}</th>
                                     <td>
-                                        {{ ticket_show.exit_expected_date }}
+                                        {{ ticket_show.exit_time }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -1073,7 +1073,7 @@
 
             printForCar(){
                 this.form.get('api/car_wash_show/'+this.form.id).then((response) => {
-                    this.ticket = response.data;
+                    this.ticket_show = response.data;
                 });
                 $('#showTicket').modal('show');
             },
@@ -1105,6 +1105,7 @@
                 }
                 axios.get('api/car_washing/'+ this.filter+"/"+one+"/"+two+'?page=' + page).then((res) => {
                     this.cars = res.data;
+                    console.log(res.data)
                 });
             },
 
@@ -1283,7 +1284,7 @@
             showTicket(id){
                 $('#showTicket').modal('show');
                 this.form.get('api/car_wash_show/'+id).then((response) => {
-                    this.ticket = response.data;
+                    this.ticket_show = response.data[0];
                 });
             },
 
@@ -1448,6 +1449,14 @@
 </script>
 
 <style scoped>
+    @media print {
+        body{
+            width: 5cm;
+            height: 10cm;
+            margin: 30mm 45mm 30mm 45mm;
+            /* change the margins as you want them to be. */
+        }
+    }
     button{
         color:white;
     }

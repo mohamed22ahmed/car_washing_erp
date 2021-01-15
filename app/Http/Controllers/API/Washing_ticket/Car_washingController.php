@@ -21,7 +21,7 @@ class Car_washingController extends Controller
         $cars=DB::table('car_washings')
         ->leftJoin('clients','clients.id','car_washings.client_id')
         ->leftJoin('cars','cars.id','car_washings.car_id')
-        ->select('car_washings.*','car_washings.id as id' ,'clients.*','clients.name as client',
+        ->select('car_washings.*','car_washings.id as id','clients.name as client',
                 'cars.car_number','cars.car_letters')
         ->paginate(5);
         $services=Service::where('type',1)->get();
@@ -58,7 +58,6 @@ class Car_washingController extends Controller
     }
 
     public function check_car_number($number,$letters){
-        dd(strlen($letters));
         if(strlen($letters)!=3)
             return 'letter_error';
         if(strlen($number)>4){
@@ -205,7 +204,28 @@ class Car_washingController extends Controller
     }
 
     public function show_ticket($id){
-        return Car_washing::find($id);
+        $cars=DB::table('car_washings')
+        ->leftJoin('clients','clients.id','car_washings.client_id')
+        ->leftJoin('cars','cars.id','car_washings.car_id')
+        ->leftJoin('code_tables as codes', function ($join) {
+                $join->on('cars.brand', '=', 'codes.sys_code');
+                $join->on('codes.sys_code_type', '=', DB::raw('2'));
+            })
+        ->leftJoin('code_tables as colors', function ($join) {
+                $join->on('cars.color', '=', 'colors.sys_code');
+                $join->on('colors.sys_code_type', '=', DB::raw('1'));
+            })
+        ->leftJoin('code_tables as statas', function ($join) {
+                $join->on('cars.color', '=', 'colors.sys_code');
+                $join->on('statas.sys_code_type', '=', DB::raw('3'));
+            })
+        ->select('car_washings.*','car_washings.id as id' ,'clients.*','clients.name as client',
+        'codes.name as brand','cars.car_number as car_number','cars.car_letters as car_letters',
+        'colors.name as color','statas.name as status')
+        ->where('car_washings.id',$id)
+        ->get();
+        // dd($cars);
+        return $cars;
     }
 
     public function add_code_table(Request $request){
