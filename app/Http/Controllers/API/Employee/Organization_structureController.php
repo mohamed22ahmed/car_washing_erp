@@ -97,7 +97,7 @@ class Organization_structureController extends Controller
     }
 
     public function update(Request $request,$id){
-        if($request==1){
+        if($request->addNewValue==1){
             Designation::where('id',$request->id)->update([
                 'name'=>$request->name,
                 'name_ar'=>$request->name_ar,

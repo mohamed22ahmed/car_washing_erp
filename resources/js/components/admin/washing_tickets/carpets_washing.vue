@@ -1131,6 +1131,7 @@
                 this.form.client=user.client_id
                 this.getMaterials();
                 this.get_total_cost()
+                this.get_client_phone()
             },
 
             UpdateCarpet(user){

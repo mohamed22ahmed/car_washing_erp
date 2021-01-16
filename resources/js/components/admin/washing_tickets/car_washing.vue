@@ -1031,7 +1031,7 @@
                             this.form.brand=res.data.brand;
                             this.form.car_status=res.data.status;
                             this.form.client=res.data.client_id
-                            // this.get_client_phone(res.data.client)
+                            this.get_client_phone(res.data.client)
                         }else{
                             this.form.color=-1
                             this.form.brand=-1
@@ -1234,6 +1234,7 @@
                 this.serviceForm.ticket_id=user.id
                 this.form.car_number_num_ar=user.car_number
                 this.form.car_number_letters_ar=user.car_letters
+
                 this.getMaterials();
                 this.get_total_cost();
                 this.get_car()
