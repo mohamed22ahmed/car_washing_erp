@@ -24,7 +24,7 @@ const options = {
     ]
 }
 
-Vue.use(VueHtmlToPaper, options);
+Vue.use(VueHtmlToPaper);
 
 Vue.use(FlashMessage);
 Vue.mixin(common)

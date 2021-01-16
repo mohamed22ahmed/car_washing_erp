@@ -109,9 +109,9 @@ button{
                                             </select>
                                         </div>
                                     </div><br>
-
-                                    <input v-model="form.unit_price" type="number" name="unit_price" :placeholder="unit_price" class="form-control" :class="{ 'is-invalid': form.errors.has('unit_price') }">
-                                    <has-error :form="form" field="unit_price"></has-error><br>
+                                    <div class="row" v-if="form.type==1">
+                                        <input v-model="form.unit_price" type="number" name="unit_price" :placeholder="unit_price" class="form-control">
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">

@@ -53,7 +53,10 @@ class Products_manageController extends Controller
         $data->part_unit =$request->part_unit;
         $data->default_unit =$request->default_unit;
         $data->unit_parts = $request->unit_parts;
-        $data->unit_price = $request->unit_price;
+        if($request->unit_price)
+            $data->unit_price = $request->unit_price;
+        else
+            $data->unit_price = 0;
         $data->save();
         return response(['success','your data Stored successfully'],200);
     }
@@ -67,7 +70,8 @@ class Products_manageController extends Controller
         $data->part_unit =$request->part_unit;
         $data->default_unit =$request->default_unit;
         $data->unit_parts = $request->unit_parts;
-        $data->unit_price = $request->unit_price;
+        if($request->unit_price)
+            $data->unit_price = $request->unit_price;
         $data->save();
         return response(['success','your data Updated successfully'],200);
     }
